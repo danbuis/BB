@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:90d7a9b7f7950e06f4954ca96bae42cc:7113861dd669ad46e2f4e694052016fb:1f5082dd25efd46d832fd7c3e4d09628$ -->
+<TextureAtlas imagePath="spriteSheet.png">
+    <SubTexture name="BATTLESHIP" x="172" y="832" width="40" height="38"/>
+    <SubTexture name="BATTLESHIP_1" x="88" y="832" width="40" height="39"/>
+    <SubTexture name="BATTLESHIP_2" x="46" y="832" width="40" height="39"/>
+    <SubTexture name="BATTLESHIP_MASK" x="130" y="832" width="40" height="39"/>
+    <SubTexture name="Buttons/AA_fire_button" x="36" y="981" width="30" height="30"/>
+    <SubTexture name="Buttons/FreePlayGameButton" x="4" y="618" width="149" height="64"/>
+    <SubTexture name="Buttons/NewGameButton" x="4" y="486" width="149" height="64"/>
+    <SubTexture name="Buttons/TutorialButton" x="4" y="552" width="149" height="64"/>
+    <SubTexture name="Buttons/bombard_button" x="192" y="946" width="30" height="30"/>
+    <SubTexture name="Buttons/button_mask" x="68" y="981" width="30" height="30"/>
+    <SubTexture name="Buttons/fire_button" x="160" y="946" width="30" height="30"/>
+    <SubTexture name="Buttons/launch_fighter_button" x="128" y="946" width="30" height="30"/>
+    <SubTexture name="Buttons/move_button" x="96" y="946" width="30" height="30"/>
+    <SubTexture name="Buttons/shipComplete_Button" x="4" y="946" width="90" height="33"/>
+    <SubTexture name="Buttons/submerge_button" x="4" y="981" width="30" height="30"/>
+    <SubTexture name="Buttons/turnComplete_Button" x="4" y="911" width="90" height="33"/>
+    <SubTexture name="CARRIER" x="86" y="874" width="39" height="35"/>
+    <SubTexture name="CARRIER_1" x="45" y="874" width="39" height="35"/>
+    <SubTexture name="CARRIER_2" x="127" y="874" width="39" height="35"/>
+    <SubTexture name="CARRIER_MASK" x="4" y="874" width="39" height="35"/>
+    <SubTexture name="DESTROYER" x="46" y="790" width="40" height="40"/>
+    <SubTexture name="DESTROYER_1" x="172" y="790" width="40" height="40"/>
+    <SubTexture name="DESTROYER_2" x="46" y="748" width="40" height="40"/>
+    <SubTexture name="DESTROYER_MASK" x="88" y="748" width="40" height="40"/>
+    <SubTexture name="FIGHTER" x="4" y="748" width="40" height="40"/>
+    <SubTexture name="FIGHTER_1" x="162" y="684" width="40" height="40"/>
+    <SubTexture name="FIGHTER_2" x="130" y="748" width="40" height="40"/>
+    <SubTexture name="FIGHTER_MASK" x="4" y="790" width="40" height="40"/>
+    <SubTexture name="GUI/BB_icon" x="164" y="4" width="52" height="65"/>
+    <SubTexture name="GUI/GUI_background" x="4" y="4" width="158" height="480"/>
+    <SubTexture name="GUI/carrier_icon" x="155" y="618" width="52" height="62"/>
+    <SubTexture name="GUI/fighter_icon" x="4" y="684" width="52" height="62"/>
+    <SubTexture name="GUI/fighter_stored" x="58" y="684" width="50" height="50"/>
+    <SubTexture name="SUBMARINE" x="174" y="911" width="37" height="33"/>
+    <SubTexture name="SUBMARINE_1" x="96" y="911" width="37" height="33"/>
+    <SubTexture name="SUBMARINE_2" x="135" y="911" width="37" height="33"/>
+    <SubTexture name="SUBMARINE_MASK" x="168" y="874" width="37" height="33"/>
+    <SubTexture name="TORPEDO BOAT" x="204" y="684" width="40" height="40"/>
+    <SubTexture name="TORPEDO BOAT_1" x="172" y="748" width="40" height="40"/>
+    <SubTexture name="TORPEDO BOAT_2" x="130" y="790" width="40" height="40"/>
+    <SubTexture name="TORPEDO BOAT_MASK" x="88" y="790" width="40" height="40"/>
+    <SubTexture name="gridcell_fog" x="110" y="684" width="50" height="50"/>
+    <SubTexture name="gridcell_highlight" x="4" y="832" width="40" height="40"/>
+</TextureAtlas>
