@@ -45,7 +45,7 @@ package playArea
 			
 			//fighters and destroyers search for specifically fighters
 			//TODO destroyers
-			if (shipToUse.shipType == ShipTypes.FIGHTER)
+			/*if (shipToUse.shipType == ShipTypes.FIGHTER)
 			{
 				for (var f:int = game.shipsInPlay.length - 1; f >= 0; f--)
 				{
@@ -70,7 +70,7 @@ package playArea
 				}
 			}
 			
-			
+			*/
 			//just searches for the closest target that isn't a fighter
 			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
 			{

@@ -156,7 +156,7 @@ package screens
 			}
 			if (shipArray[9] != 0)
 			{
-				shipToAdd = new TorpedoBoat(2);
+				shipToAdd = new Fighter(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++;
@@ -194,8 +194,25 @@ package screens
 			GUI.bombardButton.addEventListener(Event.TRIGGERED, onBombardButtonClick);
 			GUI.submergeButton.addEventListener(Event.TRIGGERED, onSubmergeButtonClick);
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
+			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
 			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
 			GUI.turnCompleteButton.addEventListener(Event.TRIGGERED, onTurnCompleteButtonClick);
+		}
+		
+		private function onAAfireButtonClick(e:Event):void 
+		{
+			fighterAwaitingPlacement = false;
+			
+			if (isAShipSelected && selectedShip.shipType == ShipTypes.DESTROYER)
+			{
+				highlightRange(1, selectedShip, highlightTypes.DESTROYER_AA);
+			
+				//set shipActioning to true to let the click handler know how to process the next grid click
+				shipMoving = false;
+				shipFiring = false;
+				shipActioning = true;
+			}
+			
 		}
 		
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
@@ -307,6 +324,7 @@ package screens
 				//highlight cells in range (all ships fire at range 1)
 				highlightRange(Battleship.bombardRange, selectedShip, highlightTypes.BOMBARD);
 				
+				//TODO: remove?
 				//remove cells that are too close
 				for (var x:int = 0; x < gridWidth; x++)
 				{
@@ -516,9 +534,9 @@ package screens
 		
 		
 		//handles BB using its action
-		private function bombardShip(selectedShip:ShipBase, gridCell:GridCell):void 
+		public function bombardShip(selectedShip:ShipBase, gridCell:GridCell):void 
 		{
-			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != 1)
+			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
 				trace("bombarding");
 				damageShip(gridCell.occupyingShip);
@@ -532,6 +550,26 @@ package screens
 			}
 			else
 				trace("no valid target to bombard");
+		}
+		
+		public function AAfire(selectedShip:ShipBase, gridCell:GridCell):void 
+		{
+			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
+			{
+				trace("AAfire");
+				damageShip(gridCell.occupyingShip);
+				selectedShip.performedAction = true;
+				shipActioning = false;
+				
+				if (currentPlayer == CurrentPlayer.PLAYER)
+				{
+					GUI.updateShipStatus(selectedShip);
+					resetHighlight();
+					isSelectionLocked = true;
+				}
+				
+				updateSelection();
+			}
 		}
 		
 		private function damageShip(ship:ShipBase):void
@@ -636,6 +674,10 @@ package screens
 							if (selectedShip.shipType == ShipTypes.BATTLESHIP)
 							{
 								bombardShip(selectedShip, gridCellClicked);
+							}
+							if (selectedShip.shipType == ShipTypes.DESTROYER)
+							{
+								AAfire(selectedShip, gridCellClicked);
 							}
 						}
 					}
@@ -769,6 +811,14 @@ package screens
 							{
 								cellToCheck.hideHighlight();
 								returnList.pop();
+							}
+						}
+						else if (type == highlightTypes.DESTROYER_AA)
+						{
+							if (cellToCheck.occupied && cellToCheck.occupyingShip.shipType == ShipTypes.FIGHTER)
+							{
+								cellToCheck.drawHighlight();
+								returnList.push(cellToCheck);
 							}
 						}
 					}
