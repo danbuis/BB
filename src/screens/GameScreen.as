@@ -128,28 +128,28 @@ package screens
 			
 			if (shipArray[5] != 0)
 			{
-				shipToAdd = new Battleship(2);
+				shipToAdd = new Destroyer(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++;
 			}
 			if (shipArray[6] != 0)
 			{
-				shipToAdd = new Battleship(2);
+				shipToAdd = new TorpedoBoat(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++;
 			}
 			if (shipArray[7] != 0)
 			{
-				shipToAdd = new Battleship(2);
+				shipToAdd = new Submarine(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++
 			}
 			if (shipArray[8] != 0)
 			{
-				shipToAdd = new Battleship(2);
+				shipToAdd = new Carrier(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++

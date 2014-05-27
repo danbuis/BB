@@ -2,6 +2,7 @@ package playArea
 {
 	import flash.geom.Point;
 	import ships.Carrier;
+	import ships.Fighter;
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import starling.display.Button;
@@ -44,6 +45,10 @@ package playArea
 		
 		public var shipCompleteButton:Button;
 		public var turnCompleteButton:Button;
+		
+		private var fuel100:Image;
+		private var fuel66:Image;
+		private var fuel33:Image;
 		
 		
 		public function ControlBar() 
@@ -154,6 +159,25 @@ package playArea
 			shipHealth.y = 200;
 			this.addChild(shipHealth);
 			
+			//initialize fuel indicators
+			fuel100 = new Image(Assets.getAtlas().getTexture("GUI/fuel_100"));
+			fuel100.x = 6;
+			fuel100.y = 300;
+			fuel100.visible = false;
+			this.addChild(fuel100);
+			
+			fuel66 = new Image(Assets.getAtlas().getTexture("GUI/fuel_66"));
+			fuel66.x = fuel100.x;
+			fuel66.y = fuel100.y;
+			fuel66.visible = false;
+			this.addChild(fuel66);
+			
+			fuel33 = new Image(Assets.getAtlas().getTexture("GUI/fuel_33"));
+			fuel33.x = fuel100.x;
+			fuel33.y = fuel100.y;
+			fuel33.visible = false;
+			this.addChild(fuel33);
+			
 			//initialize random stuff
 			storedFighter1 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
 			storedFighter1.x = 6;
@@ -215,6 +239,7 @@ package playArea
 				fighterIcon.visible = true;
 				moveButton.visible = true;
 				fireButton.visible = true;
+				showFighterFuelStatus(ship as Fighter);
 			}
 			
 			
@@ -234,6 +259,22 @@ package playArea
 			shipType.text = ship.shipType;
 			shipHealth.text = ("HP :" + ship.currentHP);
 			
+		}
+		
+		private function showFighterFuelStatus(fighter:Fighter):void 
+		{
+			if (fighter.currentEndurance == 3)
+			{
+				fuel100.visible = true;
+			}
+			else if (fighter.currentEndurance == 2)
+			{
+				fuel66.visible = true;
+			}
+			else if (fighter.currentEndurance == 1)
+			{
+				fuel33.visible = true;
+			}
 		}
 		
 		private function showStoredFighters(carrier:Carrier):void 
@@ -275,6 +316,10 @@ package playArea
 			
 			shipHealth.text = "";
 			shipType.text = "";
+			
+			fuel100.visible = false;
+			fuel66.visible = false;
+			fuel33.visible = false;
 		}
 		
 	}
