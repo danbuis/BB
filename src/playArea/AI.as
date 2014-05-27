@@ -27,13 +27,15 @@ package playArea
 		public function takeTurn():void
 		{
 			shipsAvailable = findShipsToUse();
+			//if there are ships available
+			if (shipsAvailable.length != 0)
+			{
+				shipToUse = selectShip();
 			
-			shipToUse = selectShip();
-			//game.selectedShip = shipToUse;
+				target = selectTarget(shipToUse);
 			
-			target = selectTarget(shipToUse);
-			
-			performActions();
+				performActions();
+			}
 		}
 		
 		private function selectTarget(shipToUse:ShipBase):ShipBase 
