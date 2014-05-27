@@ -272,6 +272,13 @@ package playArea
 				}
 			}
 			
+			//if using a fighter, check if retreat required
+			if (AIship.shipType == ShipTypes.FIGHTER)
+			{
+				var retreat:Boolean = retreatFighter(AIship)
+			}
+			
+			
 			//will be null if no other cell is closer than current position
 			if (targetCell != null)
 			{	
@@ -281,6 +288,61 @@ package playArea
 			{
 				game.resetHighlight();
 			}
+		}
+		
+		private function retreatFighter(AIship:ShipBase):Boolean 
+		{
+			//its been hit once
+			if (AIship.currentHP < 2)
+			{
+				return true;
+			}
+			//staying out will cause it to move out of range
+			
+			return continueWithoutGoingToCarrier(AIship);
+			
+			
+		}
+		
+		private function continueWithoutGoingToCarrier(aIship:ShipBase):Boolean 
+		{
+			var closestCarrier:ShipBase;
+			var shipToCheck:ShipBase;
+			var rangeToCarrier:Number = 1000;
+			var rangeToCheck:Number;
+			
+			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
+			{
+				shipToCheck = game.shipsInPlay[i];
+				if (shipToCheck.team == 2 && shipToCheck.shipType==ShipTypes.CARRIER)
+				{
+					//get range to the carrier
+					rangeToCheck=shipToCheck.getRangeToSquare(game.grid[aIship.location.x][aIship.location.y]);
+					if (rangeToCheck < rangeToCarrier)
+					{
+						rangeToCarrier = rangeToCheck;
+						closestCarrier = shipToCheck;
+					}
+				}
+			}
+			
+			//if no carriers available
+			if (closestCarrier==null)
+			{
+				return true;
+			}
+			
+			//cast as a fighter
+			var fighter:Fighter = aIship as Fighter;
+			/*subtract 1 for the outbound trip
+			 * when deployed operational range will be 2 movement ranges
+			 * when at 2 endurange, operatoinal range is one movement
+			 * when at 1, will return to carrier
+			 * */
+			var operationalFighterRange:int = (fighter.currentEndurance - 1) * fighter.movementRange;
+			
+			return (operationalFighterRange > rangeToCarrier);
+			
 		}
 		
 		private function selectShip():ShipBase 
