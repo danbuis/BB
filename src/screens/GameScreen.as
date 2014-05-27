@@ -509,7 +509,15 @@ package screens
 				updateSelection();
 				}
 				
-				damageShip(gridCell.occupyingShip);
+				/* odd bug where player fighter attacks a recently launched AI fighter.  The click registers as normal, 
+				 * but registers again after AI code finishes executing, causing a null pointer due to the now unoccupied square.
+				 * 
+				 * therefore added a double check to prevent the problem.
+				 * */
+				if (gridCell.occupied)
+				{
+					damageShip(gridCell.occupyingShip);
+				}
 
 				resetHighlight();
 				
@@ -568,6 +576,7 @@ package screens
 		private function damageShip(ship:ShipBase):void
 		{
 			ship.hit();
+			trace("hitting ship");
 			if (ship.currentHP == 0)
 			{
 				killShip(ship);
@@ -637,7 +646,7 @@ package screens
 						
 					}
 					// if cell is not occupied, check if a ship is selected, and figure out what to do with it
-					else if (isAShipSelected)
+					else if (isAShipSelected && selectedShip!= null)
 					{
 						if (shipMoving)
 						{
@@ -678,10 +687,8 @@ package screens
 			{
 				GUI.updateShipStatus(selectedShip);
 				isSelectionLocked = true;
+				updateSelection();
 			}
-						
-
-			updateSelection();
 							
 			//remove highlights
 			resetHighlight();

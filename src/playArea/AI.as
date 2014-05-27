@@ -3,6 +3,8 @@ package playArea
 	import screens.GameScreen;
 	import screens.highlightTypes;
 	import ships.Battleship;
+	import ships.Carrier;
+	import ships.Fighter;
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	/**
@@ -113,10 +115,48 @@ package playArea
 		
 		private function actionShip(ship:ShipBase):void 
 		{
-			if (shipToUse.shipType == ShipTypes.BATTLESHIP)
+			if (ship.shipType == ShipTypes.BATTLESHIP)
 			{
 				battleshipAction(ship);
 			}
+			else if (ship.shipType == ShipTypes.CARRIER)
+			{
+				carrierAction(ship);
+			}
+		}
+		
+		private function carrierAction(ship:ShipBase):void 
+		{
+			var carrier:Carrier = ship as Carrier;
+			
+			if (carrier.fighterSquadrons > 0)
+			{
+				game.resetHighlight();
+				
+				var targetableCells:Vector.<GridCell>;
+				
+				targetableCells = game.highlightRange(1, ship, highlightTypes.FIGHTER_PLACE);
+				
+				var index:int = -1;
+				var closestRange:Number = 300;
+				var tempRange:Number;
+				
+				//if any cells highlighted
+				if (targetableCells.length > 0)
+				{
+					for (var i:int = targetableCells.length - 1; i >= 0; i--)
+					{
+						tempRange = target.getRangeToSquare(targetableCells[i]);
+						if (tempRange < closestRange)
+						{
+							index = i;
+							closestRange = tempRange;
+						}
+					}
+					game.launchFighter(carrier, new Fighter(carrier.team), targetableCells[index]);
+				}
+			}
+			game.resetHighlight();
 		}
 		
 		private function battleshipAction(AIship:ShipBase):void 
