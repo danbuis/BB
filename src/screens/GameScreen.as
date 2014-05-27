@@ -758,7 +758,7 @@ package screens
 								returnList.push(cellToCheck);
 							}
 						}
-						else if (type ==highlightTypes.FIRE)
+						else if (type == highlightTypes.FIRE)
 						{
 							// if firing hilight all squares not occupied by own team or any fighters
 							if (!cellToCheck.occupied || 

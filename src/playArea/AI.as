@@ -50,12 +50,12 @@ package playArea
 			
 			//fighters and destroyers search for specifically fighters
 			//TODO destroyers
-			/*if (shipToUse.shipType == ShipTypes.FIGHTER)
+			if (shipToUse.shipType == ShipTypes.FIGHTER)
 			{
 				for (var f:int = game.shipsInPlay.length - 1; f >= 0; f--)
 				{
 					shipToCheck = game.shipsInPlay[f];
-					if (shipToCheck.team == 1 && shipToCheck.shipType==ShipTypes.FIGHTER)
+					if (shipToCheck.team == 1 && shipToCheck.shipType == ShipTypes.FIGHTER)
 					{
 						range = shipToCheck.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
 
@@ -69,13 +69,13 @@ package playArea
 				}
 				
 				//if it found a valid fighter target
-				if (targetShip.shipType == ShipTypes.FIGHTER)
+				if (targetShip != null && targetShip.shipType == ShipTypes.FIGHTER)
 				{
 					return targetShip;
 				}
 			}
 			
-			*/
+			
 			//just searches for the closest target that isn't a fighter
 			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
 			{
@@ -208,9 +208,15 @@ package playArea
 			//if target in range
 			if (rangeToTarget <= 1)
 			{
-				
-				game.highlightRange(1, shipToUse, highlightTypes.FIRE);
-				//TODO:handle fighters as target
+				if (AIship.shipType != ShipTypes.FIGHTER)
+				{
+					game.highlightRange(1, shipToUse, highlightTypes.FIRE);
+				}
+				else 
+				{
+					game.highlightRange(1, shipToUse, highlightTypes.FIGHTER_FIRE);
+				}
+
 				game.fireShip(shipToUse, targetCell);
 				
 				//highlights reset in gameScreen
