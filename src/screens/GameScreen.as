@@ -128,7 +128,7 @@ package screens
 			
 			if (shipArray[5] != 0)
 			{
-				shipToAdd = new Carrier(2);
+				shipToAdd = new Battleship(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++;
@@ -142,21 +142,21 @@ package screens
 			}
 			if (shipArray[7] != 0)
 			{
-				shipToAdd = new Submarine(2);
+				shipToAdd = new Battleship(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++
 			}
 			if (shipArray[8] != 0)
 			{
-				shipToAdd = new Destroyer(2);
+				shipToAdd = new Battleship(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++
 			}
 			if (shipArray[9] != 0)
 			{
-				shipToAdd = new Fighter(2);
+				shipToAdd = new Battleship(2);
 				placeShip(shipToAdd, currentX, currentY);
 				pushShip(shipToAdd);
 				currentX++;
@@ -165,7 +165,6 @@ package screens
 			trace("finished adding ships");
 		}
 		
-		//TODO: fighters should not be added to ships in starting.  Refactor for a more flexible method
 		//helper method for addShips()
 		private function pushShip(ship:ShipBase):void
 		{
@@ -323,17 +322,6 @@ package screens
 				
 				//highlight cells in range (all ships fire at range 1)
 				highlightRange(Battleship.bombardRange, selectedShip, highlightTypes.BOMBARD);
-				
-				//TODO: remove?
-				//remove cells that are too close
-				for (var x:int = 0; x < gridWidth; x++)
-				{
-					for (var y:int = 0; y < gridHeight; y++)
-					{ //is square in range?
-						if (selectedShip.getRangeToSquare(grid[x][y]) <= Battleship.minimumBombard)
-							grid[x][y].hideHighlight();
-					}
-				}
 				
 				//set shipActioning to true to let the click handler know how to process the next grid click
 				shipMoving = false;
@@ -540,13 +528,18 @@ package screens
 			{
 				trace("bombarding");
 				damageShip(gridCell.occupyingShip);
-				shipActioning = false;
-				selectedShip.performedAction = true;
-				GUI.updateShipStatus(selectedShip);
+				
+				if (currentPlayer == CurrentPlayer.PLAYER)
+				{
+					shipActioning = false;
+					selectedShip.performedAction = true;
+					GUI.updateShipStatus(selectedShip);
+					isSelectionLocked = true;
+					updateSelection();
+				}
+	
 				resetHighlight();
 				
-				isSelectionLocked = true;
-				updateSelection();
 			}
 			else
 				trace("no valid target to bombard");

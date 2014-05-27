@@ -2,6 +2,7 @@ package playArea
 {
 	import screens.GameScreen;
 	import screens.highlightTypes;
+	import ships.Battleship;
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	/**
@@ -92,7 +93,7 @@ package playArea
 		
 		public function performActions():void
 		{
-			//TODO decide what action to take
+			//TODO decide what order to act
 			
 			moveShip(shipToUse);
 			fireShip(shipToUse);
@@ -108,9 +109,53 @@ package playArea
 			
 		}
 		
-		private function actionShip(shipToUse:ShipBase):void 
+		private function actionShip(ship:ShipBase):void 
 		{
-			// TODO:
+			if (shipToUse.shipType == ShipTypes.BATTLESHIP)
+			{
+				battleshipAction(ship);
+			}
+		}
+		
+		private function battleshipAction(AIship:ShipBase):void 
+		{
+			game.resetHighlight();
+			var targetableCells:Vector.<GridCell>;
+			
+			targetableCells = game.highlightRange(Battleship.bombardRange, AIship, highlightTypes.BOMBARD);
+			
+			
+			var shipToBombard:ShipBase;
+			var index:int;
+			
+			var shipToCheck:ShipBase;
+			for (var i:int = targetableCells.length - 1; i >= 0; i--)
+			{
+				if (targetableCells[i].occupied)
+				{
+					shipToCheck=targetableCells[i].occupyingShip
+					if (shipToBombard == null)
+					{
+						shipToBombard = shipToCheck;
+						index = i;
+					}
+					else
+					{
+						//searches for lowest health ship in an effort to finish one off
+						if (shipToCheck.currentHP < shipToBombard.currentHP)
+						{
+							shipToBombard = shipToCheck;
+							index = i;
+						}
+					}
+				}
+			}
+			if (shipToBombard != null)
+			{
+				game.bombardShip(AIship, targetableCells[index]);
+			}
+			
+			game.resetHighlight();
 		}
 		
 		private function fireShip(AIship:ShipBase):void 
@@ -134,7 +179,7 @@ package playArea
 		{
 			//TODO: for now just moves closer to target ship
 			
-			availableCells = game.highlightRange(shipToUse.movementRange, shipToUse, highlightTypes.MOVE);
+			availableCells = game.highlightRange(AIship.movementRange, AIship, highlightTypes.MOVE);
 			//defines benchmark
 			var currentRange:Number = target.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
 			var checkedRange:Number;
