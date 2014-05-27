@@ -612,23 +612,10 @@ package screens
 						{
 							//a valid location is found.  Create the fighter and place it.
 							var newFighter:Fighter = new Fighter(selectedShip.team);
-							placeShip(newFighter, gridCellClicked.coordinates.x, gridCellClicked.coordinates.y);
-							pushShip(newFighter)
 							
-							//update carrier
 							var carrier:Carrier;
 							carrier = selectedShip as Carrier;
-							carrier.launchFighter();
-							carrier.performedAction = true;
-							GUI.updateShipStatus(selectedShip);
-							
-							isSelectionLocked = true;
-							updateSelection();
-							
-							//remove highlights
-							resetHighlight();
-							//reset boolean
-							fighterAwaitingPlacement = false;
+							launchFighter(carrier, newFighter, gridCellClicked);
 						}
 					}
 					//corner case where a fighter is moving and wants to land on a carrier
@@ -676,6 +663,30 @@ package screens
 					}
 				}
 			}
+		}
+		
+		public function launchFighter(launchingCarrier:Carrier, fighter:Fighter, gridCell:GridCell):void 
+		{
+			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
+			pushShip(fighter)
+							
+			//update carrier
+			launchingCarrier.launchFighter();
+			launchingCarrier.performedAction = true;
+			
+			if (currentPlayer == CurrentPlayer.PLAYER)
+			{
+				GUI.updateShipStatus(selectedShip);
+				isSelectionLocked = true;
+			}
+						
+
+			updateSelection();
+							
+			//remove highlights
+			resetHighlight();
+			//reset boolean
+			fighterAwaitingPlacement = false;
 		}
 		
 
