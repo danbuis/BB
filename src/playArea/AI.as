@@ -123,6 +123,30 @@ package playArea
 			{
 				carrierAction(ship);
 			}
+			else if (ship.shipType == ShipTypes.DESTROYER)
+			{
+				destroyerAction(ship);
+			}
+		}
+		
+		private function destroyerAction(ship:ShipBase):void 
+		{
+			game.resetHighlight();
+			
+			var targetableCells:Vector.<GridCell>;
+				
+			targetableCells = game.highlightRange(1, ship, highlightTypes.DESTROYER_AA);
+			
+			if (targetableCells.length > 0)
+			{
+				for (var i:int = targetableCells.length - 1; i >= 0; i--)
+				{
+					if (targetableCells[i].occupied && targetableCells[i].occupyingShip.shipType == ShipTypes.FIGHTER)
+					{
+						game.AAfire(ship, targetableCells[i]);
+					}
+				}
+			}
 		}
 		
 		private function carrierAction(ship:ShipBase):void 
