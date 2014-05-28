@@ -445,13 +445,15 @@ package screens
 			
 					//tells current gridcell it has left
 					grid[ship.location.x][ship.location.y].shipLeaves();
-						
-					//housekeeping to reset GUI
-					selectedShip.turnCompleted = true;
-					isAShipSelected = false;
-					GUI.eraseCurrentStatus();
-					updateSelection();
 					
+					if (currentPlayer == CurrentPlayer.PLAYER)
+					{
+						//housekeeping to reset GUI
+						selectedShip.turnCompleted = true;
+						isAShipSelected = false;
+						GUI.eraseCurrentStatus();
+						updateSelection();
+					}
 					trace("fighter recovered");
 				}
 				
