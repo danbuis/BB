@@ -56,6 +56,8 @@ package screens
 		private var currentPlayer:String = CurrentPlayer.PLAYER;
 		private var gameTurnManager:GameTurnManager = new GameTurnManager();
 		
+		private var phase:String = GamePhase.PLACEMENT_PHASE;
+		
 		public function GameScreen()
 		{
 			super();
@@ -162,6 +164,8 @@ package screens
 			
 			trace("finished adding ships");
 			
+			
+			opponent.arrangeShips();
 		}
 		
 		//helper method for addShips()
@@ -424,8 +428,41 @@ package screens
 		
 		}
 		
-		public function moveShip(ship:ShipBase, gridCell:GridCell):void
+		public function moveShip(ship:ShipBase, gridCell:GridCell):Boolean
 		{
+			//if placement
+			if (phase == GamePhase.PLACEMENT_PHASE)
+			{
+				if (gridCell.isHighlighted())
+				{
+					if (!gridCell.occupied)
+					{
+						//tells current gridcell it has left
+						grid[ship.location.x][ship.location.y].shipLeaves();
+				
+						//updates grid location within the ship's properties
+						ship.location.x = gridCell.coordinates.x;
+						ship.location.y = gridCell.coordinates.y;
+				
+				
+						//TODO refactor this and place ship to a rendership method.  This will consolidate and enable changes based on facing of the ship
+						//updates the render location
+						ship.x = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
+						ship.y = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
+				
+						//tells new cell it is there
+						gridCell.shipEnters(ship);
+						return true;
+					}
+					//else cell is currently occupied.  TODO swap ships
+					else
+					{
+						//do nothing
+						return false;
+					}
+				}
+			}
+			
 			//if a fighter moved, update its endurance and act accordingly
 
 			
@@ -455,6 +492,7 @@ package screens
 						updateSelection();
 					}
 					trace("fighter recovered");
+					return true;
 				}
 				
 				
@@ -478,6 +516,7 @@ package screens
 				}
 				trace("ship moved");
 				
+				
 				//resets moving boolean and highlights
 				//certain steps don't pertain to the computer
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip!=null)
@@ -489,13 +528,14 @@ package screens
 					updateSelection();
 				}
 				resetHighlight();
-				
+				return true;
 
 
 			}
 			else
 			{
 				trace("ship can't move that far");
+				return false;
 			}
 		}
 		
@@ -842,6 +882,22 @@ package screens
 								returnList.push(cellToCheck);
 							}
 						}
+						else if (type == highlightTypes.COMPUTER_PLACE)
+						{
+							if (cellToCheck.coordinates.y <= 1)
+							{
+								cellToCheck.drawHighlight();
+								returnList.push(cellToCheck);
+							}
+						}
+						else if (type == highlightTypes.PLAYER_PLACE)
+						{
+							if (cellToCheck.coordinates.y >= 9)
+							{
+								cellToCheck.drawHighlight();
+								returnList.push(cellToCheck);
+							}
+						}
 					}
 				}
 				
@@ -950,6 +1006,7 @@ package screens
 			GUI.eraseCurrentStatus();
 		
 			currentPlayer = CurrentPlayer.PLAYER;
+			phase= GamePhase.PLACEMENT_PHASE;
 		}
 		
 		

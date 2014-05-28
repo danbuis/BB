@@ -47,6 +47,7 @@ package
 			//adds ships to game
 			gameScreen.addShips(shipsToPlayWith);
 			
+			
 			//hide current screen
 			welcomeScreen.hideScreen();
 			//initialize a new game using the data passed in the event data parameter to add ships

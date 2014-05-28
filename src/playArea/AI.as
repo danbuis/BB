@@ -1,5 +1,6 @@
 package playArea 
 {
+	import managers.utilities;
 	import screens.GameScreen;
 	import screens.highlightTypes;
 	import ships.Battleship;
@@ -110,6 +111,26 @@ package playArea
 			shipToUse.turnCompleted = true;
 			shipToUse.updateStatus();
 			
+		}
+		
+		public function arrangeShips():void 
+		{
+			shipsAvailable = findShipsToUse();
+			
+			var cellsAvailable:Vector.<GridCell> = game.highlightRange(18, shipsAvailable[0], highlightTypes.COMPUTER_PLACE);
+			var index:int;
+			//for each ship
+			for (var i:int = shipsAvailable.length - 1; i >= 0; i--)
+			{
+				//which cell to move to
+				index = Math.floor(Math.random() * cellsAvailable.length);
+				//move there
+				game.moveShip(shipsAvailable[i], cellsAvailable[index]);
+				//remove the cell from the list
+				cellsAvailable.splice(index, 1);
+			}
+			
+			game.resetHighlight();
 		}
 		
 		private function actionShip(ship:ShipBase):void 

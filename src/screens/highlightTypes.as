@@ -14,6 +14,8 @@ package screens
 		public static const FIGHTER_MOVE:String = "fighter move";
 		public static const BOMBARD:String = "bombard";
 		public static const DESTROYER_AA:String = "destroyer AA";
+		public static const PLAYER_PLACE:String = "player place";
+		public static const COMPUTER_PLACE:String = "computer place";
 		
 	}
 
