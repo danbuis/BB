@@ -166,6 +166,21 @@ package screens
 			
 			
 			opponent.arrangeShips();
+			
+			//code for player to place ships
+			//draws highlights
+			for (var x:int = 0; x < gridWidth; x++)
+			{
+				for (var y:int = 0; y < gridHeight; y++)
+				{
+					if (y >= 8)
+					{
+						grid[x][y].drawHighlight();
+					}
+				}
+			}
+			
+			
 		}
 		
 		//helper method for addShips()
@@ -224,6 +239,8 @@ package screens
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
 		private function onTurnCompleteButtonClick(e:Event):void 
 		{
+			phase = GamePhase.PLAY_PHASE;
+			resetHighlight()
 			turnIsComplete();
 		}
 		
@@ -263,7 +280,7 @@ package screens
 		//method called if player decides to skip some actions available
 		private function onShipCompleteButtonClick(e:Event):void 
 		{
-			if (selectedShip != null)
+			if (selectedShip != null && phase==GamePhase.PLAY_PHASE)
 			{
 				selectedShip.fired = true;
 				selectedShip.moved = true;
@@ -661,11 +678,26 @@ package screens
 				var touchPosition:Point = touch.getLocation(this);
 				var gridCellClicked:GridCell = getGridCellFromClick(touchPosition.x, touchPosition.y);
 				
+				
 				//verify that the click is on the grid
 				if (validCell(gridCellClicked) && currentPlayer==CurrentPlayer.PLAYER)
 				{
+					if (phase == GamePhase.PLACEMENT_PHASE)
+					{
+						if (gridCellClicked.occupied)
+						{
+							selectedShip = gridCellClicked.occupyingShip;
+						}
+						else
+						{
+							if (selectedShip != null)
+							{
+								moveShip(selectedShip, gridCellClicked);
+							}
+						}
+					}
 					//check if a fighter needs to be placed and selected ship is a carrier
-					if (fighterAwaitingPlacement && selectedShip.shipType==ShipTypes.CARRIER)
+					else if (fighterAwaitingPlacement && selectedShip.shipType==ShipTypes.CARRIER)
 					{
 						if (gridCellClicked.isHighlighted())
 						{
@@ -678,7 +710,7 @@ package screens
 						}
 					}
 					//corner case where a fighter is moving and wants to land on a carrier
-					if (selectedShip!=null && selectedShip.shipType == ShipTypes.FIGHTER && shipMoving)
+					else if (selectedShip!=null && selectedShip.shipType == ShipTypes.FIGHTER && shipMoving)
 					{
 						//will move the ship, potentially onto a carrier
 						moveShip(selectedShip, gridCellClicked);
