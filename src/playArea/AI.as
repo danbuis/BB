@@ -249,9 +249,15 @@ package playArea
 		
 		private function moveShip(AIship:ShipBase):void 
 		{
-			//TODO: for now just moves closer to target ship
+			if (AIship.shipType == ShipTypes.FIGHTER)
+			{
+				availableCells = game.highlightRange(AIship.movementRange, AIship, highlightTypes.FIGHTER_MOVE);
+			}
+			else
+			{
+				availableCells = game.highlightRange(AIship.movementRange, AIship, highlightTypes.MOVE);
+			}
 			
-			availableCells = game.highlightRange(AIship.movementRange, AIship, highlightTypes.MOVE);
 			//defines benchmark
 			var currentRange:Number = target.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
 			var checkedRange:Number;
@@ -277,6 +283,29 @@ package playArea
 			{
 				var retreat:Boolean = retreatFighter(AIship);
 				// TODO: use this value
+				
+				if (retreat)
+				{
+					//move toward closest carrier
+					var targetCarrier:Carrier = getClosestCarrier(AIship as Fighter);
+					
+					currentRange = 300;
+					if (targetCarrier != null)
+					{
+						for (var j:int = availableCells.length - 1; j >= 0; j--)
+						{
+							cellToCheck = availableCells[j];
+
+							checkedRange = targetCarrier.getRangeToSquare(cellToCheck);
+					
+							if (checkedRange < currentRange)
+							{
+								currentRange = checkedRange;
+								targetCell = cellToCheck;
+							}
+						}
+					}
+				}
 			}
 			
 			
@@ -298,14 +327,15 @@ package playArea
 			{
 				return true;
 			}
-			//staying out will cause it to move out of range
 			
-			return continueWithoutGoingToCarrier(AIship);
+			var closestCarrier:Carrier = getClosestCarrier(AIship as Fighter);
+			
+			return !continueWithoutGoingToCarrier(AIship, closestCarrier);
 			
 			
 		}
 		
-		private function continueWithoutGoingToCarrier(aIship:ShipBase):Boolean 
+		private function getClosestCarrier(fighter:Fighter):Carrier
 		{
 			var closestCarrier:ShipBase;
 			var shipToCheck:ShipBase;
@@ -318,7 +348,7 @@ package playArea
 				if (shipToCheck.team == 2 && shipToCheck.shipType==ShipTypes.CARRIER)
 				{
 					//get range to the carrier
-					rangeToCheck=shipToCheck.getRangeToSquare(game.grid[aIship.location.x][aIship.location.y]);
+					rangeToCheck=shipToCheck.getRangeToSquare(game.grid[fighter.location.x][fighter.location.y]);
 					if (rangeToCheck < rangeToCarrier)
 					{
 						rangeToCarrier = rangeToCheck;
@@ -327,6 +357,12 @@ package playArea
 				}
 			}
 			
+			return closestCarrier as Carrier;
+		}
+		
+		private function continueWithoutGoingToCarrier(aIship:ShipBase, closestCarrier:Carrier):Boolean 
+		{
+
 			//if no carriers available
 			if (closestCarrier==null)
 			{
@@ -342,7 +378,7 @@ package playArea
 			 * */
 			var operationalFighterRange:int = (fighter.currentEndurance - 1) * fighter.movementRange;
 			
-			return (operationalFighterRange > rangeToCarrier);
+			return (operationalFighterRange > closestCarrier.getRangeToSquare(game.grid[fighter.location.x][fighter.location.y]));
 			
 		}
 		
