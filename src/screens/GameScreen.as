@@ -660,11 +660,11 @@ package screens
 						}
 						else if (shipActioning)
 						{
-							if (selectedShip.shipType == ShipTypes.BATTLESHIP)
+							if (selectedShip!= null && selectedShip.shipType == ShipTypes.BATTLESHIP)
 							{
 								bombardShip(selectedShip, gridCellClicked);
 							}
-							if (selectedShip.shipType == ShipTypes.DESTROYER)
+							if (selectedShip!= null && selectedShip.shipType == ShipTypes.DESTROYER)
 							{
 								AAfire(selectedShip, gridCellClicked);
 							}
