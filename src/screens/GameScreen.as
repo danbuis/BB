@@ -265,6 +265,14 @@ package screens
 						killShip(fighter);
 					}
 				}
+				else if (shipsInPlay[i].shipType == ShipTypes.SUBMARINE)
+				{
+					var submarine:Submarine = shipsInPlay[i] as Submarine;
+					
+					submarine.submerged = false;
+					submarine.alpha = 1.0;
+					submarine.visible = true;
+				}
 			}
 			
 			//reset current boolean values
@@ -322,6 +330,7 @@ package screens
 				{
 					selectedSub.alpha = 0.2;
 					selectedSub.numberOfDivesRemaining--;
+					selectedSub.submerged = true;
 					
 					selectedShip.performedAction = true;
 					GUI.updateShipStatus(selectedShip);
@@ -471,7 +480,7 @@ package screens
 						gridCell.shipEnters(ship);
 						return true;
 					}
-					//else cell is currently occupied.  TODO swap ships
+					
 					else
 					{
 						//do nothing
@@ -546,6 +555,12 @@ package screens
 					updateSelection();
 				}
 				resetHighlight();
+				
+				if (ship.shipType == ShipTypes.SUBMARINE || ship.shipType == ShipTypes.DESTROYER)
+				{
+					checkForRevealedSubs(ship, gridCell);
+				}
+				
 				return true;
 
 
@@ -554,6 +569,30 @@ package screens
 			{
 				trace("ship can't move that far");
 				return false;
+			}
+		}
+		
+		private function checkForRevealedSubs(ship:ShipBase, gridCell:GridCell):void 
+		{
+			//look at each ship
+			var shipToCheck:ShipBase;
+			var revealedSub:Submarine;
+			for (var i:int = shipsInPlay.length-1; i >= 0; i--)
+			{
+				shipToCheck = shipsInPlay[i];
+				//look for submarines on the other team
+				if (shipToCheck.shipType == ShipTypes.SUBMARINE && shipToCheck.team != ship.team)
+				{
+					//TODO copy somewhere that is called at the start of the player's turn.
+					//check if they are close enough
+					if (shipToCheck.getRangeToSquare(gridCell) <= 1.6)
+					{
+						revealedSub = shipToCheck as Submarine;
+						revealedSub.visible = true;
+						revealedSub.submerged = false;
+						revealedSub.alpha = 1.0;
+					}
+				}
 			}
 		}
 		

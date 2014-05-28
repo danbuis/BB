@@ -7,6 +7,7 @@ package ships
 	public class Submarine extends ShipBase 
 	{
 		public var numberOfDivesRemaining:int = 8;
+		public var submerged:Boolean = false;
 		
 		public function Submarine(team:int) 
 		{

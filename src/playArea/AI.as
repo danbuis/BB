@@ -8,6 +8,7 @@ package playArea
 	import ships.Fighter;
 	import ships.ShipBase;
 	import ships.ShipTypes;
+	import ships.Submarine;
 	/**
 	 * ...
 	 * @author dan
@@ -81,7 +82,8 @@ package playArea
 			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
 			{
 				shipToCheck = game.shipsInPlay[i];
-				if (shipToCheck.team == 1 && shipToCheck.shipType!=ShipTypes.FIGHTER)
+				if (shipToCheck.team == 1 && shipToCheck.shipType != ShipTypes.FIGHTER && 
+				   (shipToCheck.shipType==ShipTypes.SUBMARINE && !(shipToCheck as Submarine).submerged)) // if ship is a submarine and is submerged, can't target.
 				{
 					range = shipToCheck.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
 					
@@ -146,6 +148,43 @@ package playArea
 			else if (ship.shipType == ShipTypes.DESTROYER)
 			{
 				destroyerAction(ship);
+			}
+			else if (ship.shipType == ShipTypes.SUBMARINE)
+			{
+				submarineAction(ship);
+			}
+		}
+		
+		private function submarineAction(ship:ShipBase):void 
+		{
+			var shipsInPlay:Vector.<ShipBase> = game.shipsInPlay;
+			var shipToCheck:ShipBase;
+			var closestRange:Number = 300;
+			var rangeToCheck:Number;
+			
+			for (var i:int = shipsInPlay.length - 1; i >= 0; i--)
+			{
+				shipToCheck = shipsInPlay[i];
+				//screen out friendly ships
+				if (shipToCheck.team != 2)
+				{
+					rangeToCheck = shipToCheck.getRangeToSquare(game.grid[ship.location.x][ship.location.y]);
+					if (rangeToCheck < closestRange)
+					{
+						closestRange = rangeToCheck;
+					}
+				}
+			}
+			
+			if (closestRange <= 4)
+			{
+				var submarine:Submarine = ship as Submarine;
+				if (submarine.numberOfDivesRemaining > 0)
+				{
+					submarine.submerged = true;
+					submarine.visible = false;
+					submarine.numberOfDivesRemaining--;
+				}
 			}
 		}
 		
