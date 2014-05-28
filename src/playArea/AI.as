@@ -348,9 +348,13 @@ package playArea
 		private function selectShip():ShipBase 
 		{
 			var returnShip:ShipBase = null;
-			//TODO: refine, justgrabs the first one on its list.
+			var returnIndex:int;
 			
-			return shipsAvailable[0];
+			//returns a random ship from those available
+			returnIndex = Math.floor(Math.random() * shipsAvailable.length);
+			
+			
+			return shipsAvailable[returnIndex];
 			
 		}
 		
