@@ -38,9 +38,6 @@ package screens
 		public var gridOrigin:Point = new Point(40, 40);
 		public var gridSpacing:int = 40;
 		
-		public var ship1:ShipBase;
-		public var ship2:ShipBase;
-		
 		public var shipsStarting:Vector.<ShipBase>;
 		public var shipsInPlay:Vector.<ShipBase>;
 		
@@ -164,12 +161,17 @@ package screens
 			}
 			
 			trace("finished adding ships");
+			
 		}
 		
 		//helper method for addShips()
 		private function pushShip(ship:ShipBase):void
 		{
-			shipsStarting.push(ship);
+			//fighters should not be added to the starting list.
+			if (ship.shipType == ShipTypes.FIGHTER)
+			{
+				shipsStarting.push(ship);
+			}
 			shipsInPlay.push(ship);
 			backgroundImage.addChild(ship);
 		}
@@ -238,6 +240,7 @@ package screens
 					//fighter out of fuel
 					if (fighter.currentEndurance <= 0)
 					{
+						fighter.currentHP = 0;
 						killShip(fighter);
 					}
 				}
@@ -597,6 +600,9 @@ package screens
 			//tells current gridcell it has left
 			grid[ship.location.x][ship.location.y].shipLeaves();
 			
+			//garbage collection
+			ship.dispose();
+			
 			// TODO:check for win
 		}
 		
@@ -918,7 +924,33 @@ package screens
 			currentPlayer = nextPlayer;
 		}
 	
-		// TODO: Reset function, completely resets the game
+		/*resets all variables associated with the game.  Called on exit/enter or other times
+		 * when current info needs to be trashed
+		 * */
+		public function reset():void
+		{
+			//rebuild grid from scratch
+			grid = [];
+			initializeGrid();
+		
+			shipsStarting = new Vector.<ShipBase>();
+			shipsInPlay = new Vector.<ShipBase>();
+		
+			fighterAwaitingPlacement = false;
+		
+			selectedShip = null;
+			isAShipSelected = false;
+			isSelectionLocked = false;
+			shipMoving = false;
+			shipFiring = false;
+			shipActioning = false;
+		
+			GUI.eraseCurrentStatus();
+		
+			currentPlayer = CurrentPlayer.PLAYER;
+		}
+		
+		
 		// TODO: Restart function, using the current initial ship set
 	
 	}

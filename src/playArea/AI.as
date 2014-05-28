@@ -48,8 +48,8 @@ package playArea
 			var range:Number;
 			var closestRange:Number = 300;
 			
-			//fighters and destroyers search for specifically fighters
-			//TODO destroyers
+			//fighters  search for specifically fighters
+			
 			if (shipToUse.shipType == ShipTypes.FIGHTER)
 			{
 				for (var f:int = game.shipsInPlay.length - 1; f >= 0; f--)
@@ -97,7 +97,6 @@ package playArea
 		
 		public function performActions():void
 		{
-			//TODO decide what order to act
 			
 			moveShip(shipToUse);
 			fireShip(shipToUse);
@@ -282,7 +281,6 @@ package playArea
 			if (AIship.shipType == ShipTypes.FIGHTER)
 			{
 				var retreat:Boolean = retreatFighter(AIship);
-				// TODO: use this value
 				
 				if (retreat)
 				{
