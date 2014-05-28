@@ -444,9 +444,9 @@ package screens
 						
 					//housekeeping to reset GUI
 					selectedShip.turnCompleted = true;
-					updateSelection();
 					isAShipSelected = false;
 					GUI.eraseCurrentStatus();
+					updateSelection();
 					
 					trace("fighter recovered");
 				}
@@ -567,9 +567,10 @@ package screens
 					GUI.updateShipStatus(selectedShip);
 					resetHighlight();
 					isSelectionLocked = true;
+					updateSelection();
 				}
 				
-				updateSelection();
+				
 			}
 		}
 		

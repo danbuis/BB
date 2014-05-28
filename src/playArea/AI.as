@@ -275,7 +275,8 @@ package playArea
 			//if using a fighter, check if retreat required
 			if (AIship.shipType == ShipTypes.FIGHTER)
 			{
-				var retreat:Boolean = retreatFighter(AIship)
+				var retreat:Boolean = retreatFighter(AIship);
+				// TODO: use this value
 			}
 			
 			
