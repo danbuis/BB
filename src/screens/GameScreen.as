@@ -509,6 +509,7 @@ package screens
 						updateSelection();
 					}
 					trace("fighter recovered");
+					resetHighlight();
 					return true;
 				}
 				

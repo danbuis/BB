@@ -167,6 +167,8 @@ package playArea
 					}
 				}
 			}
+			
+			game.resetHighlight();
 		}
 		
 		private function carrierAction(ship:ShipBase):void 
