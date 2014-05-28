@@ -2,6 +2,7 @@ package screens
 {
 	import flash.geom.Point;
 	import managers.GameTurnManager;
+	import managers.utilities;
 	import playArea.AI;
 	import playArea.ControlBar;
 	import playArea.CurrentPlayer;
@@ -889,7 +890,8 @@ package screens
 			if (nextPlayer == CurrentPlayer.COMPUTER)
 			{
 				setTurnPriority(CurrentPlayer.COMPUTER)
-				computerTurn();
+				utilities.pause(1, computerTurn);
+				//computerTurn();
 			}
 			else if (nextPlayer == CurrentPlayer.PLAYER)
 			{
