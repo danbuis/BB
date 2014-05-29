@@ -53,6 +53,8 @@ package managers
 				}
 			}
 			
+			
+			trace(playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
 			//process corner cases
 			
 			//turn complete, need to start next one

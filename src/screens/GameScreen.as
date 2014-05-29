@@ -83,87 +83,103 @@ package screens
 		 * */
 		public function addShips(shipArray:Array):void
 		{
-			// TODO: refactor to handle a variety of ships.  perhaps use an enum to handle what ship goes with which index
-			// TODO: refactor so create/place/push happens elsewhere.  This just governs initial placement
 			var currentX:int = 0;
 			var currentY:int = 9;
 			
 			var shipToAdd:ShipBase;
-			if (shipArray[0] != 0)
-			{
-				shipToAdd = new Carrier(1);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
-			if (shipArray[1] != 0)
-			{
-				shipToAdd = new Battleship(1);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
-			if (shipArray[2] != 0)
-			{
-				shipToAdd = new Submarine(1);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++
-			}
-			if (shipArray[3] != 0)
-			{
-				shipToAdd = new Destroyer(1);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++
-			}
-			if (shipArray[4] != 0)
-			{
-				shipToAdd = new TorpedoBoat(1);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
 			
-			currentY = 0;
-			currentX = 0;
+			for (var index:int = 0; index <= 9; index++)
+			{
+				//at cutoff point, switch to top of grid
+				if (index == 5)
+				{
+					currentY = 0;
+				}
+				while (shipArray[index] > 0)
+				{
+					if (index == 0)
+					{
+						shipToAdd = new Carrier(1);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 1)
+					{
+						shipToAdd = new Battleship(1);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 2)
+					{
+					shipToAdd = new Submarine(1);
+					placeShip(shipToAdd, currentX, currentY);
+					pushShip(shipToAdd);
+					}
+					else if (index ==3)
+					{
+						shipToAdd = new Destroyer(1);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 4)
+					{
+						shipToAdd = new TorpedoBoat(1);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
 			
-			if (shipArray[5] != 0)
-			{
-				shipToAdd = new Destroyer(2);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
-			if (shipArray[6] != 0)
-			{
-				shipToAdd = new TorpedoBoat(2);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
-			if (shipArray[7] != 0)
-			{
-				shipToAdd = new Submarine(2);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++
-			}
-			if (shipArray[8] != 0)
-			{
-				shipToAdd = new Carrier(2);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++
-			}
-			if (shipArray[9] != 0)
-			{
-				shipToAdd = new Battleship(2);
-				placeShip(shipToAdd, currentX, currentY);
-				pushShip(shipToAdd);
-				currentX++;
-			}
-			
+					
+					// cut off point between player and computer
+					
+					
+					else if (index == 5)
+					{
+						shipToAdd = new Destroyer(2);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 6)
+					{
+						shipToAdd = new TorpedoBoat(2);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 7)
+					{
+						shipToAdd = new Submarine(2);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					else if (index == 8)
+					{
+						shipToAdd = new Carrier(2);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					if (index == 9)
+					{
+						shipToAdd = new Battleship(2);
+						placeShip(shipToAdd, currentX, currentY);
+						pushShip(shipToAdd);
+					}
+					
+					if (currentX == 9) //if at the end of a row, iterate to the start of the next row
+					{
+						currentX = 0;
+						if (currentY <= 4)
+						{
+							currentY++;
+						}
+						else
+						{
+							currentY--;
+						}
+					}
+					shipArray[index]--;
+					currentX++;
+					
+				}//end while loop
+			} //end for loop.
 			trace("finished adding ships");
 			
 			
@@ -310,7 +326,7 @@ package screens
 				selectedShip.moved = true;
 				selectedShip.performedAction = true;
 			
-				updateSelection();
+				updateSelection(false);
 				GUI.eraseCurrentStatus();
 			}
 		}
@@ -352,7 +368,7 @@ package screens
 					GUI.updateShipStatus(selectedShip);
 					
 					isSelectionLocked = true;
-					updateSelection();
+					updateSelection(false);
 					
 				}
 			}
@@ -525,18 +541,20 @@ package screens
 					//tells current gridcell it has left
 					grid[ship.location.x][ship.location.y].shipLeaves();
 					
-					if (currentPlayer == CurrentPlayer.PLAYER)
+					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
 						//housekeeping to reset GUI
 						selectedShip.moved = true;
 						selectedShip.fired = true;
 						selectedShip.turnCompleted = true;
 						GUI.eraseCurrentStatus();
-						updateSelection();
+						updateSelection(true);
 						isAShipSelected = false;
 					}
 					trace("fighter recovered");
 					resetHighlight();
+					
+					whoGetsNextTurn();
 					return true;
 				}
 				
@@ -564,13 +582,13 @@ package screens
 				
 				//resets moving boolean and highlights
 				//certain steps don't pertain to the computer
-				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip!=null)
+				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip!=null && ship.team == 1)
 				{
 					shipMoving = false;
 					selectedShip.moved = true;
 					GUI.updateShipStatus(selectedShip);
 					isSelectionLocked = true;
-					updateSelection();
+					updateSelection(false);
 				}
 				resetHighlight();
 				
@@ -621,13 +639,13 @@ package screens
 			
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != ship.team)
 			{
-				if (currentPlayer == CurrentPlayer.PLAYER)
+				if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1 )
 				{
 				shipFiring = false;
 				selectedShip.fired = true;
 				isSelectionLocked = true;
 				GUI.updateShipStatus(selectedShip);
-				updateSelection();
+				updateSelection(false);
 				}
 				
 				/* odd bug where player fighter attacks a recently launched AI fighter.  The click registers as normal, 
@@ -658,13 +676,13 @@ package screens
 				trace("bombarding");
 				damageShip(gridCell.occupyingShip);
 				
-				if (currentPlayer == CurrentPlayer.PLAYER)
+				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
 					shipActioning = false;
 					selectedShip.performedAction = true;
 					GUI.updateShipStatus(selectedShip);
 					isSelectionLocked = true;
-					updateSelection();
+					updateSelection(false);
 				}
 	
 				resetHighlight();
@@ -683,12 +701,12 @@ package screens
 				selectedShip.performedAction = true;
 				shipActioning = false;
 				
-				if (currentPlayer == CurrentPlayer.PLAYER)
+				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
 					GUI.updateShipStatus(selectedShip);
 					resetHighlight();
 					isSelectionLocked = true;
-					updateSelection();
+					updateSelection(false);
 				}
 				
 				
@@ -827,7 +845,7 @@ package screens
 			{
 				GUI.updateShipStatus(selectedShip);
 				isSelectionLocked = true;
-				updateSelection();
+				updateSelection(false);
 			}
 							
 			//remove highlights
@@ -1015,7 +1033,7 @@ package screens
 		
 		
 		//updates ship and selection state appropriately.
-		private function updateSelection():void
+		private function updateSelection(recoveringFighter:Boolean):void
 		{
 			selectedShip.updateStatus();
 			
@@ -1024,8 +1042,10 @@ package screens
 			{
 				GUI.eraseCurrentStatus();
 				selectedShip = null;
-				
-				whoGetsNextTurn();
+				if (!recoveringFighter)
+				{
+					whoGetsNextTurn();
+				}
 			}
 		}
 		
