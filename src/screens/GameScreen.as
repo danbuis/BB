@@ -219,7 +219,7 @@ package screens
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
 			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
-			GUI.turnCompleteButton.addEventListener(Event.TRIGGERED, onTurnCompleteButtonClick);
+			GUI.startGameButton.addEventListener(Event.TRIGGERED, onStartGameButtonClick);
 		}
 		
 		private function onAAfireButtonClick(e:Event):void 
@@ -239,9 +239,10 @@ package screens
 		}
 		
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
-		private function onTurnCompleteButtonClick(e:Event):void 
+		private function onStartGameButtonClick(e:Event):void 
 		{
 			phase = GamePhase.PLAY_PHASE;
+			GUI.switchToPlayPhase();
 			resetHighlight()
 			turnIsComplete();
 		}
@@ -1080,7 +1081,7 @@ package screens
 			shipFiring = false;
 			shipActioning = false;
 		
-			GUI.eraseCurrentStatus();
+			GUI = new ControlBar();
 		
 			currentPlayer = CurrentPlayer.PLAYER;
 			phase= GamePhase.PLACEMENT_PHASE;

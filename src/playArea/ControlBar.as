@@ -5,6 +5,7 @@ package playArea
 	import ships.Fighter;
 	import ships.ShipBase;
 	import ships.ShipTypes;
+	import ships.Submarine;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -46,11 +47,19 @@ package playArea
 		private var storedFighter3:Image;
 		
 		public var shipCompleteButton:Button;
-		public var turnCompleteButton:Button;
+		public var startGameButton:Button;
+		public var mainMenuButton:Button;
 		
 		private var fuel100:Image;
+		private var fuel89:Image;
+		private var fuel75:Image;
 		private var fuel66:Image;
+		private var fuel63:Image;
+		private var fuel50:Image;
+		private var fuel38:Image;
 		private var fuel33:Image;
+		private var fuel25:Image;
+		private var fuel13:Image;
 		
 		
 		public function ControlBar() 
@@ -142,12 +151,21 @@ package playArea
 			shipCompleteButton = new Button(Assets.getAtlas().getTexture("Buttons/shipComplete_Button"));
 			shipCompleteButton.x = this.width / 2 - shipCompleteButton.width / 2;
 			shipCompleteButton.y = 400;
+			shipCompleteButton.visible = false;
 			this.addChild(shipCompleteButton);
 			
-			turnCompleteButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
-			turnCompleteButton.x = shipCompleteButton.x;
-			turnCompleteButton.y = shipCompleteButton.y + turnCompleteButton.height + 5;
-			this.addChild(turnCompleteButton);
+			mainMenuButton = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
+			mainMenuButton.x = shipCompleteButton.x;
+			mainMenuButton.y = shipCompleteButton.y + mainMenuButton.height + 5;
+			mainMenuButton.visible = false;
+			this.addChild(mainMenuButton);
+			
+			startGameButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
+			startGameButton.x = shipCompleteButton.x;
+			startGameButton.y = shipCompleteButton.y;
+			this.addChild(startGameButton);
+			
+			
 			
 			//initialize text fields
 			Assets.getFont();
@@ -160,8 +178,7 @@ package playArea
 			shipHealth.x = 0;
 			shipHealth.y = 200;
 			this.addChild(shipHealth);
-			
-			//TODO: initialize sub indicators
+		
 			//initialize fuel indicators
 			fuel100 = new Image(Assets.getAtlas().getTexture("GUI/fuel_100"));
 			fuel100.x = 6;
@@ -169,17 +186,59 @@ package playArea
 			fuel100.visible = false;
 			this.addChild(fuel100);
 			
+			fuel89 = new Image(Assets.getAtlas().getTexture("GUI/fuel_88"));
+			fuel89.x = fuel100.x;
+			fuel89.y = fuel100.y;
+			fuel89.visible = false;
+			this.addChild(fuel89);
+			
+			fuel75 = new Image(Assets.getAtlas().getTexture("GUI/fuel_75"));
+			fuel75.x = fuel100.x;
+			fuel75.y = fuel100.y;
+			fuel75.visible = false;
+			this.addChild(fuel75);
+			
 			fuel66 = new Image(Assets.getAtlas().getTexture("GUI/fuel_66"));
 			fuel66.x = fuel100.x;
 			fuel66.y = fuel100.y;
 			fuel66.visible = false;
 			this.addChild(fuel66);
+			
+			fuel63 = new Image(Assets.getAtlas().getTexture("GUI/fuel_63"));
+			fuel63.x = fuel100.x;
+			fuel63.y = fuel100.y;
+			fuel63.visible = false;
+			this.addChild(fuel63);
+			
+			fuel50 = new Image(Assets.getAtlas().getTexture("GUI/fuel_50"));
+			fuel50.x = fuel100.x;
+			fuel50.y = fuel100.y;
+			fuel50.visible = false;
+			this.addChild(fuel50);
+			
+			fuel38 = new Image(Assets.getAtlas().getTexture("GUI/fuel_38"));
+			fuel38.x = fuel100.x;
+			fuel38.y = fuel100.y;
+			fuel38.visible = false;
+			this.addChild(fuel38);
 	 		
 			fuel33 = new Image(Assets.getAtlas().getTexture("GUI/fuel_33"));
 			fuel33.x = fuel100.x;
 			fuel33.y = fuel100.y;
 			fuel33.visible = false;
 			this.addChild(fuel33);
+			
+			fuel25 = new Image(Assets.getAtlas().getTexture("GUI/fuel_25"));
+			fuel25.x = fuel100.x;
+			fuel25.y = fuel100.y;
+			fuel25.visible = false;
+			this.addChild(fuel25);
+			
+			fuel13 = new Image(Assets.getAtlas().getTexture("GUI/fuel_13"));
+			fuel13.x = fuel100.x;
+			fuel13.y = fuel100.y;
+			fuel13.visible = false;
+			this.addChild(fuel13);
 			
 			//initialize random stuff
 			storedFighter1 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
@@ -200,6 +259,13 @@ package playArea
 			storedFighter3.visible = false;
 			this.addChild(storedFighter3);
 			
+		}
+		
+		public function switchToPlayPhase():void
+		{
+			mainMenuButton.visible = true;
+			startGameButton.visible = false;
+			shipCompleteButton.visible = true;
 		}
 		
 		public function updateShipStatus(ship:ShipBase):void
@@ -225,13 +291,14 @@ package playArea
 				moveButton.visible = true;
 				fireButton.visible = true;
 				submergeButton.visible = true;
+				showSubFuel(ship as Submarine);
 			}
 			else if (ship.shipType == ShipTypes.DESTROYER)
 			{
 				moveButton.visible = true;
 				fireButton.visible = true;
 				AAfireButton.visible = true;
-				// TODO, show fuel status
+				
 			}
 			else if (ship.shipType == ShipTypes.TORPEDO_BOAT)
 			{
@@ -263,6 +330,43 @@ package playArea
 			shipType.text = ship.shipType;
 			shipHealth.text = ("HP :" + ship.currentHP);
 			
+		}
+		
+		private function showSubFuel(sub:Submarine):void
+		{
+			if (sub.numberOfDivesRemaining == 8)
+			{
+				fuel100.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 7)
+			{
+				fuel89.visible = true;
+			}
+			
+			else if (sub.numberOfDivesRemaining == 6)
+			{
+				fuel75.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 5)
+			{
+				fuel63.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 4)
+			{
+				fuel50.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 3)
+			{
+				fuel38.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 2)
+			{
+				fuel25.visible = true;
+			}
+			else if (sub.numberOfDivesRemaining == 1)
+			{
+				fuel13.visible = true;
+			}
 		}
 		
 		private function showFighterFuelStatus(fighter:Fighter):void 
@@ -322,10 +426,16 @@ package playArea
 			shipType.text = "";
 			
 			fuel100.visible = false;
+			fuel89.visible = false;
+			fuel75.visible = false;
 			fuel66.visible = false;
+			fuel63.visible = false;
+			fuel50.visible = false;
+			fuel38.visible = false;
 			fuel33.visible = false;
+			fuel25.visible = false;
+			fuel13.visible = false;
 			
-			//TODO erase sub fuel status
 		}
 		
 	}

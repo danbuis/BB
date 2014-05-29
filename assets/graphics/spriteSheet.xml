@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:192facdc59250cc86e8b8cfdedb1a75a:d1dcd17b7b37c32e5c5a11a2a9e8a505:1f5082dd25efd46d832fd7c3e4d09628$ -->
+<!-- $TexturePacker:SmartUpdate:0297c5a3e9a6fa3405b005aa2771df4c:8c99ca862be2c50d93fdd75210bcf0c3:1f5082dd25efd46d832fd7c3e4d09628$ -->
 <TextureAtlas imagePath="spriteSheet.png">
     <SubTexture name="BATTLESHIP" x="130" y="713" width="40" height="38"/>
     <SubTexture name="BATTLESHIP_1" x="88" y="713" width="40" height="39"/>
@@ -10,10 +10,11 @@
     <SubTexture name="Buttons/FreePlayGameButton" x="306" y="647" width="149" height="64"/>
     <SubTexture name="Buttons/NewGameButton" x="155" y="647" width="149" height="64"/>
     <SubTexture name="Buttons/TutorialButton" x="4" y="647" width="149" height="64"/>
-    <SubTexture name="Buttons/bombard_button" x="348" y="612" width="30" height="30"/>
-    <SubTexture name="Buttons/button_mask" x="316" y="612" width="30" height="30"/>
-    <SubTexture name="Buttons/fire_button" x="284" y="612" width="30" height="30"/>
-    <SubTexture name="Buttons/launch_fighter_button" x="252" y="612" width="30" height="30"/>
+    <SubTexture name="Buttons/bombard_button" x="440" y="612" width="30" height="30"/>
+    <SubTexture name="Buttons/button_mask" x="408" y="612" width="30" height="30"/>
+    <SubTexture name="Buttons/fire_button" x="376" y="612" width="30" height="30"/>
+    <SubTexture name="Buttons/launch_fighter_button" x="344" y="612" width="30" height="30"/>
+    <SubTexture name="Buttons/main_menu_button" x="252" y="612" width="90" height="33"/>
     <SubTexture name="Buttons/move_button" x="220" y="612" width="30" height="30"/>
     <SubTexture name="Buttons/shipComplete_Button" x="128" y="612" width="90" height="33"/>
     <SubTexture name="Buttons/submerge_button" x="96" y="612" width="30" height="30"/>
