@@ -134,13 +134,13 @@ package screens
 					
 					else if (index == 5)
 					{
-						shipToAdd = new Destroyer(2);
+						shipToAdd = new Carrier(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
 					else if (index == 6)
 					{
-						shipToAdd = new TorpedoBoat(2);
+						shipToAdd = new Battleship(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
@@ -152,13 +152,13 @@ package screens
 					}
 					else if (index == 8)
 					{
-						shipToAdd = new Carrier(2);
+						shipToAdd = new Destroyer(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
 					if (index == 9)
 					{
-						shipToAdd = new Battleship(2);
+						shipToAdd = new TorpedoBoat(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}

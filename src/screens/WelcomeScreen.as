@@ -49,6 +49,10 @@ package screens
 				{
 					this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.START_GAME, true, {ships:[1,1,1,1,1,1,1,1,1,1]}));
 				}
+			else if (buttonClicked == freePlayButton)
+			{
+				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.TO_BUILD_FLEET, true));
+			}
 		}
 		
 		/* Draws screen, placing static elements in their locations
@@ -60,7 +64,8 @@ package screens
 			
 			//this button centered along bottom
 			newGameButton = new Button(Assets.getAtlas().getTexture("Buttons/NewGameButton"));
-			newGameButton.x = (stage.width / 2) - (newGameButton.width / 2);
+
+			newGameButton.x = (this.width / 2) - (newGameButton.width / 2);
 			newGameButton.y = 400;
 			this.addChild(newGameButton);
 			
