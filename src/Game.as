@@ -37,7 +37,7 @@ package
 
 		}
 		
-		
+		// TODO reset in case any data lingers
 		//event handler for starting a new game
 		private function startNewGame(event:BBNavigationEvent):void 
 		{

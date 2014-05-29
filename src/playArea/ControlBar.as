@@ -10,6 +10,8 @@ package playArea
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
+	
+	//TODO back to menu button
 	/**
 	 * ...
 	 * @author dan
@@ -18,7 +20,7 @@ package playArea
 	{
 		
 		private var backgroundImage:Image;
-		// TODO: use origin... trickles down into initialize...
+		// TODO, use...
 		private var iconOrigin:Point;
 		
 		private var battlshipIcon:Image;
@@ -159,6 +161,7 @@ package playArea
 			shipHealth.y = 200;
 			this.addChild(shipHealth);
 			
+			//TODO: initialize sub indicators
 			//initialize fuel indicators
 			fuel100 = new Image(Assets.getAtlas().getTexture("GUI/fuel_100"));
 			fuel100.x = 6;
@@ -171,7 +174,7 @@ package playArea
 			fuel66.y = fuel100.y;
 			fuel66.visible = false;
 			this.addChild(fuel66);
-			
+	 		
 			fuel33 = new Image(Assets.getAtlas().getTexture("GUI/fuel_33"));
 			fuel33.x = fuel100.x;
 			fuel33.y = fuel100.y;
@@ -228,6 +231,7 @@ package playArea
 				moveButton.visible = true;
 				fireButton.visible = true;
 				AAfireButton.visible = true;
+				// TODO, show fuel status
 			}
 			else if (ship.shipType == ShipTypes.TORPEDO_BOAT)
 			{
@@ -320,6 +324,8 @@ package playArea
 			fuel100.visible = false;
 			fuel66.visible = false;
 			fuel33.visible = false;
+			
+			//TODO erase sub fuel status
 		}
 		
 	}

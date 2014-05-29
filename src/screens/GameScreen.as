@@ -81,7 +81,7 @@ package screens
 		 * */
 		public function addShips(shipArray:Array):void
 		{
-			
+			// TODO: refactor to handle a variety of ships.  perhaps use an enum to handle what ship goes with which index
 			// TODO: refactor so create/place/push happens elsewhere.  This just governs initial placement
 			var currentX:int = 0;
 			var currentY:int = 9;
@@ -208,6 +208,8 @@ package screens
 		
 		}
 		
+		
+		//TODO back to menu button
 		private function addGUIEventHandlers():void
 		{
 			GUI.moveButton.addEventListener(Event.TRIGGERED, onMoveButtonClick);
@@ -491,7 +493,7 @@ package screens
 			
 			//if a fighter moved, update its endurance and act accordingly
 
-			
+			//TODO check for submerged subs, if found bounce back to closest square to origin.
 			//if selected square is in range
 			if (gridCell.isHighlighted())
 			{
@@ -851,6 +853,8 @@ package screens
 		
 		}
 		
+		
+		//TODO half alpha for cells in range.  full alpha for cells that are valid
 		/*highlights a section of the grid based on range and the ship that called it.  Used to check movement and shooting
 		 * */
 		
@@ -978,6 +982,7 @@ package screens
 			return returnList;
 		}
 		
+		//TODO reset alpha value
 		//turns off all highlights
 		public function resetHighlight():void
 		{
@@ -1010,7 +1015,6 @@ package screens
 		
 		public function computerTurn():void 
 		{
-			//double check
 			if (currentPlayer == CurrentPlayer.COMPUTER)
 			{
 				opponent.takeTurn();
@@ -1019,6 +1023,7 @@ package screens
 			whoGetsNextTurn();
 		}
 		
+		// TODO add find subs call here...
 		private function whoGetsNextTurn():void
 		{
 			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer);
