@@ -77,23 +77,29 @@ package playArea
 				}
 			}
 			
-			
+			trace("acquiring target for " + shipToUse);
 			//just searches for the closest target that isn't a fighter
 			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
 			{
 				shipToCheck = game.shipsInPlay[i];
-				if (shipToCheck.team == 1 && shipToCheck.shipType != ShipTypes.FIGHTER && 
-				   (shipToCheck.shipType==ShipTypes.SUBMARINE && !(shipToCheck as Submarine).submerged)) // if ship is a submarine and is submerged, can't target.
+				trace("checking against " + shipToCheck);
+				if (shipToCheck.team == 1 && shipToCheck.shipType != ShipTypes.FIGHTER)
 				{
+				   if(shipToCheck.shipType==ShipTypes.SUBMARINE && (shipToCheck as Submarine).submerged) // if ship is a submarine and is submerged, can't target.
+					{
+						trace("submerged submarine");
+						break;
+					}
 					range = shipToCheck.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
-					
+					trace("meets criteria.  Range: " + range);
 					if (range < closestRange)
 					{
 						closestRange = range;
 						targetShip = shipToCheck;
+						trace ("new closest");
 					}
-					
-				}
+				}	
+				
 			}
 			return targetShip;
 		}
@@ -468,10 +474,5 @@ package playArea
 			
 			return returnVector;
 		}
-		
-		
-		
-		
 	}
-
 }
