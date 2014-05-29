@@ -10,6 +10,7 @@ package events
 	{
 		
 		public static const START_GAME:String = "new game";
+		public static const MAIN_MENU:String = "main menu";
 		
 		public function BBNavigationEvent(type:String, bubbles:Boolean=false, data:Object=null) 
 		{

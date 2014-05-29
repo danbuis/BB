@@ -26,6 +26,7 @@ package
 			
 			//event listener for starting a new game.  recieved from the welcome screen
 			this.addEventListener(BBNavigationEvent.START_GAME, startNewGame);
+			this.addEventListener(BBNavigationEvent.MAIN_MENU, returnToMainMenu);
 			
 			gameScreen = new GameScreen();
 			gameScreen.hideScreen();
@@ -37,13 +38,25 @@ package
 
 		}
 		
-		// TODO reset in case any data lingers
+		private function returnToMainMenu(e:BBNavigationEvent):void 
+		{
+			gameScreen.hideScreen();
+			welcomeScreen.showScreen();
+		}
+		
+
 		//event handler for starting a new game
 		private function startNewGame(event:BBNavigationEvent):void 
 		{
 			//grab information from event regarding what ships to put in
 			var shipsToPlayWith:Array = event.data.ships;
-		
+	
+			//if ships in play now
+			if (gameScreen.shipsInPlay.length > 0)
+			{
+				gameScreen.reset();
+			}
+			
 			//adds ships to game
 			gameScreen.addShips(shipsToPlayWith);
 			

@@ -1,5 +1,6 @@
 package screens
 {
+	import events.BBNavigationEvent;
 	import flash.geom.Point;
 	import managers.GameTurnManager;
 	import managers.utilities;
@@ -16,6 +17,7 @@ package screens
 	import ships.ShipTypes;
 	import ships.Submarine;
 	import ships.TorpedoBoat;
+	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -209,7 +211,7 @@ package screens
 		}
 		
 		
-		//TODO back to menu button
+	
 		private function addGUIEventHandlers():void
 		{
 			GUI.moveButton.addEventListener(Event.TRIGGERED, onMoveButtonClick);
@@ -220,6 +222,17 @@ package screens
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
 			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
 			GUI.startGameButton.addEventListener(Event.TRIGGERED, onStartGameButtonClick);
+			GUI.mainMenuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
+		}
+		
+		private function onMainMenuButtonClick(e:Event):void 
+		{
+			var buttonClicked:Button = e.target as Button;
+			
+			if (buttonClicked == GUI.mainMenuButton)
+			{
+				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
+			}
 		}
 		
 		private function onAAfireButtonClick(e:Event):void 
@@ -1070,6 +1083,11 @@ package screens
 			initializeGrid();
 		
 			shipsStarting = new Vector.<ShipBase>();
+			
+			for (var i:int = shipsInPlay.length - 1; i >= 0; i--)
+			{
+				killShip(shipsInPlay[i]);
+			}
 			shipsInPlay = new Vector.<ShipBase>();
 		
 			fighterAwaitingPlacement = false;
