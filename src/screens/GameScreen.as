@@ -528,10 +528,12 @@ package screens
 					if (currentPlayer == CurrentPlayer.PLAYER)
 					{
 						//housekeeping to reset GUI
+						selectedShip.moved = true;
+						selectedShip.fired = true;
 						selectedShip.turnCompleted = true;
-						isAShipSelected = false;
 						GUI.eraseCurrentStatus();
 						updateSelection();
+						isAShipSelected = false;
 					}
 					trace("fighter recovered");
 					resetHighlight();
@@ -1041,6 +1043,19 @@ package screens
 		private function whoGetsNextTurn():void
 		{
 			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer);
+			
+			//check for subs to reveal any that might have wandered over into a visible square.  This, along with movement, are the only
+			//time the visible state of the sub can change
+			var shipToCheck:ShipBase;
+			for (var i:int = shipsInPlay.length - 1; i >= 0; i--)
+			{
+				shipToCheck = shipsInPlay[i];
+				
+				if (shipToCheck.shipType == ShipTypes.DESTROYER || shipToCheck.shipType == ShipTypes.SUBMARINE)
+				{
+					checkForRevealedSubs(shipToCheck, grid[shipToCheck.location.x][shipToCheck.location.y]);
+				}
+			}
 			
 			if (nextPlayer == CurrentPlayer.COMPUTER)
 			{
