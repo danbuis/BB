@@ -294,7 +294,7 @@ package playArea
 		private function fireShip(AIship:ShipBase):void 
 		{
 			var targetCell:GridCell = game.grid[target.location.x][target.location.y];
-			var rangeToTarget:Number = shipToUse.getRangeToSquare(targetCell);
+			var rangeToTarget:Number = AIship.getRangeToSquare(targetCell);
 
 			//if target in range
 			if (rangeToTarget <= 1)

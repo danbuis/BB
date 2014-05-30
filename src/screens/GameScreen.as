@@ -541,6 +541,11 @@ package screens
 					//tells current gridcell it has left
 					grid[ship.location.x][ship.location.y].shipLeaves();
 					
+					if (currentPlayer == CurrentPlayer.COMPUTER)
+					{
+						var test:int = 0;
+					}
+					
 					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
 						//housekeeping to reset GUI
@@ -1133,8 +1138,9 @@ package screens
 			shipMoving = false;
 			shipFiring = false;
 			shipActioning = false;
-		
-			GUI = new ControlBar();
+			
+			GUI.eraseCurrentStatus();
+			GUI.switchToPregamePhase();
 		
 			currentPlayer = CurrentPlayer.PLAYER;
 			phase= GamePhase.PLACEMENT_PHASE;

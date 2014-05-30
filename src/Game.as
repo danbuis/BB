@@ -75,6 +75,7 @@ package
 			
 			//adds ships to game
 			gameScreen.addShips(shipsToPlayWith);
+			gameScreen.GUI.switchToPregamePhase();
 			
 			
 			//hide current screen

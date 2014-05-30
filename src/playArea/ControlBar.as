@@ -266,6 +266,13 @@ package playArea
 			shipCompleteButton.visible = true;
 		}
 		
+		public function switchToPregamePhase():void
+		{
+			mainMenuButton.visible = false;
+			startGameButton.visible = true;
+			shipCompleteButton.visible = false;
+		}
+		
 		public function updateShipStatus(ship:ShipBase):void
 		{
 			eraseCurrentStatus();
