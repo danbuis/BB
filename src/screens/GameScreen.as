@@ -193,7 +193,7 @@ package screens
 				{
 					if (y >= 8)
 					{
-						grid[x][y].drawHighlight();
+						grid[x][y].drawHighlight(true);
 					}
 				}
 			}
@@ -511,6 +511,10 @@ package screens
 				
 						//tells new cell it is there
 						gridCell.shipEnters(ship);
+						
+						//tween animaiton
+						//TODO
+					
 						return true;
 					}
 					
@@ -913,7 +917,7 @@ package screens
 					
 					var rangeToSquare:Number = ship.getRangeToSquare(cellToCheck);
 					
-					if (rangeToSquare <= range && rangeToSquare != 0)
+					if (rangeToSquare <= range)
 					{
 						
 						//if moving, highlight all unoccupied
@@ -921,27 +925,38 @@ package screens
 						{
 							if (!cellToCheck.occupied)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						else if (type == highlightTypes.FIRE)
 						{
 							// if firing hilight all squares not occupied by own team or any fighters
-							if (!cellToCheck.occupied || 
-							    (cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team 
-								&& cellToCheck.occupyingShip.shipType!=ShipTypes.FIGHTER))
+							if ( cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team 
+								&& cellToCheck.occupyingShip.shipType!=ShipTypes.FIGHTER)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						else if (type==highlightTypes.FIGHTER_FIRE )
 						{
 							if (cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						
@@ -949,8 +964,12 @@ package screens
 						{
 							if (!cellToCheck.occupied)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						
@@ -958,31 +977,38 @@ package screens
 						{
 							if (!cellToCheck.occupied)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
 							}
-							if (cellToCheck.occupied && cellToCheck.occupyingShip.shipType == ShipTypes.CARRIER)
+							else if (cellToCheck.occupied && cellToCheck.occupyingShip.shipType == ShipTypes.CARRIER)
 							{
 								if (currentPlayer == CurrentPlayer.PLAYER && cellToCheck.occupyingShip.team == 1)
 								{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
 								}
 								else if (currentPlayer == CurrentPlayer.COMPUTER && cellToCheck.occupyingShip.team == 2)
 								{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
 								}
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						else if (type == highlightTypes.BOMBARD)
 						{
-							if (!cellToCheck.occupied || 
-							    (cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team 
-								&& cellToCheck.occupyingShip.shipType!=ShipTypes.FIGHTER))
+							if (cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team 
+								&& cellToCheck.occupyingShip.shipType!=ShipTypes.FIGHTER)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 								
 							if (rangeToSquare <= Battleship.minimumBombard)
@@ -990,29 +1016,42 @@ package screens
 								cellToCheck.hideHighlight();
 								returnList.pop();
 							}
+
 						}
 						else if (type == highlightTypes.DESTROYER_AA)
 						{
 							if (cellToCheck.occupied && cellToCheck.occupyingShip.shipType == ShipTypes.FIGHTER)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						else if (type == highlightTypes.COMPUTER_PLACE)
 						{
 							if (cellToCheck.coordinates.y <= 1)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 						else if (type == highlightTypes.PLAYER_PLACE)
 						{
 							if (cellToCheck.coordinates.y >= 9)
 							{
-								cellToCheck.drawHighlight();
+								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
+							}
+							else 
+							{
+								cellToCheck.drawHighlight(false);
 							}
 						}
 					}

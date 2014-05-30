@@ -22,7 +22,7 @@ package playArea
 		{
 			super();
 			_coordinates = new Point(x, y);
-			highlight.visible = false;
+			highlight.alpha = 0;
 			// TODO: refactor so that it pulls numbers from the game screen
 			highlight.x = 20 + (_coordinates.x * 40) + highlight.width / 2;
 			highlight.y = 20 + (_coordinates.y * 40) + highlight.height / 2;;
@@ -46,19 +46,27 @@ package playArea
 			return _coordinates;
 		}
 		
-		public function drawHighlight():void
+		public function drawHighlight(validTarget:Boolean):void
 		{
-			highlight.visible = true;
+			if (validTarget)
+			{
+				highlight.alpha = 1;
+			}
+			else highlight.alpha = 0.5;
 		}
 		
 		public function hideHighlight():void
 		{
-			highlight.visible = false;
+			highlight.alpha = 0;
 		}
 		
 		public function isHighlighted():Boolean
 		{
-			return highlight.visible;
+			if (highlight.alpha == 1)
+			{
+				return true;
+			}
+			else return false;
 		}
 		
 
