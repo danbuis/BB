@@ -23,6 +23,8 @@ package playArea
 		
 		private var availableCells:Vector.<GridCell>;
 		
+		private var recoveredFighter:Boolean = false;
+		
 		public function AI(gs:GameScreen) 
 		{
 			this.game = gs;
@@ -106,10 +108,17 @@ package playArea
 		
 		public function performActions():void
 		{
+			if (target != null)
+			{
+				moveShip(shipToUse);
+				if (!recoveredFighter)
+				{
+					fireShip(shipToUse);
+					actionShip(shipToUse);
+				}
+			}
 			
-			moveShip(shipToUse);
-			fireShip(shipToUse);
-			actionShip(shipToUse);
+			recoveredFighter = false;
 
 			shipToUse.moved = true;
 			shipToUse.fired = true;
@@ -379,6 +388,11 @@ package playArea
 			if (targetCell != null)
 			{	
 				game.moveShip(shipToUse, targetCell);
+				//if a fighter was recovered
+				if (shipToUse.shipType==ShipTypes.FIGHTER && targetCell.occupied && targetCell.occupyingShip.shipType == ShipTypes.CARRIER)
+				{
+					recoveredFighter = true;
+				}
 			}
 			else
 			{

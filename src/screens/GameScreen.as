@@ -328,6 +328,7 @@ package screens
 			
 				updateSelection(false);
 				GUI.eraseCurrentStatus();
+				 resetHighlight();
 			}
 		}
 		
@@ -555,11 +556,12 @@ package screens
 						GUI.eraseCurrentStatus();
 						updateSelection(true);
 						isAShipSelected = false;
+						whoGetsNextTurn(true);
 					}
 					trace("fighter recovered");
 					resetHighlight();
 					
-					whoGetsNextTurn();
+					
 					return true;
 				}
 				
@@ -1049,7 +1051,7 @@ package screens
 				selectedShip = null;
 				if (!recoveringFighter)
 				{
-					whoGetsNextTurn();
+					whoGetsNextTurn(false);
 				}
 			}
 		}
@@ -1061,13 +1063,13 @@ package screens
 				opponent.takeTurn();
 			}
 			
-			whoGetsNextTurn();
+			whoGetsNextTurn(false);
 		}
 		
 		// TODO add find subs call here...
-		private function whoGetsNextTurn():void
+		private function whoGetsNextTurn(recoveredFighterThisTurn:Boolean):void
 		{
-			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer);
+			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer, recoveredFighterThisTurn);
 			
 			//check for subs to reveal any that might have wandered over into a visible square.  This, along with movement, are the only
 			//time the visible state of the sub can change
@@ -1098,7 +1100,7 @@ package screens
 			else if (nextPlayer == CurrentPlayer.TURN_COMPLETE)
 			{
 				turnIsComplete();
-				whoGetsNextTurn();
+				whoGetsNextTurn(false);
 			}
 			
 			else

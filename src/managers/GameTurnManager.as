@@ -14,13 +14,25 @@ package managers
 			
 		}
 		
-		public function determineNextPlayer(shipsInPlay:Vector.<ShipBase>, playerJustFinished:String):String
+		public function determineNextPlayer(shipsInPlay:Vector.<ShipBase>, playerJustFinished:String, recoveredFighterThisTurn:Boolean):String
 		{
 			var playerRemainingShips:int = 0;
 			var computerRemainingShips:int = 0;
 			
 			var playerCompletedShips:int = 0;
 			var computerCompletedShips:int = 0;
+			
+			if (recoveredFighterThisTurn)
+			{
+				if (playerJustFinished == CurrentPlayer.PLAYER)
+				{
+					playerCompletedShips++;
+				}
+				else 
+				{
+					computerCompletedShips++;
+				}
+			}
 			
 			
 			//builds stas for current game standing
