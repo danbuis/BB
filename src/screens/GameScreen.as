@@ -24,6 +24,7 @@ package screens
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import com.greensock.TweenLite;
 	
 	/**
 	 * ...
@@ -499,6 +500,10 @@ package screens
 				{
 					if (!gridCell.occupied)
 					{
+						var range:Number = ship.getRangeToSquare(gridCell);
+						var time:Number = int(range * 100) / 100;
+						trace(range);
+						trace(time);
 						//tells current gridcell it has left
 						grid[ship.location.x][ship.location.y].shipLeaves();
 				
@@ -509,14 +514,17 @@ package screens
 				
 						//TODO refactor this and place ship to a rendership method.  This will consolidate and enable changes based on facing of the ship
 						//updates the render location
-						ship.x = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
-						ship.y = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
+						var tweenX:int = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
+						var tweenY:int = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
+;
 				
 						//tells new cell it is there
 						gridCell.shipEnters(ship);
 						
-						//tween animaiton
-						//TODO
+						//tween ship
+						TweenLite.to(ship, time, { x:tweenX, y:tweenY } );
+						
+						
 						if (currentPlayer == CurrentPlayer.PLAYER)
 						{
 							resetFog();
