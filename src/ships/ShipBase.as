@@ -33,7 +33,8 @@ package ships
 		private var shipMask:Image;
 		
 		//stats of ship
-		public var movementRange:int=2;
+		public var movementRange:int = 2;
+		public var visibilityRange:int = 2;
 		
 		// TODO: use heading, will affect rendering
 		

@@ -17,16 +17,26 @@ package playArea
 		private var _coordinates:Point;
 		
 		private var highlight:Image = new Image(Assets.getAtlas().getTexture("gridcell_highlight"));
+		private var fog:Image = new Image(Assets.getAtlas().getTexture("gridcell_fog"));
 		
 		public function GridCell(x:int, y:int) 
 		{
 			super();
 			_coordinates = new Point(x, y);
+			
+			fog.visible = false;
+			fog.scaleX = 0.8;
+			fog.scaleY = 0.8;
+			fog.x = 20 + (_coordinates.x * 40) + fog.width / 2;
+			fog.y = 20 + (_coordinates.y * 40) + fog.height / 2;;
+			this.addChild(fog);
+			
 			highlight.alpha = 0;
-			// TODO: refactor so that it pulls numbers from the game screen
 			highlight.x = 20 + (_coordinates.x * 40) + highlight.width / 2;
 			highlight.y = 20 + (_coordinates.y * 40) + highlight.height / 2;;
 			this.addChild(highlight);
+			
+
 		}
 		
 		public function shipEnters(ship:ShipBase):void
@@ -67,6 +77,24 @@ package playArea
 				return true;
 			}
 			else return false;
+		}
+		
+		public function hideFog():void
+		{
+			fog.visible = false;
+			if (occupied)
+			{
+				occupyingShip.visible = true;
+			}
+		}
+		
+		public function showFog():void
+		{
+			fog.visible = true;
+			if (occupied)
+			{
+				occupyingShip.visible = false;
+			}
 		}
 		
 

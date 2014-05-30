@@ -198,6 +198,9 @@ package screens
 				}
 			}
 			
+			//resets fog
+			resetFog();
+			
 			
 		}
 		
@@ -514,7 +517,10 @@ package screens
 						
 						//tween animaiton
 						//TODO
-					
+						if (currentPlayer == CurrentPlayer.PLAYER)
+						{
+							resetFog();
+						}
 						return true;
 					}
 					
@@ -565,7 +571,7 @@ package screens
 					trace("fighter recovered");
 					resetHighlight();
 					
-					
+					resetFog();
 					return true;
 				}
 				
@@ -607,7 +613,7 @@ package screens
 				{
 					checkForRevealedSubs(ship, gridCell);
 				}
-				
+				resetFog();
 				return true;
 
 
@@ -847,7 +853,9 @@ package screens
 		{
 			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
 			pushShip(fighter)
-							
+			
+			resetFog();
+			
 			//update carrier
 			launchingCarrier.launchFighter();
 			launchingCarrier.performedAction = true;
@@ -1152,6 +1160,44 @@ package screens
 		private function setTurnPriority(nextPlayer:String):void
 		{
 			currentPlayer = nextPlayer;
+		}
+		
+		private function resetFog():void
+		{
+			var cellToCheck:GridCell;
+			var range:Number;
+			
+			var playerShips:Vector.<ShipBase> = new Vector.<ShipBase>();
+			//filter out enemy ships
+			
+			for (var i:int = 0; i <= shipsInPlay.length - 1; i++)
+			{
+				if (shipsInPlay[i].team == 1)
+				{
+					playerShips.push(shipsInPlay[i]);
+				}
+			}
+			
+			for (var x:int = 0; x <= gridWidth-1; x++)
+			{
+				for (var y:int = 0; y <= gridHeight-1; y++)
+				{
+					cellToCheck = grid[x][y];
+					for (var shipIndex:int = 0; shipIndex <= playerShips.length - 1; shipIndex++)
+					{
+						//show fog again
+						cellToCheck.showFog();
+						
+						range = playerShips[shipIndex].getRangeToSquare(cellToCheck);
+						if (range <= playerShips[shipIndex].visibilityRange)
+						{
+							cellToCheck.hideFog();
+							break;
+						}
+					}
+					
+				}
+			}
 		}
 	
 		/*resets all variables associated with the game.  Called on exit/enter or other times

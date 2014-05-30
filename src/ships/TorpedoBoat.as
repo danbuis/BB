@@ -15,6 +15,7 @@ package ships
 			startingHP = 2;
 			currentHP = 2;
 			this.movementRange = 3;
+			visibilityRange = 3;
 		}
 		
 	}

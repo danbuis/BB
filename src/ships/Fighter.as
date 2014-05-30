@@ -18,6 +18,7 @@ package ships
 			startingHP = 2;
 			currentHP = 2;
 			movementRange = 4;
+			visibilityRange = 4;
 		}
 		
 		public function useEndurance():void
