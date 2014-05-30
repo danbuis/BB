@@ -6,6 +6,8 @@ package screens
 	import ships.Destroyer;
 	import ships.Submarine;
 	import ships.TorpedoBoat;
+	import starling.display.Button;
+	import starling.events.Event;
 	/**
 	 * ...
 	 * @author dan
@@ -16,6 +18,7 @@ package screens
 		
 		private var components:Vector.<ShipSelectModule> = new Vector.<ShipSelectModule>();
 		private var index:int = 0;
+		private var startGame:Button;
 		
 		
 		public function BuildFleetScreen() 
@@ -31,12 +34,12 @@ package screens
 		{
 			//sets background
 			
-			var initialX:int = 36;
-			var currentX:int = 36;
-			var Xinterval:int = 96;
+			var initialX:int = 19;
+			var currentX:int = 19;
+			var Xinterval:int = 128;
 			
 			var currentY:int = 30;
-			var Yinterval:int = 180;
+			var Yinterval:int = 210;
 			
 			addComponent(new ShipSelectModule(new Carrier(1)), currentX, currentY);
 			currentX += Xinterval;
@@ -67,6 +70,23 @@ package screens
 		private function initialize():void 
 		{
 			this.addEventListener(BBNavigationEvent.UP_BUTTON_REQUEST, checkUpButtonRequest);
+			startGame = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
+			startGame.x = (640 - startGame.width) / 2;
+			startGame.y = 440;
+			startGame.addEventListener(Event.TRIGGERED, onStartGame);
+			this.addChild(startGame);
+		}
+		
+		private function onStartGame(e:Event):void 
+		{
+			var countArray:Array = new Array();
+			
+			for (var i:int = 0; i <= 9; i++)
+			{
+				countArray.push(components[i].count);
+			}
+			
+			dispatchEvent( new BBNavigationEvent(BBNavigationEvent.START_GAME, true, { ships:countArray } ));
 		}
 		
 		private function checkUpButtonRequest(event:BBNavigationEvent):void 
@@ -90,7 +110,7 @@ package screens
 				}
 			}
 			
-			if (total > 20)
+			if (total < 12)
 			{
 				source.upButtonAllowed();
 			}

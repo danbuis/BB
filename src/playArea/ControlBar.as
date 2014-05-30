@@ -11,8 +11,6 @@ package playArea
 	import starling.display.Sprite;
 	import starling.text.TextField;
 	
-	
-	//TODO back to menu button
 	/**
 	 * ...
 	 * @author dan
