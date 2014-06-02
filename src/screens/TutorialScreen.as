@@ -49,6 +49,8 @@ package screens
 			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandler);
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			GUI.switchToPlayPhase();
+			
+			onStartGameButtonClick(new Event(Event.TRIGGERED, true));
 		}
 		
 		private function updateTutorial():void 
@@ -86,6 +88,7 @@ package screens
 				placeShip(newShip, 4, 0);
 				pushShip(newShip);
 				resetFog();
+				newShip.hit();
 				
 				GUI.moveButton.addEventListener(Event.TRIGGERED, onTutorialMoveButtonClick);
 			}
@@ -95,7 +98,7 @@ package screens
 				this.removeChild(message);
 				message = manager.getMessageScreen(3);
 				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
-				message.y = 100;
+				message.y = 400;
 				this.addChild(message);
 				
 				this.removeChild(clickHere);
@@ -150,11 +153,34 @@ package screens
 								selectedShip.fired = true;
 								selectedShip.updateStatus();
 								updateSelection(false);
+								selectedShip = shipsInPlay[0];
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
 								
 								utilities.pause(1.5, updateTutorial);
+								
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
 			
+							}	
+						}
+						else if (thisStep == "attack enemy")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team == 1)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
 							}
-			
+							else if (gridCellClicked.occupied && shipFiring)
+							{
+								//TODO kill enemy and move on to next phase of lesson
+							}
+							else
+							{
+								//try moving
+								moveShip(selectedShip, gridCellClicked);
+							}
 						}
 					}
 				}

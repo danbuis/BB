@@ -273,7 +273,7 @@ package screens
 		}
 		
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
-		private function onStartGameButtonClick(e:Event):void 
+		public function onStartGameButtonClick(e:Event):void 
 		{
 			phase = GamePhase.PLAY_PHASE;
 			GUI.switchToPlayPhase();
