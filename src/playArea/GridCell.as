@@ -1,6 +1,7 @@
 package playArea 
 {
 	import flash.geom.Point;
+	import managers.AnimationManager;
 	import ships.ShipBase;
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -16,15 +17,15 @@ package playArea
 		public var occupyingShip:ShipBase = null;
 		private var _coordinates:Point;
 		
-		private var highlight:Image = new Image(Assets.getAtlas().getTexture("gridcell_highlight"));
-		private var fog:Image = new Image(Assets.getAtlas().getTexture("gridcell_fog"));
+		public var highlight:Image = new Image(Assets.getAtlas().getTexture("gridcell_highlight"));
+		public var fog:Image = new Image(Assets.getAtlas().getTexture("gridcell_fog"));
 		
 		public function GridCell(x:int, y:int) 
 		{
 			super();
 			_coordinates = new Point(x, y);
 			
-			fog.visible = false;
+			fog.visible = true;
 			fog.scaleX = 0.8;
 			fog.scaleY = 0.8;
 			fog.x = 20 + (_coordinates.x * 40) + fog.width / 2;
@@ -81,7 +82,7 @@ package playArea
 		
 		public function hideFog():void
 		{
-			fog.visible = false;
+			AnimationManager.fogChange(0, this);
 			if (occupied)
 			{
 				occupyingShip.visible = true;
@@ -90,7 +91,7 @@ package playArea
 		
 		public function showFog():void
 		{
-			fog.visible = true;
+			AnimationManager.fogChange(1.0, this);
 			if (occupied)
 			{
 				occupyingShip.visible = false;

@@ -2,6 +2,7 @@ package screens
 {
 	import events.BBNavigationEvent;
 	import flash.geom.Point;
+	import managers.AnimationManager;
 	import managers.GameTurnManager;
 	import managers.utilities;
 	import playArea.AI;
@@ -370,7 +371,7 @@ package screens
 					selectedSub.submerged = true;
 					
 					selectedShip.performedAction = true;
-					GUI.updateShipStatus(selectedShip);
+					GUI.updateShipStatus(selectedShip, phase);
 					
 					isSelectionLocked = true;
 					updateSelection(false);
@@ -500,10 +501,10 @@ package screens
 				{
 					if (!gridCell.occupied)
 					{
+						//to pass to animation
 						var range:Number = ship.getRangeToSquare(gridCell);
-						var time:Number = int(range * 100) / 100;
-						trace(range);
-						trace(time);
+						//var time:Number = int(range * 100) / 100;
+
 						//tells current gridcell it has left
 						grid[ship.location.x][ship.location.y].shipLeaves();
 				
@@ -511,18 +512,16 @@ package screens
 						ship.location.x = gridCell.coordinates.x;
 						ship.location.y = gridCell.coordinates.y;
 				
-				
-						//TODO refactor this and place ship to a rendership method.  This will consolidate and enable changes based on facing of the ship
-						//updates the render location
+						//calculates new renderlocation for animation manager
 						var tweenX:int = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
 						var tweenY:int = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
-;
+
 				
 						//tells new cell it is there
 						gridCell.shipEnters(ship);
 						
-						//tween ship
-						TweenLite.to(ship, time, { x:tweenX, y:tweenY } );
+						//call to animation manager
+						AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase);
 						
 						
 						if (currentPlayer == CurrentPlayer.PLAYER)
@@ -586,21 +585,25 @@ package screens
 				
 				else
 				{
+					//to pass to animation
+					range = ship.getRangeToSquare(gridCell);
+					
 					//tells current gridcell it has left
 					grid[ship.location.x][ship.location.y].shipLeaves();
 				
 					//updates grid location within the ship's properties
 					ship.location.x = gridCell.coordinates.x;
 					ship.location.y = gridCell.coordinates.y;
-				
-				
-					//TODO refactor this and place ship to a rendership method.  This will consolidate and enable changes based on facing of the ship
-					//updates the render location
-					ship.x = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
-					ship.y = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
+					
+					//updates the render location  for the animation manager
+					tweenX = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
+					tweenY = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
 				
 					//tells new cell it is there
 					gridCell.shipEnters(ship);
+					
+					//call to animation manager
+					AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase);
 				}
 				trace("ship moved");
 				
@@ -611,7 +614,7 @@ package screens
 				{
 					shipMoving = false;
 					selectedShip.moved = true;
-					GUI.updateShipStatus(selectedShip);
+					GUI.updateShipStatus(selectedShip, phase);
 					isSelectionLocked = true;
 					updateSelection(false);
 				}
@@ -669,7 +672,7 @@ package screens
 				shipFiring = false;
 				selectedShip.fired = true;
 				isSelectionLocked = true;
-				GUI.updateShipStatus(selectedShip);
+				GUI.updateShipStatus(selectedShip, phase);
 				updateSelection(false);
 				}
 				
@@ -705,7 +708,7 @@ package screens
 				{
 					shipActioning = false;
 					selectedShip.performedAction = true;
-					GUI.updateShipStatus(selectedShip);
+					GUI.updateShipStatus(selectedShip, phase);
 					isSelectionLocked = true;
 					updateSelection(false);
 				}
@@ -728,7 +731,7 @@ package screens
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
-					GUI.updateShipStatus(selectedShip);
+					GUI.updateShipStatus(selectedShip, phase);
 					resetHighlight();
 					isSelectionLocked = true;
 					updateSelection(false);
@@ -788,6 +791,7 @@ package screens
 						if (gridCellClicked.occupied)
 						{
 							selectedShip = gridCellClicked.occupyingShip;
+							GUI.updateShipStatus(selectedShip, phase);
 						}
 						else
 						{
@@ -824,7 +828,7 @@ package screens
 						//select the ship
 						selectedShip = gridCellClicked.occupyingShip;
 						isAShipSelected = true;
-						GUI.updateShipStatus(selectedShip);
+						GUI.updateShipStatus(selectedShip, phase);
 						resetHighlight();
 						
 					}
@@ -870,7 +874,7 @@ package screens
 			
 			if (currentPlayer == CurrentPlayer.PLAYER)
 			{
-				GUI.updateShipStatus(selectedShip);
+				GUI.updateShipStatus(selectedShip, phase);
 				isSelectionLocked = true;
 				updateSelection(false);
 			}

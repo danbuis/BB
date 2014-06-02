@@ -52,13 +52,20 @@ package playArea
 			var range:Number;
 			var closestRange:Number = 300;
 			
+			var visibleEnemyShips:Vector.<ShipBase> = findEnemyShips();
+			
+			if (visibleEnemyShips.length == 0)
+			{
+				return null;
+			}
+			
 			//fighters  search for specifically fighters
 			
 			if (shipToUse.shipType == ShipTypes.FIGHTER)
 			{
-				for (var f:int = game.shipsInPlay.length - 1; f >= 0; f--)
+				for (var f:int = visibleEnemyShips.length - 1; f >= 0; f--)
 				{
-					shipToCheck = game.shipsInPlay[f];
+					shipToCheck = visibleEnemyShips[f];
 					if (shipToCheck.team == 1 && shipToCheck.shipType == ShipTypes.FIGHTER)
 					{
 						range = shipToCheck.getRangeToSquare(game.grid[shipToUse.location.x][shipToUse.location.y]);
@@ -81,9 +88,9 @@ package playArea
 			
 			//trace("acquiring target for " + shipToUse);
 			//just searches for the closest target that isn't a fighter
-			for (var i:int = game.shipsInPlay.length - 1; i >= 0; i--)
+			for (var i:int = visibleEnemyShips.length - 1; i >= 0; i--)
 			{
-				shipToCheck = game.shipsInPlay[i];
+				shipToCheck = visibleEnemyShips[i];
 				//trace("checking against " + shipToCheck);
 				if (shipToCheck.team == 1 && shipToCheck.shipType != ShipTypes.FIGHTER)
 				{
@@ -106,6 +113,48 @@ package playArea
 			return targetShip;
 		}
 		
+		private function findEnemyShips():Vector.<ShipBase> 
+		{
+			var computerShips:Vector.<ShipBase> = new Vector.<ShipBase>();
+			var PlayerShips:Vector.<ShipBase> = new Vector.<ShipBase>();
+			var returnShips:Vector.<ShipBase> = new Vector.<ShipBase>();
+
+			
+			//sort ships
+			for (var i:int = 0; i <= game.shipsInPlay.length - 1; i++)
+			{
+				if (game.shipsInPlay[i].team == 1)
+				{
+					PlayerShips.push(game.shipsInPlay[i]);
+				}
+				else
+				{
+					computerShips.push(game.shipsInPlay[i]);
+				}
+			}
+			
+			var range:Number;
+			var playerShip:ShipBase;
+			//for each computer ships
+			for (var comp:int = 0; comp <= computerShips.length - 1; comp++)
+			{
+				//test against each player ship
+				for (var play:int = 0; play <= PlayerShips.length - 1; play++)
+				{
+					playerShip = PlayerShips[play];
+					range = computerShips[comp].getRangeToSquare(game.grid[playerShip.location.x][playerShip.location.y]);
+					
+					if (range <= computerShips[comp].visibilityRange)
+					{
+						returnShips.push(playerShip);
+					}
+				}
+			}
+			
+			return returnShips;
+
+		}
+		
 		public function performActions():void
 		{
 			if (target != null)
@@ -114,9 +163,20 @@ package playArea
 				if (!recoveredFighter)
 				{
 					fireShip(shipToUse);
-					actionShip(shipToUse);
+					
 				}
 			}
+			else
+			{
+				moveToMaximizeVisibleSpace(shipToUse);
+				selectTarget(shipToUse);
+				if (target != null)
+				{
+					fireShip(shipToUse);
+				}
+			}
+			
+			actionShip(shipToUse);
 			
 			recoveredFighter = false;
 
@@ -130,21 +190,44 @@ package playArea
 			
 		}
 		
+		private function moveToMaximizeVisibleSpace(shipToUse:ShipBase):void 
+		{
+			//for now just move down
+			var yCoord:int = shipToUse.location.y;
+			
+			if (yCoord <= 9 - shipToUse.movementRange)
+			{
+				game.highlightRange(shipToUse.movementRange, shipToUse, highlightTypes.MOVE);
+				game.moveShip(shipToUse, game.grid[shipToUse.location.x][shipToUse.location.y + shipToUse.movementRange]);
+				game.resetHighlight();
+			}
+			else
+			{
+				game.highlightRange(shipToUse.movementRange, shipToUse, highlightTypes.MOVE);
+				game.moveShip(shipToUse, game.grid[shipToUse.location.x][9]);
+				game.resetHighlight();
+			}
+		}
+		
+
+		
 		public function arrangeShips():void 
 		{
 			shipsAvailable = findShipsToUse();
-			
-			var cellsAvailable:Vector.<GridCell> = game.highlightRange(18, shipsAvailable[0], highlightTypes.COMPUTER_PLACE);
-			var index:int;
-			//for each ship
-			for (var i:int = shipsAvailable.length - 1; i >= 0; i--)
+			if (shipsAvailable.length != 0)
 			{
-				//which cell to move to
-				index = Math.floor(Math.random() * cellsAvailable.length);
-				//move there
-				game.moveShip(shipsAvailable[i], cellsAvailable[index]);
-				//remove the cell from the list
-				cellsAvailable.splice(index, 1);
+				var cellsAvailable:Vector.<GridCell> = game.highlightRange(18, shipsAvailable[0], highlightTypes.COMPUTER_PLACE);
+				var index:int;
+				//for each ship
+				for (var i:int = shipsAvailable.length - 1; i >= 0; i--)
+				{
+					//which cell to move to
+					index = Math.floor(Math.random() * cellsAvailable.length);
+					//move there
+					game.moveShip(shipsAvailable[i], cellsAvailable[index]);
+					//remove the cell from the list
+					cellsAvailable.splice(index, 1);
+				}
 			}
 			
 			game.resetHighlight();
@@ -246,13 +329,21 @@ package playArea
 				{
 					for (var i:int = targetableCells.length - 1; i >= 0; i--)
 					{
-						tempRange = target.getRangeToSquare(targetableCells[i]);
-						if (tempRange < closestRange)
+						if (target != null)
 						{
-							index = i;
-							closestRange = tempRange;
-						}
+							tempRange = target.getRangeToSquare(targetableCells[i]);
+							if (tempRange < closestRange)
+							{
+								index = i;
+								closestRange = tempRange;
+							}
+						}		
 					}
+					if (target == null)
+					{
+						index = 0;
+					}
+					
 					game.launchFighter(carrier, new Fighter(carrier.team), targetableCells[index]);
 				}
 			}

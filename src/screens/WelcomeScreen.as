@@ -53,6 +53,10 @@ package screens
 			{
 				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.TO_BUILD_FLEET, true));
 			}
+			else if (buttonClicked == tutorialButton)
+			{
+				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.TUTORIAL, true, { ships:[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]}));
+			}
 		}
 		
 		/* Draws screen, placing static elements in their locations

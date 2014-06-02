@@ -1,6 +1,7 @@
 package playArea 
 {
 	import flash.geom.Point;
+	import screens.GamePhase;
 	import ships.Carrier;
 	import ships.Fighter;
 	import ships.ShipBase;
@@ -273,7 +274,7 @@ package playArea
 			shipCompleteButton.visible = false;
 		}
 		
-		public function updateShipStatus(ship:ShipBase):void
+		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
 			if (ship.shipType == ShipTypes.BATTLESHIP)
@@ -334,6 +335,16 @@ package playArea
 			
 			shipType.text = ship.shipType;
 			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			if (gamePhase == GamePhase.PLACEMENT_PHASE)
+			{
+				moveButton.visible = false;
+				fireButton.visible = false;
+				bombardButton.visible = false;
+				AAfireButton.visible = false;
+				launchFighterButton.visible = false;
+				submergeButton.visible = false;
+			}
 			
 		}
 		
