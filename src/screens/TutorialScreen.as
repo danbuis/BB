@@ -5,7 +5,11 @@ package screens
 	import managers.utilities;
 	import playArea.CurrentPlayer;
 	import playArea.GridCell;
+	import ships.Battleship;
+	import ships.Carrier;
+	import ships.Destroyer;
 	import ships.ShipBase;
+	import ships.Submarine;
 	import ships.TorpedoBoat;
 	import starling.display.Image;
 	import starling.events.Event;
@@ -100,6 +104,22 @@ package screens
 				reinforcementMessage.x = ((this.width- GUI.width) / 2) - (reinforcementMessage.width / 2) ;
 				reinforcementMessage.y = 100;
 				this.addChild(reinforcementMessage);
+				
+				//add reinforcements
+				var newCarrer:ShipBase = new Carrier(1);
+				var newBB:ShipBase = new Battleship(1);
+				var newSub:ShipBase = new Submarine(1);
+				var newDD:ShipBase = new Destroyer(1);
+				
+				placeShip(newCarrer, 2, 8);
+				pushShip(newCarrer);
+				placeShip(newBB, 4, 8);
+				pushShip(newBB);
+				placeShip(newSub, 6, 8);
+				pushShip(newSub);
+				placeShip(newDD, 8, 8);
+				pushShip(newDD);
+				resetFog();
 			}
 		}
 		
