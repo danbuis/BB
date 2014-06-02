@@ -32,6 +32,10 @@ package managers
 			{
 				return "attack enemy";
 			}
+			else if (currentStep == "attack enemy")
+			{
+				return "reinforcements arrive";
+			}
 			
 			return "error";
 		}

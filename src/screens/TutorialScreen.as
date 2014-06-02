@@ -22,6 +22,7 @@ package screens
 		private var thisStep:String = "select torpedo boat";
 		private var manager:TutorialManager = new TutorialManager();
 		private var message:Image;
+		private var reinforcementMessage:Image = manager.getMessageScreen(4);
 		private var clickHere:Image;
 		
 		public function TutorialScreen() 
@@ -32,25 +33,14 @@ package screens
 			phase = GamePhase.PLAY_PHASE;
 			
 			resetHighlight()
-			
-			/*var newShip:ShipBase = new TorpedoBoat(1)
-			placeShip(newShip, 4, 8);
-			pushShip(newShip);
-			
-			resetFog();
-			
-			newShip = new TorpedoBoat(2);
-			placeShip(newShip, 4, 0);
-			pushShip(newShip);*/
-			
-	
-	
-			
+						
 			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandler);
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			GUI.switchToPlayPhase();
 			
-			onStartGameButtonClick(new Event(Event.TRIGGERED, true));
+			GUI.startGameButton.visible = false;
+			GUI.shipCompleteButton.visible = true;
+			GUI.mainMenuButton.visible = true;
 		}
 		
 		private function updateTutorial():void 
@@ -102,6 +92,14 @@ package screens
 				this.addChild(message);
 				
 				this.removeChild(clickHere);
+				clickHere.visible = false;
+			}
+			else if (thisStep == "reinforcements arrive")
+			{
+				this.removeChild(message);
+				reinforcementMessage.x = ((this.width- GUI.width) / 2) - (reinforcementMessage.width / 2) ;
+				reinforcementMessage.y = 100;
+				this.addChild(reinforcementMessage);
 			}
 		}
 		
@@ -156,7 +154,7 @@ package screens
 								selectedShip = shipsInPlay[0];
 								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
 								
-								utilities.pause(1.5, updateTutorial);
+								utilities.pause(2, updateTutorial);
 								
 								isAShipSelected = true;
 								selectedShip = gridCellClicked.occupyingShip;
@@ -175,6 +173,9 @@ package screens
 							else if (gridCellClicked.occupied && shipFiring)
 							{
 								//TODO kill enemy and move on to next phase of lesson
+								fireShip(selectedShip, gridCellClicked);
+								thisStep = manager.getNextStep(thisStep);
+								utilities.pause(2, updateTutorial);
 							}
 							else
 							{
@@ -182,6 +183,7 @@ package screens
 								moveShip(selectedShip, gridCellClicked);
 							}
 						}
+						
 					}
 				}
 			}
