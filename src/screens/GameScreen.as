@@ -57,10 +57,10 @@ package screens
 		public var GUI:ControlBar;
 		
 		private var opponent:AI;
-		private var currentPlayer:String = CurrentPlayer.PLAYER;
+		public var currentPlayer:String = CurrentPlayer.PLAYER;
 		private var gameTurnManager:GameTurnManager = new GameTurnManager();
 		
-		private var phase:String = GamePhase.PLACEMENT_PHASE;
+		public var phase:String = GamePhase.PLACEMENT_PHASE;
 		
 		public function GameScreen()
 		{
@@ -207,10 +207,10 @@ package screens
 		}
 		
 		//helper method for addShips()
-		private function pushShip(ship:ShipBase):void
+		public function pushShip(ship:ShipBase):void
 		{
 			//fighters should not be added to the starting list.
-			if (ship.shipType == ShipTypes.FIGHTER)
+			if (ship.shipType != ShipTypes.FIGHTER)
 			{
 				shipsStarting.push(ship);
 			}
@@ -478,7 +478,7 @@ package screens
 		/*
 		 * places ships, rather than moving. differs only in the type of information being passed to the grid
 		 * */
-		private function placeShip(ship:ShipBase, x:int, y:int):void
+		public function placeShip(ship:ShipBase, x:int, y:int):void
 		{
 			ship.location.x = x;
 			ship.location.y = y
@@ -773,7 +773,7 @@ package screens
 		/* processes touch events and returns with the grid cell that it corresponds with.
 		 * If touch is outside the grid, it returns a default value that should be easy to check
 		 * */
-		private function clickHandler(event:TouchEvent):void
+		public function clickHandler(event:TouchEvent):void
 		{
 			var touch:Touch = event.getTouch(this, TouchPhase.BEGAN);
 			if (touch)
@@ -887,7 +887,7 @@ package screens
 		
 
 		
-		private function validCell(gridCellClicked:GridCell):Boolean
+		public function validCell(gridCellClicked:GridCell):Boolean
 		{
 			
 			//rule out thrown cell
@@ -901,7 +901,7 @@ package screens
 		/* Gets information from clickHandler method and returns a gridcell.  If click does not correspond
 		 * with a gridcell a default value is returned.  Default value can be used to fail gracefully
 		 * */
-		private function getGridCellFromClick(x:int, y:int):GridCell
+		public function getGridCellFromClick(x:int, y:int):GridCell
 		{
 			
 			var returnX:int = Math.floor((x - gridOrigin.x) / gridSpacing);
@@ -1099,7 +1099,7 @@ package screens
 		
 		
 		//updates ship and selection state appropriately.
-		private function updateSelection(recoveringFighter:Boolean):void
+		public function updateSelection(recoveringFighter:Boolean):void
 		{
 			selectedShip.updateStatus();
 			
@@ -1174,7 +1174,7 @@ package screens
 			currentPlayer = nextPlayer;
 		}
 		
-		private function resetFog():void
+		public function resetFog():void
 		{
 			var cellToCheck:GridCell;
 			var range:Number;
