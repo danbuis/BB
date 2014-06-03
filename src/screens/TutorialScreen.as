@@ -8,6 +8,7 @@ package screens
 	import ships.Battleship;
 	import ships.Carrier;
 	import ships.Destroyer;
+	import ships.Fighter;
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import ships.Submarine;
@@ -137,6 +138,16 @@ package screens
 				message.y = 100;
 				this.addChild(message);
 			}
+			else if (thisStep == "fighter1")
+			{
+				this.removeChild(message);
+				message = manager.getMessageScreen(6);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+				
+				clickDown.visible = false;
+			}
 			
 			
 		}
@@ -236,7 +247,30 @@ package screens
 						}
 						else if (thisStep == "carrier")
 						{
-							
+							if (gridCellClicked.isHighlighted())
+							{
+								launchFighter(selectedShip as Carrier, new Fighter(1), gridCellClicked);
+				
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+								return true;
+							}
+						}
+						else if (thisStep == "fighter1")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType == ShipTypes.FIGHTER)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+							}
+							else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType == ShipTypes.CARRIER && selectedShip.shipType == ShipTypes.FIGHTER)
+							{
+								moveShip(selectedShip, gridCellClicked);
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+							}
 						}
 						
 					}
