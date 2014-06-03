@@ -1,6 +1,7 @@
 package screens
 {
 	import events.BBNavigationEvent;
+	import FGL.GameTracker.GameTracker;
 	import flash.geom.Point;
 	import managers.AnimationManager;
 	import managers.GameTurnManager;
@@ -305,6 +306,7 @@ package screens
 					{
 						fighter.currentHP = 0;
 						killShip(fighter);
+						GameTracker.api.alert("fighter out of fuel", fighter.team);
 					}
 				}
 				else if (shipsInPlay[i].shipType == ShipTypes.SUBMARINE)
@@ -371,6 +373,8 @@ package screens
 				var selectedSub:Submarine = selectedShip as Submarine;
 				if (selectedSub.numberOfDivesRemaining > 0)
 				{
+					GameTracker.api.alert("player submerged sub");
+					
 					selectedSub.alpha = 0.2;
 					selectedSub.numberOfDivesRemaining--;
 					selectedSub.submerged = true;
@@ -569,6 +573,9 @@ package screens
 						var test:int = 0;
 					}
 					
+					GameTracker.api.alert("fighter recovered", selectedShip.team);
+
+					
 					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
 						//housekeeping to reset GUI
@@ -707,6 +714,9 @@ package screens
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
 				trace("bombarding");
+				
+				GameTracker.api.alert("bombarding", selectedShip.team);
+
 				damageShip(gridCell.occupyingShip);
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
@@ -727,6 +737,8 @@ package screens
 		
 		public function AAfire(selectedShip:ShipBase, gridCell:GridCell):void 
 		{
+			GameTracker.api.alert("AA fire", selectedShip.team);
+			
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
 				trace("AAfire");
@@ -770,8 +782,7 @@ package screens
 			
 			//garbage collection
 			ship.dispose();
-			
-			// TODO:check for win
+		
 		}
 		
 		
@@ -870,6 +881,8 @@ package screens
 		{
 			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
 			pushShip(fighter)
+			
+			GameTracker.api.alert("launch fighter", selectedShip.team);
 			
 			resetFog();
 			

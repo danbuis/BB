@@ -18,7 +18,7 @@
     <class path="src" />
     <class path="lib\PrimaryFeather-Starling-Framework-v1.4.1-0-g1a50854\PrimaryFeather-Starling-Framework-1a50854\starling\src" />
     <class path="lib\greensock-as3\greensock-as3" />
-    <class path="lib\gametracker\src\FGL" />
+    <class path="lib\gametracker\src" />
   </classpaths>
   <!-- Build options -->
   <build>

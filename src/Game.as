@@ -32,6 +32,8 @@ package
 		{
 			trace ("starling framework initialized");
 			
+			GameTracker.api.beginGame();
+			
 			//event listener for starting a new game.  recieved from the welcome screen
 			this.addEventListener(BBNavigationEvent.START_GAME, startNewGame);
 			this.addEventListener(BBNavigationEvent.MAIN_MENU, returnToMainMenu);
@@ -60,8 +62,8 @@ package
 		{
 			//grab information from event regarding what ships to put in
 			var shipsToPlayWith:Array = event.data.ships;
-	
 			
+			GameTracker.api.customMsg("beginning tutorial");
 			
 			//if ships in play now
 			if (tutorialScreen.shipsInPlay.length > 0)
@@ -84,6 +86,8 @@ package
 		
 		private function toBuildFleet(e:BBNavigationEvent):void 
 		{
+			GameTracker.api.customMsg("going to build fleet screen")
+			
 			fleetScreen.resetCount();
 			
 			welcomeScreen.hideScreen();
@@ -94,6 +98,8 @@ package
 		
 		private function returnToMainMenu(e:BBNavigationEvent):void 
 		{
+			GameTracker.api.customMsg("returning to menu");
+			
 			gameScreen.hideScreen();
 			fleetScreen.hideScreen();
 			welcomeScreen.showScreen();
@@ -106,6 +112,8 @@ package
 		{
 			//grab information from event regarding what ships to put in
 			var shipsToPlayWith:Array = event.data.ships;
+			
+			GameTracker.api.customMsg("starting battle");
 	
 			//if ships in play now
 			if (gameScreen.shipsInPlay.length > 0)
