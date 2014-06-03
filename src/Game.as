@@ -58,6 +58,8 @@ package
 			//grab information from event regarding what ships to put in
 			var shipsToPlayWith:Array = event.data.ships;
 	
+			
+			
 			//if ships in play now
 			if (tutorialScreen.shipsInPlay.length > 0)
 			{

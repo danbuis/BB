@@ -1064,15 +1064,15 @@ package screens
 						}
 						else if (type == highlightTypes.PLAYER_PLACE)
 						{
-							if (cellToCheck.coordinates.y >= 9)
+							if (cellToCheck.coordinates.y >= 8)
 							{
 								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
 							}
-							else 
+							/*else 
 							{
 								cellToCheck.drawHighlight(false);
-							}
+							}*/
 						}
 					}
 				}

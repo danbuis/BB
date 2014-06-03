@@ -52,6 +52,18 @@ package managers
 			{
 				return "BB";
 			}
+			else if (currentStep == "BB")
+			{
+				return "sub";
+			}
+			else if (currentStep == "sub")
+			{
+				return "DD";
+			}
+			else if (currentStep == "DD")
+			{
+				return "begin";
+			}
 			
 			return "error";
 		}

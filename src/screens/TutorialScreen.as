@@ -13,6 +13,7 @@ package screens
 	import ships.ShipTypes;
 	import ships.Submarine;
 	import ships.TorpedoBoat;
+	import starling.display.Button;
 	import starling.display.Image;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -31,6 +32,7 @@ package screens
 		private var reinforcementMessage:Image = manager.getMessageScreen(4);
 		private var clickHere:Image;
 		private var clickDown:Image = new Image(Assets.getAtlas().getTexture("click_down"));
+		private var clickContinue:Button = new Button(Assets.getAtlas().getTexture("continue"));
 		
 		public function TutorialScreen() 
 		{
@@ -148,7 +150,74 @@ package screens
 				
 				clickDown.visible = false;
 			}
+			else if (thisStep == "fighter2")
+			{
+				this.removeChild(message);
+				message = manager.getMessageScreen(7);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+				
+				clickDown.visible = true;
+				clickDown.x = 220 - clickDown.width / 2;
+			}
+			else if (thisStep == "BB")
+			{
+				this.removeChild(message);
+				message = manager.getMessageScreen(9);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+				
+				
+				clickDown.x = 300 - clickDown.width / 2;
+			}
+			else if (thisStep == "sub")
+			{
+				this.removeChild(message);
+				message = manager.getMessageScreen(8);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+				
+				
+				clickDown.x = 380 - clickDown.width / 2;
+			}
+			else if (thisStep == "DD")
+			{
+				this.removeChild(message);
+				message = manager.getMessageScreen(10);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+				
+				clickDown.visible = false;
+				this.addChild(clickContinue);
+				clickContinue.x = message.x;
+				clickContinue.y = message.y+ message.height;
+				clickContinue.addEventListener(Event.TRIGGERED, onContiue);
+			}
 			
+			
+		}
+		
+		private function onContiue(e:Event):void 
+		{
+			clickContinue.visible = false;
+			
+			this.removeChild(message);
+			message = manager.getMessageScreen(11);
+			message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+			message.y = 100;
+			this.addChild(message);
+				
+			highlightRange(20, shipsInPlay[0], highlightTypes.PLAYER_PLACE);
+			
+			//TODO reset back to original click handler.
+			phase = GamePhase.PLACEMENT_PHASE;
+			
+			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
+			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
 			
 		}
 		
@@ -264,12 +333,52 @@ package screens
 								isAShipSelected = true;
 								selectedShip = gridCellClicked.occupyingShip;
 								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								resetHighlight();
 							}
 							else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType == ShipTypes.CARRIER && selectedShip.shipType == ShipTypes.FIGHTER)
 							{
 								moveShip(selectedShip, gridCellClicked);
 								thisStep = manager.getNextStep(thisStep);
 								updateTutorial();
+							}
+						}
+						else if (thisStep == "fighter2")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType==ShipTypes.BATTLESHIP)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+								return true;
+							}
+						}
+						else if (thisStep == "BB")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType==ShipTypes.SUBMARINE)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+								return true;
+							}
+						}
+						else if (thisStep == "sub")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType==ShipTypes.DESTROYER)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+								return true;
 							}
 						}
 						
