@@ -53,7 +53,7 @@ package ships
 			moved = false;
 			performedAction = false;
 			turnCompleted = false;
-			_location = new Point(0, 0); // TODO: set initial location via constructor
+			_location = new Point(0, 0); 
 			
 			drawShip();
 		}

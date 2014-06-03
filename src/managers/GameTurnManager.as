@@ -102,8 +102,8 @@ package managers
 				return CurrentPlayer.PLAYER;
 			}
 			
-			//if you've gotten here, throw a string and the debugger will grab it.
-			return (playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
+			//if you've gotten here, throw player and move on
+			return CurrentPlayer.PLAYER;
 			
 	
 		}

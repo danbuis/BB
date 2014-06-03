@@ -19,7 +19,6 @@ package screens
 		private var components:Vector.<ShipSelectModule> = new Vector.<ShipSelectModule>();
 		private var index:int = 0;
 		private var startGame:Button;
-		//TODO reset quantities
 		
 		public function BuildFleetScreen() 
 		{
@@ -126,6 +125,15 @@ package screens
 			
 			components.push(module);
 			index++;
+		}
+		
+		public function resetCount():void
+		{
+			for (var i:int = 0; i <= components.length - 1; i++)
+			{
+				components[i].count = 0;
+				components[i].numberText.text = "" + components[i].count;
+			}
 		}
 		
 	}

@@ -36,6 +36,22 @@ package managers
 			{
 				return "reinforcements arrive";
 			}
+			else if (currentStep == "reinforcements arrive")
+			{
+				return "carrier";
+			}
+			else if (currentStep == "carrier")
+			{
+				return "fighter1";
+			}
+			else if (currentStep == "fighter1")
+			{
+				return "fighter2";
+			}
+			else if (currentStep == "fighter2")
+			{
+				return "BB";
+			}
 			
 			return "error";
 		}

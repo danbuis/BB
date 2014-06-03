@@ -9,6 +9,7 @@ package screens
 	import ships.Carrier;
 	import ships.Destroyer;
 	import ships.ShipBase;
+	import ships.ShipTypes;
 	import ships.Submarine;
 	import ships.TorpedoBoat;
 	import starling.display.Image;
@@ -28,6 +29,7 @@ package screens
 		private var message:Image;
 		private var reinforcementMessage:Image = manager.getMessageScreen(4);
 		private var clickHere:Image;
+		private var clickDown:Image = new Image(Assets.getAtlas().getTexture("click_down"));
 		
 		public function TutorialScreen() 
 		{
@@ -120,7 +122,23 @@ package screens
 				placeShip(newDD, 8, 8);
 				pushShip(newDD);
 				resetFog();
+				
+				this.addChild(clickDown);
+				clickDown.x = 140 - clickDown.width / 2;
+				clickDown.y = this.height - 120 - clickDown.height;
 			}
+			
+			else if (thisStep == "carrier")
+			{
+				clickDown.visible = false;
+				this.removeChild(reinforcementMessage);
+				message = manager.getMessageScreen(5);
+				message.x = ((this.width- GUI.width) / 2) - (message.width / 2) ;
+				message.y = 100;
+				this.addChild(message);
+			}
+			
+			
 		}
 		
 		private function onTutorialMoveButtonClick(e:Event):void 
@@ -179,7 +197,7 @@ package screens
 								isAShipSelected = true;
 								selectedShip = gridCellClicked.occupyingShip;
 								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
-			
+								return true;
 							}	
 						}
 						else if (thisStep == "attack enemy")
@@ -192,7 +210,6 @@ package screens
 							}
 							else if (gridCellClicked.occupied && shipFiring)
 							{
-								//TODO kill enemy and move on to next phase of lesson
 								fireShip(selectedShip, gridCellClicked);
 								thisStep = manager.getNextStep(thisStep);
 								utilities.pause(2, updateTutorial);
@@ -202,6 +219,24 @@ package screens
 								//try moving
 								moveShip(selectedShip, gridCellClicked);
 							}
+							return true;
+						}
+						else if (thisStep == "reinforcements arrive")
+						{
+							if (gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType == ShipTypes.CARRIER)
+							{
+								isAShipSelected = true;
+								selectedShip = gridCellClicked.occupyingShip;
+								GUI.updateShipStatus(selectedShip, GamePhase.PLAY_PHASE);
+								
+								thisStep = manager.getNextStep(thisStep);
+								updateTutorial();
+								return true;
+							}
+						}
+						else if (thisStep == "carrier")
+						{
+							
 						}
 						
 					}

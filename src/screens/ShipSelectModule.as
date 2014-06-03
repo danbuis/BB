@@ -20,7 +20,7 @@ package screens
 		private var upButton:Button;
 		private var downButton:Button;
 		private var background:Image;
-		private var numberText:TextField;
+		public var numberText:TextField;
 		
 		public function ShipSelectModule(shipImagePassedIn:ShipBase) 
 		{
@@ -31,7 +31,7 @@ package screens
 			
 			initializeComponent();
 		}
-		// TODO resize
+		
 		private function initializeComponent():void 
 		{
 			background = new Image(Assets.getAtlas().getTexture("GUI/shipSelect_bg"));
@@ -49,7 +49,6 @@ package screens
 			this.addChild(downButton);
 			downButton.addEventListener(Event.TRIGGERED, downButtonTriggered);
 			
-			//TODO #text and related updates
 			Assets.getFont();
 			numberText = new TextField(this.width, 40, ""+count , "ARMY RUST", 30, 0xffffff);
 			numberText.x = 0;
