@@ -34,6 +34,8 @@ package screens
 		private var clickDown:Image = new Image(Assets.getAtlas().getTexture("click_down"));
 		private var clickContinue:Button = new Button(Assets.getAtlas().getTexture("continue"));
 		
+		
+		//TODO reset not working.  look in game, perhaps just construct a new screen...
 		public function TutorialScreen() 
 		{
 			super();
@@ -47,6 +49,8 @@ package screens
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			GUI.switchToPlayPhase();
 			
+			
+			//TODO GUI buttons... not working.  turn off start game until continue
 			GUI.startGameButton.visible = false;
 			GUI.shipCompleteButton.visible = true;
 			GUI.mainMenuButton.visible = true;
@@ -131,6 +135,8 @@ package screens
 				clickDown.y = this.height - 120 - clickDown.height;
 				
 				//add a few enemies
+				
+				//TODO enemies visible above fog, fix
 			var enemyBB:ShipBase = new Battleship(2);
 			placeShip(enemyBB, 1, 0);
 			pushShip(enemyBB);

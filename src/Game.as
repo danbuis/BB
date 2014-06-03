@@ -81,6 +81,8 @@ package
 		
 		private function toBuildFleet(e:BBNavigationEvent):void 
 		{
+			fleetScreen.resetCount();
+			
 			welcomeScreen.hideScreen();
 			gameScreen.hideScreen();
 			fleetScreen.showScreen();

@@ -19,13 +19,11 @@ package screens
 	import ships.Submarine;
 	import ships.TorpedoBoat;
 	import starling.display.Button;
-	import starling.display.Image;
-	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import com.greensock.TweenLite;
+	import starling.text.TextField;
 	
 	/**
 	 * ...
@@ -62,6 +60,8 @@ package screens
 		
 		public var phase:String = GamePhase.PLACEMENT_PHASE;
 		
+		public var winner:TextField;
+		
 		public function GameScreen()
 		{
 			super();
@@ -77,6 +77,11 @@ package screens
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
 			
 			opponent = new AI(this);
+			
+			winner = new TextField(300, 100, "", "ARMY RUST", 70, 0xffffff);
+			winner.x = (this.width - winner.width) / 2;
+			winner.y= (this.height - winner.height) / 2;
+			winner.visible = false;
 			
 			trace("gamescreen initialized");
 		}
@@ -1125,9 +1130,26 @@ package screens
 			whoGetsNextTurn(false);
 		}
 		
-		// TODO add find subs call here...
+		
 		private function whoGetsNextTurn(recoveredFighterThisTurn:Boolean):void
 		{
+			var victor:String = checkForEndGame();
+			if (victor == CurrentPlayer.PLAYER)
+			{
+				winner.visible = true;
+				winner.text = "you win";
+				this.addChild(winner);
+				return;
+			}
+			if (victor == CurrentPlayer.COMPUTER)
+			{
+				winner.visible = true;
+				winner.text = "you lose";
+				this.addChild(winner);
+				return;
+			}
+			
+			
 			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer, recoveredFighterThisTurn);
 			
 			//check for subs to reveal any that might have wandered over into a visible square.  This, along with movement, are the only
@@ -1147,7 +1169,7 @@ package screens
 			{
 				setTurnPriority(CurrentPlayer.COMPUTER)
 				utilities.pause(1, computerTurn);
-				//computerTurn();
+				
 			}
 			else if (nextPlayer == CurrentPlayer.PLAYER)
 			{
@@ -1211,12 +1233,43 @@ package screens
 				}
 			}
 		}
+		
+		private function checkForEndGame():String
+		{
+			//sort ships
+			var playerShips:int = 0;
+			var compShips:int = 0;
+			
+			for (var i:int = 0; i <= shipsInPlay.length - 1; i++)
+			{
+				if (shipsInPlay[i].team == 1)
+				{
+					playerShips++;
+				}
+				else
+				{
+					compShips++;
+				}
+			}
+			
+			if (compShips == 0)
+			{
+				return CurrentPlayer.PLAYER;
+			}
+			if (playerShips == 0)
+			{
+				return(CurrentPlayer.COMPUTER);
+			}
+			
+			return CurrentPlayer.TURN_COMPLETE;
+		}
 	
 		/*resets all variables associated with the game.  Called on exit/enter or other times
 		 * when current info needs to be trashed
 		 * */
 		public function reset():void
 		{
+			//TODO, check if necessary.
 			//rebuild grid from scratch
 			grid = [];
 			initializeGrid();
@@ -1242,7 +1295,9 @@ package screens
 			GUI.switchToPregamePhase();
 		
 			currentPlayer = CurrentPlayer.PLAYER;
-			phase= GamePhase.PLACEMENT_PHASE;
+			phase = GamePhase.PLACEMENT_PHASE;
+			
+			winner.visible = false;
 		}
 		
 		
