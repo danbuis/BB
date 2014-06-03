@@ -129,6 +129,23 @@ package screens
 				this.addChild(clickDown);
 				clickDown.x = 140 - clickDown.width / 2;
 				clickDown.y = this.height - 120 - clickDown.height;
+				
+				//add a few enemies
+			var enemyBB:ShipBase = new Battleship(2);
+			placeShip(enemyBB, 1, 0);
+			pushShip(enemyBB);
+			
+			var enemyTorp:ShipBase = new TorpedoBoat(2);
+			placeShip(enemyTorp, 4, 0);
+			pushShip(enemyTorp);
+			
+			var enemyDD:ShipBase = new Destroyer(2);
+			placeShip(enemyDD, 7, 1);
+			pushShip(enemyDD);
+			
+			var enemyCarrier:ShipBase = new Carrier(2);
+			placeShip(enemyCarrier, 8, 0);
+			pushShip(enemyCarrier);
 			}
 			
 			else if (thisStep == "carrier")
@@ -218,6 +235,8 @@ package screens
 			
 			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
+			
+			
 			
 		}
 		
