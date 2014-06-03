@@ -1271,8 +1271,8 @@ package screens
 		{
 			//TODO, check if necessary.
 			//rebuild grid from scratch
-			grid = [];
-			initializeGrid();
+			//grid = [];
+			//initializeGrid();
 		
 			shipsStarting = new Vector.<ShipBase>();
 			
