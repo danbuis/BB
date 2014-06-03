@@ -2,6 +2,7 @@ package
 {
 //TODO go thorugh all code when done and do Math.floor for all divisions of sprite locaitons
 	import events.BBNavigationEvent;
+	import FGL.GameTracker.GameTracker;
 	import managers.TutorialManager;
 	import screens.BuildFleetScreen;
 	import screens.GameScreen;
@@ -18,6 +19,8 @@ package
 		public var gameScreen:GameScreen;
 		public var fleetScreen:BuildFleetScreen;
 		public var tutorialScreen:TutorialScreen;
+		
+		public var tracker:GameTracker = new GameTracker();
 		
 		public function Game()
 		{

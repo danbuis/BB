@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()">
+	<mx:Script>
+		<![CDATA[
+			import FGL.GameTracker.GameTrackerErrorEvent;
+			import flash.external.ExternalInterface;
+			import FGL.GameTracker.GameTracker;
+			
+			private var tracker:GameTracker = new GameTracker();
+			
+			internal function init():void
+			{
+				tracker.addEventListener(GameTracker.GAMETRACKER_CODING_ERROR, onCodingError);
+				tracker.addEventListener(GameTracker.GAMETRACKER_SERVER_ERROR, onCodingError);
+				//blah.text = 
+			}
+			
+			internal function start_level():void
+			{
+				tracker.beginLevel(1, Number(score.text), state.text);
+			}
+			
+			internal function end_level():void
+			{
+				tracker.endLevel(Number(score.text), state.text);
+			}
+			
+			internal function start_game():void
+			{
+				tracker.beginGame(Number(score.text), state.text);
+			}
+			
+			internal function end_game():void
+			{
+				tracker.endGame(Number(score.text), state.text);
+			}
+			
+			internal function send_alert():void
+			{
+				tracker.alert(Number(score.text), state.text, "This alert has been recorded!");
+			}
+			internal function onCodingError(evt:GameTrackerErrorEvent):void
+			{
+				blah.text = evt._msg;	
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="95.5" y="57" id="blah" text="Error Msgs" width="411" height="75"/>
+	<mx:Button x="95.5" y="165" label="Start Game" click="start_game()"/>
+	<mx:Button x="217.5" y="165" label="End Game" click="end_game()"/>
+	<mx:Button x="95.5" y="223" label="Start Level" click="start_level()"/>
+	<mx:Button x="217.5" y="223" label="End Level" click="end_level()"/>
+	<mx:Label x="361" y="167" text="Score:" width="47"/>
+	<mx:Label x="336" y="193" text="GameState:"/>
+	<mx:TextInput x="416" y="165" width="90.5" id="score" text="0"/>
+	<mx:TextInput x="416" y="191" width="90.5" id="state" text="some state text"/>
+	<mx:Button x="172" y="266" label="Alert" click="send_alert()"/>
+</mx:Application>
