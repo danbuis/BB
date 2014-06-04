@@ -1046,7 +1046,8 @@ package screens
 						else if (type == highlightTypes.BOMBARD)
 						{
 							if (cellToCheck.occupied && cellToCheck.occupyingShip.team != ship.team 
-								&& cellToCheck.occupyingShip.shipType!=ShipTypes.FIGHTER)
+								&& cellToCheck.occupyingShip.shipType != ShipTypes.FIGHTER
+								&& cellToCheck.fog.alpha == 0 )
 							{
 								cellToCheck.drawHighlight(true);
 								returnList.push(cellToCheck);
