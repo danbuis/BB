@@ -670,7 +670,7 @@ package screens
 				//look for submarines on the other team
 				if (shipToCheck.shipType == ShipTypes.SUBMARINE && shipToCheck.team != ship.team)
 				{
-					//TODO copy somewhere that is called at the start of the player's turn.
+					
 					//check if they are close enough
 					var range:Number = shipToCheck.getRangeToSquare(gridCell);
 					trace("Range: " + range);
@@ -955,7 +955,7 @@ package screens
 		}
 		
 		
-		//TODO half alpha for cells in range.  full alpha for cells that are valid
+		
 		/*highlights a section of the grid based on range and the ship that called it.  Used to check movement and shooting
 		 * */
 		
@@ -1119,7 +1119,7 @@ package screens
 			return returnList;
 		}
 		
-		//TODO reset alpha value
+		
 		//turns off all highlights
 		public function resetHighlight():void
 		{

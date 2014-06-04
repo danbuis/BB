@@ -49,11 +49,6 @@ package screens
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			GUI.switchToPlayPhase();
 			
-			
-			//TODO GUI buttons... not working.  turn off start game until continue
-			GUI.startGameButton.visible = false;
-			GUI.shipCompleteButton.visible = true;
-			GUI.mainMenuButton.visible = true;
 		}
 		
 		private function updateTutorial():void 
@@ -420,6 +415,17 @@ package screens
 				}
 			}
 			return false;
+		}
+		
+		public function resetTutorial():void
+		{
+			this.removeChild(message);
+			thisStep = "select torpedo boat";
+		
+			updateTutorial();
+					
+			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandler);
+			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 		}
 	}
 

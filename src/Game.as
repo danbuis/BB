@@ -69,6 +69,7 @@ package
 			if (tutorialScreen.shipsInPlay.length > 0)
 			{
 				tutorialScreen.reset();
+				tutorialScreen.resetTutorial();
 			}
 			
 			//adds ships to game

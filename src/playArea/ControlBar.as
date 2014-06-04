@@ -156,7 +156,7 @@ package playArea
 			mainMenuButton = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
 			mainMenuButton.x = shipCompleteButton.x;
 			mainMenuButton.y = shipCompleteButton.y + mainMenuButton.height + 5;
-			mainMenuButton.visible = false;
+			mainMenuButton.visible = true;
 			this.addChild(mainMenuButton);
 			
 			startGameButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
@@ -262,14 +262,14 @@ package playArea
 		
 		public function switchToPlayPhase():void
 		{
-			mainMenuButton.visible = true;
+			
 			startGameButton.visible = false;
 			shipCompleteButton.visible = true;
 		}
 		
 		public function switchToPregamePhase():void
 		{
-			mainMenuButton.visible = false;
+		
 			startGameButton.visible = true;
 			shipCompleteButton.visible = false;
 		}
