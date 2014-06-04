@@ -36,7 +36,7 @@ package managers
 			}
 			
 			
-			//builds stas for current game standing
+			//builds stats for current game standing
 			var shipToCheck:ShipBase;
 			for (var i:int = shipsInPlay.length - 1; i >= 0; i--)
 			{
@@ -69,6 +69,17 @@ package managers
 			
 			trace(playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
 			//process corner cases
+			
+			//player has no more ships anywhere, so computer wins
+			if (playerRemainingShips == 0 && playerCompletedShips == 0)
+			{
+				return CurrentPlayer.COMPUTER_WINS;
+			}
+			
+			if (computerRemainingShips == 0 && computerCompletedShips == 0)
+			{
+				return CurrentPlayer.PLAYER_WIN;
+			}
 			
 			//turn complete, need to start next one
 			if (playerRemainingShips == 0 && computerRemainingShips == 0)

@@ -681,6 +681,11 @@ package screens
 			
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != ship.team)
 			{
+				if (gridCell.occupied)
+				{
+					damageShip(gridCell.occupyingShip);
+				}
+				
 				if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1 )
 				{
 				shipFiring = false;
@@ -695,10 +700,7 @@ package screens
 				 * 
 				 * therefore added a double check to prevent the problem.
 				 * */
-				if (gridCell.occupied)
-				{
-					damageShip(gridCell.occupyingShip);
-				}
+				
 
 				resetHighlight();
 				
@@ -1151,8 +1153,11 @@ package screens
 		
 		private function whoGetsNextTurn(recoveredFighterThisTurn:Boolean):void
 		{
-			var victor:String = checkForEndGame();
-			if (victor == CurrentPlayer.PLAYER)
+			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer, recoveredFighterThisTurn);
+			GameTracker.api.alert("next player result", 0, nextPlayer);
+			
+			
+			if (nextPlayer==CurrentPlayer.PLAYER_WIN)
 			{
 				winner.visible = true;
 				winner.text = "you win";
@@ -1162,7 +1167,7 @@ package screens
 				
 				return;
 			}
-			if (victor == CurrentPlayer.COMPUTER)
+			if (nextPlayer == CurrentPlayer.COMPUTER_WINS)
 			{
 				winner.visible = true;
 				winner.text = "you lose";
@@ -1174,8 +1179,7 @@ package screens
 			}
 			
 			
-			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer, recoveredFighterThisTurn);
-			GameTracker.api.alert("next player result", 0, nextPlayer);
+			
 			
 			//check for subs to reveal any that might have wandered over into a visible square.  This, along with movement, are the only
 			//time the visible state of the sub can change
@@ -1259,35 +1263,7 @@ package screens
 			}
 		}
 		
-		private function checkForEndGame():String
-		{
-			//sort ships
-			var playerShips:int = 0;
-			var compShips:int = 0;
-			
-			for (var i:int = 0; i <= shipsInPlay.length - 1; i++)
-			{
-				if (shipsInPlay[i].team == 1)
-				{
-					playerShips++;
-				}
-				else
-				{
-					compShips++;
-				}
-			}
-			
-			if (compShips == 0)
-			{
-				return CurrentPlayer.PLAYER;
-			}
-			if (playerShips == 0)
-			{
-				return(CurrentPlayer.COMPUTER);
-			}
-			
-			return CurrentPlayer.TURN_COMPLETE;
-		}
+		
 	
 		/*resets all variables associated with the game.  Called on exit/enter or other times
 		 * when current info needs to be trashed

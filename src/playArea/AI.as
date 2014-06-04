@@ -424,7 +424,7 @@ package playArea
 		
 		private function moveShip(AIship:ShipBase):void 
 		{
-			GameTracker("AI moving");
+			GameTracker.api.alert("AI moving");
 			trace("AI moving");
 			if (AIship.shipType == ShipTypes.FIGHTER)
 			{
