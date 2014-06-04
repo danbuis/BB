@@ -1,6 +1,7 @@
 package screens
 {
 	import events.BBNavigationEvent;
+	import FGL.GameTracker.GameTracker;
 	import flash.geom.Point;
 	import managers.AnimationManager;
 	import managers.GameTurnManager;
@@ -305,6 +306,7 @@ package screens
 					{
 						fighter.currentHP = 0;
 						killShip(fighter);
+						GameTracker.api.alert("fighter out of fuel", fighter.team);
 					}
 				}
 				else if (shipsInPlay[i].shipType == ShipTypes.SUBMARINE)
@@ -371,6 +373,8 @@ package screens
 				var selectedSub:Submarine = selectedShip as Submarine;
 				if (selectedSub.numberOfDivesRemaining > 0)
 				{
+					GameTracker.api.alert("player submerged sub");
+					
 					selectedSub.alpha = 0.2;
 					selectedSub.numberOfDivesRemaining--;
 					selectedSub.submerged = true;
@@ -568,9 +572,13 @@ package screens
 					{
 						var test:int = 0;
 					}
-					
+				
+					trace("attempting fighter recovery for team: " +ship.team);
+					GameTracker.api.alert("attempting fighter recovery", ship.team);
 					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
+						trace("in player block");
+						GameTracker.api.alert("player fighter recovered", selectedShip.team);
 						//housekeeping to reset GUI
 						selectedShip.moved = true;
 						selectedShip.fired = true;
@@ -581,6 +589,7 @@ package screens
 						whoGetsNextTurn(true);
 					}
 					trace("fighter recovered");
+					GameTracker.api.alert("fighter recovered");
 					resetHighlight();
 					
 					resetFog();
@@ -707,10 +716,14 @@ package screens
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
 				trace("bombarding");
+				
+				
+
 				damageShip(gridCell.occupyingShip);
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
+					GameTracker.api.alert("bombarding", selectedShip.team);
 					shipActioning = false;
 					selectedShip.performedAction = true;
 					GUI.updateShipStatus(selectedShip, phase);
@@ -727,6 +740,7 @@ package screens
 		
 		public function AAfire(selectedShip:ShipBase, gridCell:GridCell):void 
 		{
+			
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
 				trace("AAfire");
@@ -736,6 +750,7 @@ package screens
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
+					GameTracker.api.alert("AA fire", selectedShip.team);
 					GUI.updateShipStatus(selectedShip, phase);
 					resetHighlight();
 					isSelectionLocked = true;
@@ -770,8 +785,7 @@ package screens
 			
 			//garbage collection
 			ship.dispose();
-			
-			// TODO:check for win
+		
 		}
 		
 		
@@ -869,7 +883,7 @@ package screens
 		public function launchFighter(launchingCarrier:Carrier, fighter:Fighter, gridCell:GridCell):void 
 		{
 			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
-			pushShip(fighter)
+			pushShip(fighter);
 			
 			resetFog();
 			
@@ -882,6 +896,7 @@ package screens
 				GUI.updateShipStatus(selectedShip, phase);
 				isSelectionLocked = true;
 				updateSelection(false);
+				GameTracker.api.alert("launch fighter", selectedShip.team);
 			}
 							
 			//remove highlights
@@ -1139,6 +1154,9 @@ package screens
 				winner.visible = true;
 				winner.text = "you win";
 				this.addChild(winner);
+				
+				GameTracker.api.alert("win");
+				
 				return;
 			}
 			if (victor == CurrentPlayer.COMPUTER)
@@ -1146,6 +1164,9 @@ package screens
 				winner.visible = true;
 				winner.text = "you lose";
 				this.addChild(winner);
+				
+				GameTracker.api.alert("lose");
+				
 				return;
 			}
 			

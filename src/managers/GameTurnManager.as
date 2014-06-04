@@ -1,5 +1,6 @@
 package managers 
 {
+	import FGL.GameTracker.GameTracker;
 	import playArea.CurrentPlayer;
 	import ships.ShipBase;
 	/**
@@ -103,6 +104,9 @@ package managers
 			}
 			
 			//if you've gotten here, throw player and move on
+			trace("error: "+playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
+			GameTracker.api.customMsg("failed turn manager");
+			GameTracker.api.customMsg(playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
 			return CurrentPlayer.PLAYER;
 			
 	
