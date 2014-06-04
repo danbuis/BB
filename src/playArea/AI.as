@@ -1,5 +1,6 @@
 package playArea 
 {
+	import FGL.GameTracker.GameTracker;
 	import managers.utilities;
 	import screens.GameScreen;
 	import screens.highlightTypes;
@@ -32,6 +33,8 @@ package playArea
 		
 		public function takeTurn():void
 		{
+			
+			
 			shipsAvailable = findShipsToUse();
 			//if there are ships available
 			if (shipsAvailable.length != 0)
@@ -39,7 +42,8 @@ package playArea
 				shipToUse = selectShip();
 			
 				target = selectTarget(shipToUse);
-			
+				GameTracker.api.alert("AI starting using" + shipToUse+"targeting" + target);
+				trace("AI starting using"+shipToUse+"targeting"+target);
 				performActions();
 			}
 		}
@@ -235,6 +239,8 @@ package playArea
 		
 		private function actionShip(ship:ShipBase):void 
 		{
+			GameTracker.api.alert("AI action");
+			trace("AI action");
 			if (ship.shipType == ShipTypes.BATTLESHIP)
 			{
 				battleshipAction(ship);
@@ -393,6 +399,8 @@ package playArea
 		
 		private function fireShip(AIship:ShipBase):void 
 		{
+			GameTracker.api.alert("AI firing");
+			trace("AI firing");
 			var targetCell:GridCell = game.grid[target.location.x][target.location.y];
 			var rangeToTarget:Number = AIship.getRangeToSquare(targetCell);
 
@@ -416,6 +424,8 @@ package playArea
 		
 		private function moveShip(AIship:ShipBase):void 
 		{
+			GameTracker("AI moving");
+			trace("AI moving");
 			if (AIship.shipType == ShipTypes.FIGHTER)
 			{
 				availableCells = game.highlightRange(AIship.movementRange, AIship, highlightTypes.FIGHTER_MOVE);

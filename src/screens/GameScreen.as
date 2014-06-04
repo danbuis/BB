@@ -834,9 +834,10 @@ package screens
 						}
 					}
 					//corner case where a fighter is moving and wants to land on a carrier
-					else if (selectedShip!=null && selectedShip.shipType == ShipTypes.FIGHTER && shipMoving)
+					else if (selectedShip != null && selectedShip.shipType == ShipTypes.FIGHTER && shipMoving
+					&& gridCellClicked.occupied && gridCellClicked.occupyingShip.shipType==ShipTypes.CARRIER)
 					{
-						//will move the ship, potentially onto a carrier
+						//will move the ship onto a carrier
 						moveShip(selectedShip, gridCellClicked);
 					}
 					
