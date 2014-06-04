@@ -286,7 +286,7 @@ package playArea
 				if (submarine.numberOfDivesRemaining > 0)
 				{
 					submarine.submerged = true;
-					submarine.visible = false;
+					submarine.alpha = 0.0;
 					submarine.numberOfDivesRemaining--;
 				}
 			}

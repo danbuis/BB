@@ -3,6 +3,8 @@ package playArea
 	import flash.geom.Point;
 	import managers.AnimationManager;
 	import ships.ShipBase;
+	import ships.ShipTypes;
+	import ships.Submarine;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	
@@ -85,7 +87,27 @@ package playArea
 			AnimationManager.fogChange(0, this);
 			if (occupied)
 			{
-				occupyingShip.visible = true;
+				//don't reveal subs, they have their own calls for revealing.
+				if (occupyingShip.shipType != ShipTypes.SUBMARINE || !(occupyingShip as Submarine).submerged)
+				{
+					occupyingShip.alpha = 1.0;
+				}
+				else
+				{
+					var sub:Submarine = occupyingShip as Submarine;
+					
+					if (sub.submerged)
+					{
+						if (sub.team == 1)
+						{
+							sub.alpha = 0.2;
+						}
+						else
+						{
+							sub.alpha = 0.0;
+						}
+					}
+				}
 			}
 		}
 		
@@ -94,7 +116,7 @@ package playArea
 			AnimationManager.fogChange(1.0, this);
 			if (occupied)
 			{
-				occupyingShip.visible = false;
+				occupyingShip.alpha = 0.0;
 			}
 		}
 		

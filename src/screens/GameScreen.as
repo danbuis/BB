@@ -313,9 +313,15 @@ package screens
 				{
 					var submarine:Submarine = shipsInPlay[i] as Submarine;
 					
-					submarine.submerged = false;
-					submarine.alpha = 1.0;
-					submarine.visible = true;
+					var gridOfSub:GridCell = grid[submarine.location.x][submarine.location.y];
+					
+					if (gridOfSub.fog.alpha == 0)
+					{
+						trace("revealed from turn is complete");
+						submarine.submerged = false;
+						submarine.alpha = 1.0;
+						submarine.visible = true;
+					}
 				}
 			}
 			
@@ -636,6 +642,7 @@ package screens
 				
 				if (ship.shipType == ShipTypes.SUBMARINE || ship.shipType == ShipTypes.DESTROYER)
 				{
+					trace("called at move");
 					checkForRevealedSubs(ship, gridCell);
 				}
 				resetFog();
@@ -650,8 +657,10 @@ package screens
 			}
 		}
 		
+		//ship is ship to use
 		private function checkForRevealedSubs(ship:ShipBase, gridCell:GridCell):void 
 		{
+			trace("checking for subs with "+ship);
 			//look at each ship
 			var shipToCheck:ShipBase;
 			var revealedSub:Submarine;
@@ -663,10 +672,12 @@ package screens
 				{
 					//TODO copy somewhere that is called at the start of the player's turn.
 					//check if they are close enough
-					if (shipToCheck.getRangeToSquare(gridCell) <= 1.6)
+					var range:Number = shipToCheck.getRangeToSquare(gridCell);
+					trace("Range: " + range);
+					if (range <= 1.6)
 					{
+						trace("revealed with " + ship);
 						revealedSub = shipToCheck as Submarine;
-						revealedSub.visible = true;
 						revealedSub.submerged = false;
 						revealedSub.alpha = 1.0;
 					}
@@ -1191,6 +1202,7 @@ package screens
 				
 				if (shipToCheck.shipType == ShipTypes.DESTROYER || shipToCheck.shipType == ShipTypes.SUBMARINE)
 				{
+					trace("called at next turn");
 					checkForRevealedSubs(shipToCheck, grid[shipToCheck.location.x][shipToCheck.location.y]);
 				}
 			}
