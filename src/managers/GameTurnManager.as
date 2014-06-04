@@ -107,7 +107,7 @@ package managers
 			trace("error: "+playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
 			GameTracker.api.customMsg("failed turn manager");
 			GameTracker.api.customMsg(playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished);
-			return CurrentPlayer.PLAYER;
+			return "error: " + playerRemainingShips + ", " + playerCompletedShips + ", " + computerRemainingShips + ", " + computerCompletedShips + " " + playerJustFinished;
 			
 	
 		}

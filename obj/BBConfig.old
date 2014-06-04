@@ -8,15 +8,15 @@
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
-      <value>false</value>
-    </define>
-    <define append="true">
-      <name>CONFIG::release</name>
       <value>true</value>
     </define>
     <define append="true">
+      <name>CONFIG::release</name>
+      <value>false</value>
+    </define>
+    <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'6/3/2014'</value>
+      <value>'6/4/2014'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -30,19 +30,17 @@
       <name>CONFIG::desktop</name>
       <value>false</value>
     </define>
-    <optimize>true</optimize>
-    <omit-trace-statements>true</omit-trace-statements>
-    <verbose-stacktraces>false</verbose-stacktraces>
+    <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Dan\Desktop\BB2\src</path-element>
-      <path-element>C:\Users\Dan\Desktop\BB2\lib\PrimaryFeather-Starling-Framework-v1.4.1-0-g1a50854\PrimaryFeather-Starling-Framework-1a50854\starling\src</path-element>
-      <path-element>C:\Users\Dan\Desktop\BB2\lib\greensock-as3\greensock-as3</path-element>
-      <path-element>C:\Users\Dan\Desktop\BB2\lib\gametracker\src</path-element>
-      <path-element>C:\Users\Dan\Desktop\flashDevelop\Library\AS3\classes</path-element>
+      <path-element>C:\Users\dbuis\Documents\BB\src</path-element>
+      <path-element>C:\Users\dbuis\Documents\BB\lib\PrimaryFeather-Starling-Framework-v1.4.1-0-g1a50854\PrimaryFeather-Starling-Framework-1a50854\starling\src</path-element>
+      <path-element>C:\Users\dbuis\Documents\BB\lib\greensock-as3\greensock-as3</path-element>
+      <path-element>C:\Users\dbuis\Documents\BB\lib\gametracker\src</path-element>
+      <path-element>C:\Users\dbuis\Desktop\FlashDevelop-4.6.1\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Dan\Desktop\BB2\src\Startup.as</path-element>
+    <path-element>C:\Users\dbuis\Documents\BB\src\Startup.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>60</default-frame-rate>

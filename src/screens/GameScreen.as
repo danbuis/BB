@@ -577,8 +577,8 @@ package screens
 					GameTracker.api.alert("attempting fighter recovery", ship.team);
 					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
-						trace("in player block");
-						GameTracker.api.alert("player fighter recovered", selectedShip.team);
+					//	trace("in player block");
+					//	GameTracker.api.alert("player fighter recovered", selectedShip.team);
 						//housekeeping to reset GUI
 						selectedShip.moved = true;
 						selectedShip.fired = true;
@@ -842,6 +842,7 @@ package screens
 					
 					
 					//check if cell has a ship that can be selected
+				
 					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team == 1 && !isSelectionLocked)
 					{
 						//select the ship
@@ -854,6 +855,7 @@ package screens
 					// if cell is not occupied, check if a ship is selected, and figure out what to do with it
 					else if (isAShipSelected && selectedShip!= null)
 					{
+						
 						if (shipMoving)
 						{
 							//will try to move the ship until a valid target selected, or another ship selected
@@ -896,7 +898,7 @@ package screens
 				GUI.updateShipStatus(selectedShip, phase);
 				isSelectionLocked = true;
 				updateSelection(false);
-				GameTracker.api.alert("launch fighter", selectedShip.team);
+				GameTracker.api.alert("launch fighter");
 			}
 							
 			//remove highlights
@@ -1172,6 +1174,7 @@ package screens
 			
 			
 			var nextPlayer:String = gameTurnManager.determineNextPlayer(shipsInPlay, currentPlayer, recoveredFighterThisTurn);
+			GameTracker.api.alert("next player result", 0, nextPlayer);
 			
 			//check for subs to reveal any that might have wandered over into a visible square.  This, along with movement, are the only
 			//time the visible state of the sub can change
