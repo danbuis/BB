@@ -1236,6 +1236,8 @@ package screens
 		private function setTurnPriority(nextPlayer:String):void
 		{
 			currentPlayer = nextPlayer;
+			isSelectionLocked = false;
+			selectedShip = null;
 		}
 		
 		public function resetFog():void
