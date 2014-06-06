@@ -1,6 +1,7 @@
 package playArea 
 {
 	import flash.geom.Point;
+	import managers.AnimationManager;
 	import screens.GamePhase;
 	import ships.Carrier;
 	import ships.Fighter;
@@ -52,6 +53,8 @@ package playArea
 		public var shipCompleteButton:Button;
 		public var startGameButton:Button;
 		public var menuButton:Button;
+		
+		private var fuelAmounts:Vector.<Image> = new Vector.<Image>();
 		
 		private var fuel100:Image;
 		private var fuel89:Image;
@@ -392,6 +395,8 @@ package playArea
 		
 		private function showSubFuel(sub:Submarine):void
 		{
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge);
+			
 			if (sub.numberOfDivesRemaining == 8)
 			{
 				fuel100.visible = true;
@@ -429,6 +434,8 @@ package playArea
 		
 		private function showFighterFuelStatus(fighter:Fighter):void 
 		{
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge);
+			
 			if (fighter.currentEndurance == 3)
 			{
 				fuel100.visible = true;
@@ -441,6 +448,8 @@ package playArea
 			{
 				fuel33.visible = true;
 			}
+			
+			
 		}
 		
 		private function showStoredFighters(carrier:Carrier):void 
@@ -461,6 +470,8 @@ package playArea
 		
 		public function eraseCurrentStatus():void 
 		{
+			AnimationManager.moveFuelPanel(fuelGuageRestX, fuelGauge);
+			
 			battlshipIcon.visible = false;
 			carrierIcon.visible = false;
 			fighterIcon.visible = false;

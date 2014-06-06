@@ -4,6 +4,8 @@ package managers
 	import screens.GamePhase;
 	import ships.ShipBase;
 	import com.greensock.TweenLite;
+	import starling.display.Image;
+	import starling.display.Sprite;
 	/**
 	 * ...
 	 * @author ...
@@ -35,6 +37,13 @@ package managers
 			
 			TweenLite.to(gridCell.fog, timeToChange, { alpha:newAlpha } );
 		}
+		
+		public static function moveFuelPanel(newX:int, fuelPanel:Image):void
+		{
+			TweenLite.to(fuelPanel, 0.65, { x:newX } );
+			//TODO fuel amount
+		}
+		
 		
 	}
 
