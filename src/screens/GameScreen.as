@@ -231,8 +231,6 @@ package screens
 			
 			GUI = new ControlBar();
 			this.addChild(GUI);
-			GUI.x = backgroundImage.width - GUI.width;
-			GUI.y = 0;
 			addGUIEventHandlers();
 		
 		}
@@ -249,14 +247,14 @@ package screens
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
 			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
 			GUI.startGameButton.addEventListener(Event.TRIGGERED, onStartGameButtonClick);
-			GUI.mainMenuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
+			GUI.menuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
 		}
 		
 		private function onMainMenuButtonClick(e:Event):void 
 		{
 			var buttonClicked:Button = e.target as Button;
 			
-			if (buttonClicked == GUI.mainMenuButton)
+			if (buttonClicked == GUI.menuButton)
 			{
 				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
 			}

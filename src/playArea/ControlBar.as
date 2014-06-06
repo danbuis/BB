@@ -19,9 +19,13 @@ package playArea
 	public class ControlBar extends Sprite 
 	{
 		
-		private var backgroundImage:Image;
+		private var lower_GUI:Image;
+		private var upper_GUI:Image;
 		// TODO, use...
 		private var iconOrigin:Point;
+		
+		private var friendlyIconMask:Image;
+		private var enemyIconMask:Image;
 		
 		private var battlshipIcon:Image;
 		private var carrierIcon:Image;
@@ -47,7 +51,7 @@ package playArea
 		
 		public var shipCompleteButton:Button;
 		public var startGameButton:Button;
-		public var mainMenuButton:Button;
+		public var menuButton:Button;
 		
 		private var fuel100:Image;
 		private var fuel89:Image;
@@ -60,6 +64,11 @@ package playArea
 		private var fuel25:Image;
 		private var fuel13:Image;
 		
+		private var fuelGauge:Image;
+		private var fuelGuageRestX:int = 650;
+		
+		
+		
 		
 		public function ControlBar() 
 		{
@@ -70,8 +79,33 @@ package playArea
 		
 		private function initializeGUI():void 
 		{
-			backgroundImage = new Image(Assets.getAtlas().getTexture("GUI/GUI_background"));
-			this.addChild(backgroundImage);
+			//large panels
+			upper_GUI = new Image(Assets.getAtlas().getTexture("GUI/upper_GUI"));
+			upper_GUI.x = 640 - upper_GUI.width;
+			this.addChild(upper_GUI);
+			
+			lower_GUI = new Image(Assets.getAtlas().getTexture("GUI/lower_GUI"));
+			lower_GUI.x = 640 - lower_GUI.width;
+			lower_GUI.y = 480 - lower_GUI.height;
+			this.addChild(lower_GUI);
+			
+			fuelGauge = new Image(Assets.getAtlas().getTexture("GUI/fuel_panel"));
+			fuelGauge.x = fuelGuageRestX;
+			fuelGauge.y = 96;
+			this.addChild(fuelGauge);
+			
+			//masks
+			friendlyIconMask = new Image(Assets.getAtlas().getTexture("GUI/blue_screen"));
+			friendlyIconMask.x = 570;
+			friendlyIconMask.y = 350;
+			friendlyIconMask.visible = false;
+			this.addChild(friendlyIconMask);
+			
+			enemyIconMask = new Image(Assets.getAtlas().getTexture("GUI/red_screen"));
+			enemyIconMask.x = 570;
+			enemyIconMask.y = 350;
+			enemyIconMask.visible = false;
+			this.addChild(enemyIconMask);
 			
 			//initialize icons
 			battlshipIcon = new Image(Assets.getAtlas().getTexture("GUI/BB_icon"));
@@ -94,19 +128,19 @@ package playArea
 			
 			//initialize buttons
 			moveButton = new Button(Assets.getAtlas().getTexture("Buttons/move_button"));
-			moveButton.x = backgroundImage.width * 0.2
+			moveButton.x = lower_GUI.width * 0.2
 			moveButton.y = 240;
 			moveButton.visible = false;
 			this.addChild(moveButton);
 			
 			fireButton = new Button(Assets.getAtlas().getTexture("Buttons/fire_button"));
-			fireButton.x = backgroundImage.width * 0.5
+			fireButton.x = lower_GUI.width * 0.5
 			fireButton.y = moveButton.y;
 			fireButton.visible = false;
 			this.addChild(fireButton);
 			
 			bombardButton = new Button(Assets.getAtlas().getTexture("Buttons/bombard_button"));
-			bombardButton.x = backgroundImage.width * 0.8
+			bombardButton.x = lower_GUI.width * 0.8
 			bombardButton.y = moveButton.y;
 			bombardButton.visible = false;
 			this.addChild(bombardButton);
@@ -153,11 +187,10 @@ package playArea
 			shipCompleteButton.visible = false;
 			this.addChild(shipCompleteButton);
 			
-			mainMenuButton = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
-			mainMenuButton.x = shipCompleteButton.x;
-			mainMenuButton.y = shipCompleteButton.y + mainMenuButton.height + 5;
-			mainMenuButton.visible = true;
-			this.addChild(mainMenuButton);
+			menuButton = new Button(Assets.getAtlas().getTexture("Buttons/menu_button"));
+			menuButton.x = 560;
+			menuButton.y = 5;
+			this.addChild(menuButton);
 			
 			startGameButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
 			startGameButton.x = shipCompleteButton.x;
@@ -168,14 +201,14 @@ package playArea
 			
 			//initialize text fields
 			Assets.getFont();
-			shipType = new TextField(this.width, 100, "", "ARMY RUST", 30, 0xffffff);
-			shipType.x = 0;
-			shipType.y = 30;
+			shipType = new TextField(150, 38, "", "ARMY RUST", 30, 0xffffff);
+			shipType.x = 406;
+			shipType.y = 448;
 			this.addChild(shipType);
 			
-			shipHealth = new TextField(this.width, 50, "", "ARMY RUST", 30, 0xffffff);
-			shipHealth.x = 0;
-			shipHealth.y = 200;
+			shipHealth = new TextField(60, 38, "", "ARMY RUST", 30, 0xffffff);
+			shipHealth.x = 570;
+			shipHealth.y = 448;
 			this.addChild(shipHealth);
 		
 			//initialize fuel indicators
@@ -335,6 +368,15 @@ package playArea
 			
 			shipType.text = ship.shipType;
 			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			if (ship.team == 1)
+			{
+				friendlyIconMask.visible = true;
+			}
+			else 
+			{
+				enemyIconMask.visible = true;	
+			}
 			
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
 			{
