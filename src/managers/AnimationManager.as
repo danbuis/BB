@@ -25,7 +25,7 @@ package managers
 			//move faster during initial.
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
 			{
-				moveTime / 2.0;
+				moveTime /= 2.0;
 			}
 			TweenLite.to(ship, moveTime, { x:newX, y:newY } );
 		}

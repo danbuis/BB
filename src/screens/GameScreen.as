@@ -1167,6 +1167,9 @@ package screens
 			GameTracker.api.alert("next player result", 0, nextPlayer);
 			
 			
+		//change GUI light
+		GUI.changePlayerIndicatorLight(nextPlayer);
+			
 			if (nextPlayer==CurrentPlayer.PLAYER_WIN)
 			{
 				winner.visible = true;

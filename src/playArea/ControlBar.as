@@ -22,8 +22,9 @@ package playArea
 		
 		private var lower_GUI:Image;
 		private var upper_GUI:Image;
-		// TODO, use...
-		private var iconOrigin:Point;
+
+		private var iconX:int = 575;
+		private var iconY:int = 355;
 		
 		private var friendlyIconMask:Image;
 		private var enemyIconMask:Image;
@@ -70,6 +71,12 @@ package playArea
 		private var fuelGauge:Image;
 		private var fuelGuageRestX:int = 650;
 		
+		private var verticalOffset:int = 34;
+		private var sideHorizontalOffset:int = 29;
+		private var sideVerticalOffset:int =  17;
+		
+		private var playerLight:Image;
+		private var computerLight:Image;
 		
 		
 		
@@ -97,6 +104,19 @@ package playArea
 			fuelGauge.y = 96;
 			this.addChild(fuelGauge);
 			
+			playerLight = new Image(Assets.getAtlas().getTexture("GUI/green_light"));
+			playerLight.x = 364;
+			playerLight.y = 445;
+			playerLight.visible = false;
+			
+			computerLight = new Image(Assets.getAtlas().getTexture("GUI/red_light"));
+			computerLight.x = playerLight.x;
+			computerLight.y = playerLight.y;
+			computerLight.visible = false;
+			
+			this.addChild(computerLight);
+			this.addChild(playerLight);
+			
 			//masks
 			friendlyIconMask = new Image(Assets.getAtlas().getTexture("GUI/blue_screen"));
 			friendlyIconMask.x = 570;
@@ -113,20 +133,20 @@ package playArea
 			//initialize icons
 			battlshipIcon = new Image(Assets.getAtlas().getTexture("GUI/BB_icon"));
 			battlshipIcon.visible = false;
-			battlshipIcon.x = this.width / 2 - battlshipIcon.width / 2;
-			battlshipIcon.y = 100;
+			battlshipIcon.x = iconX
+			battlshipIcon.y = iconY;
 			this.addChild(battlshipIcon);
 			
 			carrierIcon = new Image(Assets.getAtlas().getTexture("GUI/carrier_icon"));
 			carrierIcon.visible = false;
-			carrierIcon.x = this.width / 2 - carrierIcon.width / 2;
-			carrierIcon.y = 100;
+			carrierIcon.x = iconX;
+			carrierIcon.y = iconY;
 			this.addChild(carrierIcon);
 			
 			fighterIcon = new Image(Assets.getAtlas().getTexture("GUI/fighter_icon"));
 			fighterIcon.visible = false;
-			fighterIcon.x = this.width / 2 - fighterIcon.width / 2;
-			fighterIcon.y = 100;
+			fighterIcon.x = iconX;
+			fighterIcon.y = iconY;
 			this.addChild(fighterIcon);
 			
 			//initialize buttons
@@ -301,6 +321,7 @@ package playArea
 			
 			startGameButton.visible = false;
 			shipCompleteButton.visible = true;
+			playerLight.visible = true;
 		}
 		
 		public function switchToPregamePhase():void
@@ -308,6 +329,23 @@ package playArea
 		
 			startGameButton.visible = true;
 			shipCompleteButton.visible = false;
+			playerLight.visible = false;
+			computerLight.visible = false;
+		}
+		
+		public function changePlayerIndicatorLight(newPlayer:String):void
+		{
+			playerLight.visible = false;
+			computerLight.visible = false;
+			
+			if (newPlayer == CurrentPlayer.COMPUTER)
+			{
+				computerLight.visible = true;
+			}
+			else
+			{
+				playerLight.visible = true;
+			}
 		}
 		
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
@@ -369,6 +407,8 @@ package playArea
 				actionButtonMask.visible = true;
 			}
 			
+			locateShipButtons(ship);
+			
 			shipType.text = ship.shipType;
 			shipHealth.text = ("HP :" + ship.currentHP);
 			
@@ -391,6 +431,48 @@ package playArea
 				submergeButton.visible = false;
 			}
 			
+		}
+		
+		private function locateShipButtons(ship:ShipBase):void 
+		{
+			var centerX:int = ship.x + (ship.width / 2);
+			var centerY:int = ship.y + (ship.height / 2);
+			
+			var buttonOffset:int = moveButton.height / 2;
+			
+			moveButton.x = centerX - buttonOffset;
+			moveButton.y = centerY + verticalOffset - buttonOffset;
+			moveButtonMask.x = moveButton.x;
+			moveButtonMask.y = moveButton.y;
+			
+			fireButton.x = centerX -sideHorizontalOffset - buttonOffset;
+			fireButton.y = centerY + sideVerticalOffset - buttonOffset;
+			fireButtonMask.x = fireButton.x;
+			fireButtonMask.y = fireButton.y;
+			
+			var actionButton:Button;
+			
+			if (ship.shipType == ShipTypes.CARRIER)
+			{
+				actionButton = launchFighterButton;
+			}
+			else if (ship.shipType == ShipTypes.BATTLESHIP)
+			{
+				actionButton = bombardButton;
+			}
+			else if (ship.shipType == ShipTypes.SUBMARINE)
+			{
+				actionButton = submergeButton;
+			}
+			else if (ship.shipType == ShipTypes.DESTROYER||ship.shipType==ShipTypes.TORPEDO_BOAT||ship.shipType==ShipTypes.FIGHTER)
+			{
+				actionButton = AAfireButton;
+			}
+			
+			actionButton.x = centerX + sideHorizontalOffset - buttonOffset;
+			actionButton.y = centerY + sideVerticalOffset - buttonOffset;
+			actionButtonMask.x = actionButton.x;
+			actionButtonMask.y = actionButton.y;
 		}
 		
 		private function showSubFuel(sub:Submarine):void
