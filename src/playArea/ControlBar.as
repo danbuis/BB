@@ -20,7 +20,7 @@ package playArea
 	public class ControlBar extends Sprite 
 	{
 		
-		private var lower_GUI:Image;
+		public var lower_GUI:Image;
 		private var upper_GUI:Image;
 
 		private var iconX:int = 575;
@@ -357,6 +357,7 @@ package playArea
 			}
 		}
 		
+		//TODO grab information from around ship to determine button placement, perhaps an array of surrounding ships...
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
@@ -487,7 +488,7 @@ package playArea
 		private function showSubFuel(sub:Submarine):void
 		{
 			
-			
+			//TODO sub fuel update at end of turn, not ship complete
 			if (sub.numberOfDivesRemaining == 8)
 			{
 				fuel100.visible = true;

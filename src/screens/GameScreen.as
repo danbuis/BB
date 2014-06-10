@@ -77,6 +77,9 @@ package screens
 			backgroundImage.touchable = true;
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
 			
+			GUI.lower_GUI.touchable = true;
+			GUI.lower_GUI.addEventListener(TouchEvent.TOUCH, clickHandler);
+			
 			opponent = new AI(this);
 			
 			winner = new TextField(300, 100, "", "ARMY RUST", 70, 0xffffff);
@@ -245,7 +248,6 @@ package screens
 			GUI.submergeButton.addEventListener(Event.TRIGGERED, onSubmergeButtonClick);
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
-			//GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
 			GUI.doneButton.addEventListener(Event.TRIGGERED, onDoneButtonClick);
 			GUI.menuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
 		}
@@ -347,21 +349,6 @@ package screens
 			//reset GUI
 			GUI.eraseCurrentStatus();
 			
-		}
-		
-		//method called if player decides to skip some actions available
-		private function onShipCompleteButtonClick(e:Event):void 
-		{
-			if (selectedShip != null && phase==GamePhase.PLAY_PHASE)
-			{
-				selectedShip.fired = true;
-				selectedShip.moved = true;
-				selectedShip.performedAction = true;
-			
-				updateSelection(false);
-				GUI.eraseCurrentStatus();
-				 resetHighlight();
-			}
 		}
 		
 		private function onLaunchFighterButtonClick(e:Event):void 
@@ -958,7 +945,7 @@ package screens
 			var returnY:int = Math.floor((y - gridOrigin.y) / gridSpacing);
 			
 			//check min and max
-			if (returnX < 10 && returnY < 10 && returnX >= 0 && returnY >= 0)
+			if (returnX < gridWidth && returnY < gridHeight && returnX >= 0 && returnY >= 0)
 			{
 				return grid[returnX][returnY];
 			}

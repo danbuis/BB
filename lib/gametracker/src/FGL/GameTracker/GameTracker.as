@@ -101,7 +101,7 @@ package FGL.GameTracker
 	public class GameTracker extends EventDispatcher
 	{
 		// you can catch this to get information about errors. It sends a GameTrackerErrorEvent as its event type! That object's _msg param is an English error message
-		// FIXME: should be exceptions?
+		// 
 		public static const GAMETRACKER_SERVER_ERROR:String = "gametracker_server_error";
 		public static const GAMETRACKER_CODING_ERROR:String = "gametracker_coding_error";
 		

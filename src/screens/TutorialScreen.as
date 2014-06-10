@@ -233,7 +233,6 @@ package screens
 				
 			highlightRange(20, shipsInPlay[0], highlightTypes.PLAYER_PLACE);
 			
-			//TODO reset back to original click handler.
 			phase = GamePhase.PLACEMENT_PHASE;
 			
 			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
