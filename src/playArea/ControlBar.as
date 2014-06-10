@@ -52,8 +52,7 @@ package playArea
 		private var storedFighter3:Image;
 		private var fighterPanel:Image;
 		
-		public var shipCompleteButton:Button;
-		public var startGameButton:Button;
+		public var doneButton:Button;
 		public var menuButton:Button;
 		
 		private var currentFuel:Image;
@@ -216,21 +215,17 @@ package playArea
 			actionButtonMask.visible = false;
 			this.addChild(actionButtonMask);
 			
-			shipCompleteButton = new Button(Assets.getAtlas().getTexture("Buttons/shipComplete_Button"));
-			shipCompleteButton.x = this.width / 2 - shipCompleteButton.width / 2;
-			shipCompleteButton.y = 400;
-			shipCompleteButton.visible = false;
-			this.addChild(shipCompleteButton);
+			
 			
 			menuButton = new Button(Assets.getAtlas().getTexture("Buttons/menu_button"));
 			menuButton.x = 560;
 			menuButton.y = 5;
 			this.addChild(menuButton);
 			
-			startGameButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
-			startGameButton.x = shipCompleteButton.x;
-			startGameButton.y = shipCompleteButton.y;
-			this.addChild(startGameButton);
+			doneButton = new Button(Assets.getAtlas().getTexture("GUI/done_up"), "",Assets.getAtlas().getTexture("GUI/done_down") );
+			doneButton.x = 5;
+			doneButton.y = 480 - doneButton.height;
+			this.addChild(doneButton);
 			
 			
 			
@@ -331,16 +326,11 @@ package playArea
 		public function switchToPlayPhase():void
 		{
 			
-			startGameButton.visible = false;
-			shipCompleteButton.visible = true;
 			playerLight.visible = true;
 		}
 		
 		public function switchToPregamePhase():void
 		{
-		
-			startGameButton.visible = true;
-			shipCompleteButton.visible = false;
 			playerLight.visible = false;
 			computerLight.visible = false;
 			neutralLight.visible = true;
@@ -398,7 +388,7 @@ package playArea
 				AAfireButton.visible = true;
 				
 			}
-			else if (ship.shipType == ShipTypes.TORPEDO_BOAT)
+			else if (ship.shipType == ShipTypes.PATROL_BOAT)
 			{
 				moveButton.visible = true;
 				fireButton.visible = true;
@@ -482,7 +472,7 @@ package playArea
 			{
 				actionButton = submergeButton;
 			}
-			else if (ship.shipType == ShipTypes.DESTROYER||ship.shipType==ShipTypes.TORPEDO_BOAT||ship.shipType==ShipTypes.FIGHTER)
+			else if (ship.shipType == ShipTypes.DESTROYER||ship.shipType==ShipTypes.PATROL_BOAT||ship.shipType==ShipTypes.FIGHTER)
 			{
 				actionButton = AAfireButton;
 			}

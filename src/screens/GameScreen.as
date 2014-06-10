@@ -18,7 +18,7 @@ package screens
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import ships.Submarine;
-	import ships.TorpedoBoat;
+	import ships.PatrolBoat;
 	import starling.display.Button;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -131,7 +131,7 @@ package screens
 					}
 					else if (index == 4)
 					{
-						shipToAdd = new TorpedoBoat(1);
+						shipToAdd = new PatrolBoat(1);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
@@ -166,7 +166,7 @@ package screens
 					}
 					if (index == 9)
 					{
-						shipToAdd = new TorpedoBoat(2);
+						shipToAdd = new PatrolBoat(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
@@ -245,8 +245,8 @@ package screens
 			GUI.submergeButton.addEventListener(Event.TRIGGERED, onSubmergeButtonClick);
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
-			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
-			GUI.startGameButton.addEventListener(Event.TRIGGERED, onStartGameButtonClick);
+			//GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
+			GUI.doneButton.addEventListener(Event.TRIGGERED, onDoneButtonClick);
 			GUI.menuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
 		}
 		
@@ -277,12 +277,28 @@ package screens
 		}
 		
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
-		public function onStartGameButtonClick(e:Event):void 
+		public function onDoneButtonClick(e:Event):void 
 		{
-			phase = GamePhase.PLAY_PHASE;
-			GUI.switchToPlayPhase();
-			resetHighlight()
-			turnIsComplete();
+			if (phase == GamePhase.PLACEMENT_PHASE)
+			{
+				phase = GamePhase.PLAY_PHASE;
+				GUI.switchToPlayPhase();
+				resetHighlight()
+				turnIsComplete();
+			}
+			else
+			{
+				if (selectedShip != null && phase==GamePhase.PLAY_PHASE)
+				{
+					selectedShip.fired = true;
+					selectedShip.moved = true;
+					selectedShip.performedAction = true;
+			
+					updateSelection(false);
+					GUI.eraseCurrentStatus();
+					resetHighlight();
+				}
+			}
 		}
 		
 		private function turnIsComplete():void 

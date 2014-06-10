@@ -12,7 +12,7 @@ package screens
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import ships.Submarine;
-	import ships.TorpedoBoat;
+	import ships.PatrolBoat;
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.events.Event;
@@ -82,7 +82,7 @@ package screens
 				this.addChild(clickHere);
 				
 				var newShip:ShipBase;
-				newShip = new TorpedoBoat(2);
+				newShip = new PatrolBoat(2);
 				placeShip(newShip, 4, 0);
 				pushShip(newShip);
 				resetFog();
@@ -109,7 +109,7 @@ package screens
 			placeShip(enemyBB, 1, 0);
 			pushShip(enemyBB);
 			
-			var enemyTorp:ShipBase = new TorpedoBoat(2);
+			var enemyTorp:ShipBase = new PatrolBoat(2);
 			placeShip(enemyTorp, 4, 0);
 			pushShip(enemyTorp);
 			
@@ -239,7 +239,7 @@ package screens
 			backgroundImage.removeEventListener(TouchEvent.TOUCH, clickHandlerTutorial);
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
 			
-			GUI.startGameButton.addEventListener(Event.TRIGGERED, onTutorialStart);
+			GUI.doneButton.addEventListener(Event.TRIGGERED, onTutorialStart);
 			
 		}
 		
