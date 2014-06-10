@@ -353,6 +353,7 @@ package playArea
 			else 
 			{
 				neutralLight.visible = true;
+				
 			}
 		}
 		
