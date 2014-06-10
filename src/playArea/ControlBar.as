@@ -50,12 +50,13 @@ package playArea
 		private var storedFighter1:Image;
 		private var storedFighter2:Image;
 		private var storedFighter3:Image;
+		private var fighterPanel:Image;
 		
 		public var shipCompleteButton:Button;
 		public var startGameButton:Button;
 		public var menuButton:Button;
 		
-		private var fuelAmounts:Vector.<Image> = new Vector.<Image>();
+		private var currentFuel:Image;
 		
 		private var fuel100:Image;
 		private var fuel89:Image;
@@ -77,6 +78,7 @@ package playArea
 		
 		private var playerLight:Image;
 		private var computerLight:Image;
+		private var neutralLight:Image;
 		
 		
 		
@@ -104,6 +106,11 @@ package playArea
 			fuelGauge.y = 96;
 			this.addChild(fuelGauge);
 			
+			fighterPanel = new Image(Assets.getAtlas().getTexture("GUI/fighter_panel"));
+			fighterPanel.x = fuelGuageRestX;
+			fighterPanel.y = 61;
+			this.addChild(fighterPanel);
+			
 			playerLight = new Image(Assets.getAtlas().getTexture("GUI/green_light"));
 			playerLight.x = 364;
 			playerLight.y = 445;
@@ -114,8 +121,13 @@ package playArea
 			computerLight.y = playerLight.y;
 			computerLight.visible = false;
 			
+			neutralLight = new Image(Assets.getAtlas().getTexture("GUI/yellow_light"));
+			neutralLight.x = playerLight.x;
+			neutralLight.y = playerLight.y;
+			
 			this.addChild(computerLight);
 			this.addChild(playerLight);
+			this.addChild(neutralLight);
 			
 			//masks
 			friendlyIconMask = new Image(Assets.getAtlas().getTexture("GUI/blue_screen"));
@@ -236,8 +248,8 @@ package playArea
 		
 			//initialize fuel indicators
 			fuel100 = new Image(Assets.getAtlas().getTexture("GUI/fuel_100"));
-			fuel100.x = 6;
-			fuel100.y = 300;
+			fuel100.x = fuelGuageRestX + 43;
+			fuel100.y = 107;
 			fuel100.visible = false;
 			this.addChild(fuel100);
 			
@@ -297,20 +309,20 @@ package playArea
 			
 			//initialize random stuff
 			storedFighter1 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter1.x = 6;
-			storedFighter1.y = 300;
+			storedFighter1.x = fuelGuageRestX+43;
+			storedFighter1.y = 124;
 			storedFighter1.visible = false;
 			this.addChild(storedFighter1);
 			
 			storedFighter2 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter2.x = 6+storedFighter1.width;
-			storedFighter2.y = 300;
+			storedFighter2.x = storedFighter1.x;
+			storedFighter2.y = 189;
 			storedFighter2.visible = false;
 			this.addChild(storedFighter2);
 			
 			storedFighter3 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter3.x = 6+(2*storedFighter1.width);
-			storedFighter3.y = 300;
+			storedFighter3.x = storedFighter1.x;
+			storedFighter3.y = 254;
 			storedFighter3.visible = false;
 			this.addChild(storedFighter3);
 			
@@ -331,20 +343,26 @@ package playArea
 			shipCompleteButton.visible = false;
 			playerLight.visible = false;
 			computerLight.visible = false;
+			neutralLight.visible = true;
 		}
 		
 		public function changePlayerIndicatorLight(newPlayer:String):void
 		{
 			playerLight.visible = false;
 			computerLight.visible = false;
+			neutralLight.visible = false;
 			
 			if (newPlayer == CurrentPlayer.COMPUTER)
 			{
 				computerLight.visible = true;
 			}
-			else
+			else if (newPlayer==CurrentPlayer.PLAYER)
 			{
 				playerLight.visible = true;
+			}
+			else 
+			{
+				neutralLight.visible = true;
 			}
 		}
 		
@@ -477,59 +495,74 @@ package playArea
 		
 		private function showSubFuel(sub:Submarine):void
 		{
-			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge);
+			
 			
 			if (sub.numberOfDivesRemaining == 8)
 			{
 				fuel100.visible = true;
+				currentFuel = fuel100;
 			}
 			else if (sub.numberOfDivesRemaining == 7)
 			{
 				fuel89.visible = true;
+				currentFuel = fuel89;
 			}
 			
 			else if (sub.numberOfDivesRemaining == 6)
 			{
 				fuel75.visible = true;
+				currentFuel = fuel75;
 			}
 			else if (sub.numberOfDivesRemaining == 5)
 			{
 				fuel63.visible = true;
+				currentFuel = fuel63
 			}
 			else if (sub.numberOfDivesRemaining == 4)
 			{
 				fuel50.visible = true;
+				currentFuel = fuel50;
 			}
 			else if (sub.numberOfDivesRemaining == 3)
 			{
 				fuel38.visible = true;
+				currentFuel = fuel38;
 			}
 			else if (sub.numberOfDivesRemaining == 2)
 			{
 				fuel25.visible = true;
+				currentFuel = fuel25;
 			}
 			else if (sub.numberOfDivesRemaining == 1)
 			{
 				fuel13.visible = true;
+				currentFuel = fuel13;
 			}
+			
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge, currentFuel);
 		}
 		
 		private function showFighterFuelStatus(fighter:Fighter):void 
 		{
-			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge);
+			
 			
 			if (fighter.currentEndurance == 3)
 			{
 				fuel100.visible = true;
+				currentFuel = fuel100;
 			}
 			else if (fighter.currentEndurance == 2)
 			{
 				fuel66.visible = true;
+				currentFuel = fuel66;
 			}
 			else if (fighter.currentEndurance == 1)
 			{
 				fuel33.visible = true;
+				currentFuel = fuel33;
 			}
+			
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge, currentFuel);
 			
 			
 		}
@@ -548,11 +581,18 @@ package playArea
 			{
 				storedFighter3.visible = true;
 			}
+			
+			AnimationManager.moveFighterPanel(640 - fighterPanel.width, fighterPanel, carrier.fighterSquadrons, storedFighter1, storedFighter2, storedFighter3);
 		}
 		
 		public function eraseCurrentStatus():void 
 		{
-			AnimationManager.moveFuelPanel(fuelGuageRestX, fuelGauge);
+			if (currentFuel != null)
+			{
+				AnimationManager.moveFuelPanel(fuelGuageRestX, fuelGauge, currentFuel);
+			}
+			
+			AnimationManager.moveFighterPanel(fuelGuageRestX, fighterPanel, 3, storedFighter1, storedFighter2, storedFighter3);
 			
 			battlshipIcon.visible = false;
 			carrierIcon.visible = false;
@@ -586,6 +626,7 @@ package playArea
 			fuel33.visible = false;
 			fuel25.visible = false;
 			fuel13.visible = false;
+			currentFuel = null;
 			
 		}
 		

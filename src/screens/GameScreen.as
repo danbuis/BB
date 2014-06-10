@@ -36,7 +36,7 @@ package screens
 		
 		// grid information, uses center of grid cell
 		public var grid:Array = [];
-		private var gridWidth:int = 10;
+		private var gridWidth:int = 13;
 		private var gridHeight:int = 10;
 		public var gridOrigin:Point = new Point(40, 40);
 		public var gridSpacing:int = 40;
