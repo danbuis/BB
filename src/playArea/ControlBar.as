@@ -118,7 +118,7 @@ package playArea
 			
 			restartGameButton = new Button(Assets.getAtlas().getTexture("Buttons/restart_button"));
 			restartGameButton.x = returnToMainMenu.x;
-			restartGameButton.y = 320;
+			restartGameButton.y = 300;
 			restartGameButton.visible = false;
 			this.addChild(restartGameButton);
 			//TODO
@@ -425,6 +425,26 @@ package playArea
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
+			
+			//start with basics
+			shipType.text = ship.shipType;
+			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			if (ship.team == 1)
+			{
+				friendlyIconMask.visible = true;
+			}
+			else 
+			{
+				enemyIconMask.visible = true;	
+			}
+			
+			//if not your ship, break, rest of update has to do with player commands
+			if (ship.team != 1)
+			{
+				return;
+			}
+			
 			if (ship.shipType == ShipTypes.BATTLESHIP)
 			{
 				battlshipIcon.visible = true;
@@ -439,6 +459,10 @@ package playArea
 				fireButton.visible = true;
 				launchFighterButton.visible = true;
 				showStoredFighters(ship as Carrier);
+				if ((ship as Carrier).fighterSquadrons == 0)
+				{
+					actionButtonMask.visible = true;
+				}
 			}
 			else if (ship.shipType == ShipTypes.SUBMARINE)
 			{
@@ -482,18 +506,6 @@ package playArea
 			}
 			
 			locateShipButtons(ship);
-			
-			shipType.text = ship.shipType;
-			shipHealth.text = ("HP :" + ship.currentHP);
-			
-			if (ship.team == 1)
-			{
-				friendlyIconMask.visible = true;
-			}
-			else 
-			{
-				enemyIconMask.visible = true;	
-			}
 			
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
 			{
