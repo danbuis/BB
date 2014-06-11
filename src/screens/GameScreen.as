@@ -232,7 +232,7 @@ package screens
 			backgroundImage = new GameGrid();
 			this.addChild(backgroundImage);
 			
-			GUI = new ControlBar();
+			GUI = new ControlBar(this);
 			this.addChild(GUI);
 			addGUIEventHandlers();
 		
@@ -860,7 +860,7 @@ package screens
 					//else if occupied by enemy ship
 					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team != 1 && !shipActioning && !shipFiring)
 					{
-						GUI.updateShipStatus(gridCellClicked.occupyingShip, GamePhase.PLACEMENT_PHASE);
+						GUI.displayEnemyStatus(gridCellClicked.occupyingShip);
 						resetHighlight();
 					}
 					
@@ -1319,6 +1319,97 @@ package screens
 		
 		
 		// TODO: Restart function, using the current initial ship set
+		
+		public function restart():void
+		{
+			//store starting ships
+			var shipsToRestartWith:Vector.<ShipBase> = shipsStarting;
+			
+			reset();
+			
+			shipsInPlay = shipsToRestartWith;
+			shipsStarting = shipsToRestartWith;
+			
+			
+			// TODO convert shipsInPlay to an integer array...
+			var shipArrayToStart = convertVectorToInt(shipsStarting);
+			
+			resetFog();
+			resetHighlight();
+			
+			addShips(shipArrayToStart);
+			
+		}
+		
+		
+		//TODO debug... had 5 patrol boats on restart of normal game
+		private function convertVectorToInt(shipVector:Vector.<ShipBase>):Array
+		{
+			var returnArray:Array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			
+			var shipToCheck:ShipBase;
+			for (var i:int = 0; i <= shipVector.length - 1; i++)
+			{
+				shipToCheck = shipVector[i];
+				if (shipToCheck.shipType == ShipTypes.CARRIER)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[0]++;
+					}
+					else
+					{
+						returnArray[5]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.BATTLESHIP)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[1]++;
+					}
+					else
+					{
+						returnArray[6]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.SUBMARINE)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[2]++;
+					}
+					else
+					{
+						returnArray[7]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.DESTROYER)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[3]++;
+					}
+					else
+					{
+						returnArray[8]++;
+					}
+				}
+				else (shipToCheck.shipType == ShipTypes.PATROL_BOAT)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[4]++;
+					}
+					else
+					{
+						returnArray[9]++;
+					}
+				}
+			}
+			
+			return returnArray;
+		}
 	
 	}
 

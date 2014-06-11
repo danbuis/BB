@@ -4,6 +4,7 @@ package playArea
 	import flash.geom.Point;
 	import managers.AnimationManager;
 	import screens.GamePhase;
+	import screens.GameScreen;
 	import ships.Carrier;
 	import ships.Fighter;
 	import ships.ShipBase;
@@ -86,12 +87,14 @@ package playArea
 		private var resumGameButton:Button;
 		private var restartGameButton:Button;
 		
-		public function ControlBar() 
+		private var parentGame:GameScreen;
+		
+		public function ControlBar(parent:GameScreen) 
 		{
 			super();
 			initializeGUI();
 			buildMenu();
-			
+			parentGame = parent;
 		}
 		
 		private function buildMenu():void 
@@ -121,7 +124,13 @@ package playArea
 			restartGameButton.y = 300;
 			restartGameButton.visible = false;
 			this.addChild(restartGameButton);
-			//TODO
+			restartGameButton.addEventListener(Event.TRIGGERED, onRestartClick);
+		}
+		
+		private function onRestartClick(e:Event):void 
+		{
+			hideMenu();
+			parentGame.restart();
 		}
 		
 		private function onResumeGameClick(e:Event):void 
@@ -421,8 +430,19 @@ package playArea
 			}
 		}
 		
+	
+		//TODO show icon...
+		public function displayEnemyStatus(ship:ShipBase):void
+		{
+			
+			shipType.text = ship.shipType;
+			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			enemyIconMask.visible = true;
+			friendlyIconMask.visible = false;
+		}
+			
 		//TODO grab information from around ship to determine button placement, perhaps an array of surrounding ships...
-		//TODO update enemy status in separate method
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
@@ -442,10 +462,17 @@ package playArea
 				friendlyIconMask.visible=false;	
 			}
 			
-			//if not your ship, break, rest of update has to do with player commands
-			if (ship.team != 1)
+			if (ship.moved)
 			{
-				return;
+				moveButtonMask.visible = true;
+			}
+			if (ship.fired)
+			{
+				fireButtonMask.visible = true;
+			}
+			if (ship.performedAction)
+			{
+				actionButtonMask.visible = true;
 			}
 			
 			if (ship.shipType == ShipTypes.BATTLESHIP)
@@ -485,6 +512,7 @@ package playArea
 			{
 				moveButton.visible = true;
 				fireButton.visible = true;
+				actionButtonMask.visible = false;
 			}
 			else if (ship.shipType == ShipTypes.FIGHTER)
 			{
@@ -492,21 +520,11 @@ package playArea
 				moveButton.visible = true;
 				fireButton.visible = true;
 				showFighterFuelStatus(ship as Fighter);
+				actionButtonMask.visible = false;
 			}
 			
 			
-			if (ship.moved)
-			{
-				moveButtonMask.visible = true;
-			}
-			if (ship.fired)
-			{
-				fireButtonMask.visible = true;
-			}
-			if (ship.performedAction)
-			{
-				actionButtonMask.visible = true;
-			}
+			
 			
 			locateShipButtons(ship);
 			
