@@ -69,7 +69,7 @@ package screens
 		private function initialize():void 
 		{
 			this.addEventListener(BBNavigationEvent.UP_BUTTON_REQUEST, checkUpButtonRequest);
-			startGame = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
+			startGame = new Button(Assets.getAtlas().getTexture("Buttons/NewGameButton"));
 			startGame.x = (640 - startGame.width) / 2;
 			startGame.y = 440;
 			startGame.addEventListener(Event.TRIGGERED, onStartGame);

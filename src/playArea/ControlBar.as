@@ -1,5 +1,6 @@
 package playArea 
 {
+	import events.BBNavigationEvent;
 	import flash.geom.Point;
 	import managers.AnimationManager;
 	import screens.GamePhase;
@@ -11,6 +12,7 @@ package playArea
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.text.TextField;
 	
 	/**
@@ -79,13 +81,58 @@ package playArea
 		private var computerLight:Image;
 		private var neutralLight:Image;
 		
-		
+		private var menu_bg:Image;
+		private var returnToMainMenu:Button;
+		private var resumGameButton:Button;
+		private var restartGameButton:Button;
 		
 		public function ControlBar() 
 		{
 			super();
 			initializeGUI();
+			buildMenu();
 			
+		}
+		
+		private function buildMenu():void 
+		{
+			menu_bg = new Image(Assets.getAtlas().getTexture("GUI/Menu_mask"));
+			menu_bg.scaleX = 10;
+			menu_bg.scaleY = 10;
+			menu_bg.visible = false;
+			this.addChild(menu_bg);
+			
+			returnToMainMenu = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
+			returnToMainMenu.x = 320 - (returnToMainMenu.width / 2);
+			returnToMainMenu.y = 180;
+			returnToMainMenu.visible = false;
+			this.addChild(returnToMainMenu);
+			returnToMainMenu.addEventListener(Event.TRIGGERED, onReturnToMainMenuClick);
+			
+			resumGameButton = new Button(Assets.getAtlas().getTexture("Buttons/resume_Button"));
+			resumGameButton.x = returnToMainMenu.x;
+			resumGameButton.y = 240;
+			resumGameButton.visible = false;
+			this.addChild(resumGameButton);
+			resumGameButton.addEventListener(Event.TRIGGERED, onResumeGameClick);
+			
+			restartGameButton = new Button(Assets.getAtlas().getTexture("Buttons/restart_button"));
+			restartGameButton.x = returnToMainMenu.x;
+			restartGameButton.y = 320;
+			restartGameButton.visible = false;
+			this.addChild(restartGameButton);
+			//TODO
+		}
+		
+		private function onResumeGameClick(e:Event):void 
+		{
+			hideMenu();
+		}
+		
+		private function onReturnToMainMenuClick(e:Event):void 
+		{
+			this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
+			hideMenu();
 		}
 		
 		private function initializeGUI():void 
@@ -221,6 +268,7 @@ package playArea
 			menuButton.x = 560;
 			menuButton.y = 5;
 			this.addChild(menuButton);
+			menuButton.addEventListener(Event.TRIGGERED, onMenuButtonClick);
 			
 			doneButton = new Button(Assets.getAtlas().getTexture("GUI/done_up"), "",Assets.getAtlas().getTexture("GUI/done_down") );
 			doneButton.x = 5;
@@ -321,6 +369,22 @@ package playArea
 			storedFighter3.visible = false;
 			this.addChild(storedFighter3);
 			
+		}
+		
+		private function onMenuButtonClick(e:Event):void 
+		{
+			menu_bg.visible = true;
+			resumGameButton.visible = true;
+			restartGameButton.visible = true;
+			returnToMainMenu.visible = true;
+		}
+		
+		private function hideMenu():void
+		{
+			menu_bg.visible = false;
+			resumGameButton.visible = false;
+			restartGameButton.visible = false;
+			returnToMainMenu.visible = false;
 		}
 		
 		public function switchToPlayPhase():void

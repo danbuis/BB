@@ -249,18 +249,9 @@ package screens
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
 			GUI.doneButton.addEventListener(Event.TRIGGERED, onDoneButtonClick);
-			GUI.menuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
 		}
 		
-		private function onMainMenuButtonClick(e:Event):void 
-		{
-			var buttonClicked:Button = e.target as Button;
-			
-			if (buttonClicked == GUI.menuButton)
-			{
-				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
-			}
-		}
+		
 		
 		private function onAAfireButtonClick(e:Event):void 
 		{
