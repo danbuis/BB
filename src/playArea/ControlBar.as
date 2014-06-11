@@ -422,6 +422,7 @@ package playArea
 		}
 		
 		//TODO grab information from around ship to determine button placement, perhaps an array of surrounding ships...
+		//TODO update enemy status in separate method
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
@@ -433,10 +434,12 @@ package playArea
 			if (ship.team == 1)
 			{
 				friendlyIconMask.visible = true;
+				enemyIconMask.visible = false;
 			}
 			else 
 			{
-				enemyIconMask.visible = true;	
+				enemyIconMask.visible = true;
+				friendlyIconMask.visible=false;	
 			}
 			
 			//if not your ship, break, rest of update has to do with player commands

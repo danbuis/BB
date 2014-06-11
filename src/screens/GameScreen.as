@@ -847,17 +847,23 @@ package screens
 					}
 					
 					
-					//check if cell has a ship that can be selected
+					//check if cell has a friendly ship that can be selected
 				
 					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team == 1 && !isSelectionLocked)
 					{
-						//select the ship
+						// if on your team select the ship
 						selectedShip = gridCellClicked.occupyingShip;
 						isAShipSelected = true;
 						GUI.updateShipStatus(selectedShip, phase);
-						resetHighlight();
-						
+						resetHighlight();	
 					}
+					//else if occupied by enemy ship
+					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team != 1 && !shipActioning && !shipFiring)
+					{
+						GUI.updateShipStatus(gridCellClicked.occupyingShip, GamePhase.PLACEMENT_PHASE);
+						resetHighlight();
+					}
+					
 					// if cell is not occupied, check if a ship is selected, and figure out what to do with it
 					else if (isAShipSelected && selectedShip!= null)
 					{
