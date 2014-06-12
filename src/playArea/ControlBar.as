@@ -400,6 +400,8 @@ package playArea
 		{
 			
 			playerLight.visible = true;
+			neutralLight.visible = false;
+			computerLight.visible = false;
 		}
 		
 		public function switchToPregamePhase():void
@@ -431,7 +433,7 @@ package playArea
 		}
 		
 	
-		//TODO show icon...
+		
 		public function displayEnemyStatus(ship:ShipBase):void
 		{
 			
@@ -440,6 +442,28 @@ package playArea
 			
 			enemyIconMask.visible = true;
 			friendlyIconMask.visible = false;
+			
+			displayShipIcon(ship);
+		}
+		
+		private function displayShipIcon(ship:ShipBase):void 
+		{
+			carrierIcon.visible = false;
+			battlshipIcon.visible = false;
+			fighterIcon.visible = false;
+			
+			if (ship.shipType == ShipTypes.CARRIER)
+			{
+				carrierIcon.visible = true;
+			}
+			else if (ship.shipType == ShipTypes.BATTLESHIP)
+			{
+				battlshipIcon.visible = true;
+			}
+			else if (ship.shipType == ShipTypes.FIGHTER)
+			{
+				fighterIcon.visible = true;
+			}
 		}
 			
 		//TODO grab information from around ship to determine button placement, perhaps an array of surrounding ships...

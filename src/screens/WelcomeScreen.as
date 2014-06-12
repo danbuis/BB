@@ -70,20 +70,20 @@ package screens
 			newGameButton = new Button(Assets.getAtlas().getTexture("Buttons/NewGameButton"));
 
 			newGameButton.x = (this.width / 2) - (newGameButton.width / 2);
-			newGameButton.y = 400;
+			newGameButton.y = 340;
 			this.addChild(newGameButton);
 			
 			// how far apart buttons are spaced
-			var buttonOffset:int = 200;
+			var buttonOffset:int = 60;
 			
 			tutorialButton = new Button(Assets.getAtlas().getTexture("Buttons/TutorialButton"));
-			tutorialButton.x = newGameButton.x - buttonOffset;
-			tutorialButton.y = newGameButton.y;
+			tutorialButton.x = newGameButton.x;
+			tutorialButton.y = newGameButton.y-buttonOffset;
 			this.addChild(tutorialButton);
 			
 			freePlayButton = new Button(Assets.getAtlas().getTexture("Buttons/FreePlayGameButton"));
-			freePlayButton.x = newGameButton.x + buttonOffset;
-			freePlayButton.y = newGameButton.y;
+			freePlayButton.x = newGameButton.x;
+			freePlayButton.y = newGameButton.y+buttonOffset;
 			this.addChild(freePlayButton);
 		}
 		
