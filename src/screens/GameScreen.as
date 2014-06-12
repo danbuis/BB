@@ -1170,6 +1170,7 @@ package screens
 		//change GUI light
 		GUI.changePlayerIndicatorLight(nextPlayer);
 			
+		// TODO on win/lose, remove main menu event listener, add return to main menu button.
 			if (nextPlayer==CurrentPlayer.PLAYER_WIN)
 			{
 				winner.visible = true;
@@ -1332,7 +1333,7 @@ package screens
 			
 			
 			// TODO convert shipsInPlay to an integer array...
-			var shipArrayToStart = convertVectorToInt(shipsStarting);
+			var shipArrayToStart:Array = convertVectorToInt(shipsStarting);
 			
 			resetFog();
 			resetHighlight();
@@ -1342,7 +1343,6 @@ package screens
 		}
 		
 		
-		//TODO debug... had 5 patrol boats on restart of normal game
 		private function convertVectorToInt(shipVector:Vector.<ShipBase>):Array
 		{
 			var returnArray:Array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -1395,7 +1395,7 @@ package screens
 						returnArray[8]++;
 					}
 				}
-				else (shipToCheck.shipType == ShipTypes.PATROL_BOAT)
+				else if(shipToCheck.shipType == ShipTypes.PATROL_BOAT)
 				{
 					if (shipToCheck.team == 1)
 					{
