@@ -11,7 +11,7 @@ package ships
 		public static const CARRIER:String = "CARRIER";
 		public static const SUBMARINE:String = "SUBMARINE";
 		public static const DESTROYER:String = "DESTROYER";
-		public static const TORPEDO_BOAT:String = "TORPEDO BOAT";
+		public static const PATROL_BOAT:String = "PATROL BOAT";
 		public static const FIGHTER:String = "FIGHTER";
 		
 	}

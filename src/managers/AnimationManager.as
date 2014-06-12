@@ -4,6 +4,8 @@ package managers
 	import screens.GamePhase;
 	import ships.ShipBase;
 	import com.greensock.TweenLite;
+	import starling.display.Image;
+	import starling.display.Sprite;
 	/**
 	 * ...
 	 * @author ...
@@ -23,7 +25,7 @@ package managers
 			//move faster during initial.
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
 			{
-				moveTime / 2.0;
+				moveTime /= 2.0;
 			}
 			TweenLite.to(ship, moveTime, { x:newX, y:newY } );
 		}
@@ -35,6 +37,37 @@ package managers
 			
 			TweenLite.to(gridCell.fog, timeToChange, { alpha:newAlpha } );
 		}
+		
+		public static function moveFuelPanel(newX:int, fuelPanel:Image, fuelAmount:Image):void
+		{
+			TweenLite.to(fuelPanel, 0.65, { x:newX } );
+			if (fuelAmount != null)
+			{
+				TweenLite.to(fuelAmount, 0.65, { x:newX + 43 } );
+			}
+		}
+		
+		static public function moveFighterPanel(newX:Number, fighterPanel:Image, numberOfSquadrons:int, storedFighter1:Image, storedFighter2:Image, storedFighter3:Image):void 
+		{
+			TweenLite.to(fighterPanel, 0.65, { x:newX } );
+			
+			var verticalAlign:int = 54;
+			
+			if (numberOfSquadrons >= 1)
+			{
+				TweenLite.to(storedFighter1, 0.65, { x:newX + verticalAlign } );
+			}
+			if (numberOfSquadrons >= 2)
+			{
+				TweenLite.to(storedFighter2, 0.65, { x:newX + verticalAlign } );
+			}
+			if (numberOfSquadrons >= 3)
+			{
+				TweenLite.to(storedFighter3, 0.65, { x:newX + verticalAlign } );
+			}
+			
+		}
+		
 		
 	}
 

@@ -1,7 +1,10 @@
 package playArea 
 {
+	import events.BBNavigationEvent;
 	import flash.geom.Point;
+	import managers.AnimationManager;
 	import screens.GamePhase;
+	import screens.GameScreen;
 	import ships.Carrier;
 	import ships.Fighter;
 	import ships.ShipBase;
@@ -10,6 +13,7 @@ package playArea
 	import starling.display.Button;
 	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.Event;
 	import starling.text.TextField;
 	
 	/**
@@ -19,9 +23,14 @@ package playArea
 	public class ControlBar extends Sprite 
 	{
 		
-		private var backgroundImage:Image;
-		// TODO, use...
-		private var iconOrigin:Point;
+		public var lower_GUI:Image;
+		private var upper_GUI:Image;
+
+		private var iconX:int = 575;
+		private var iconY:int = 355;
+		
+		private var friendlyIconMask:Image;
+		private var enemyIconMask:Image;
 		
 		private var battlshipIcon:Image;
 		private var carrierIcon:Image;
@@ -44,10 +53,12 @@ package playArea
 		private var storedFighter1:Image;
 		private var storedFighter2:Image;
 		private var storedFighter3:Image;
+		private var fighterPanel:Image;
 		
-		public var shipCompleteButton:Button;
-		public var startGameButton:Button;
-		public var mainMenuButton:Button;
+		public var doneButton:Button;
+		public var menuButton:Button;
+		
+		private var currentFuel:Image;
 		
 		private var fuel100:Image;
 		private var fuel89:Image;
@@ -60,53 +71,166 @@ package playArea
 		private var fuel25:Image;
 		private var fuel13:Image;
 		
+		private var fuelGauge:Image;
+		private var fuelGuageRestX:int = 650;
 		
-		public function ControlBar() 
+		private var verticalOffset:int = 34;
+		private var sideHorizontalOffset:int = 29;
+		private var sideVerticalOffset:int =  17;
+		
+		private var playerLight:Image;
+		private var computerLight:Image;
+		private var neutralLight:Image;
+		
+		private var menu_bg:Image;
+		private var returnToMainMenu:Button;
+		private var resumGameButton:Button;
+		private var restartGameButton:Button;
+		
+		private var parentGame:GameScreen;
+		
+		public function ControlBar(parent:GameScreen) 
 		{
 			super();
 			initializeGUI();
+			buildMenu();
+			parentGame = parent;
+		}
+		
+		private function buildMenu():void 
+		{
+			menu_bg = new Image(Assets.getAtlas().getTexture("GUI/Menu_mask"));
+			menu_bg.scaleX = 10;
+			menu_bg.scaleY = 10;
+			menu_bg.visible = false;
+			this.addChild(menu_bg);
 			
+			returnToMainMenu = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
+			returnToMainMenu.x = 320 - (returnToMainMenu.width / 2);
+			returnToMainMenu.y = 180;
+			returnToMainMenu.visible = false;
+			this.addChild(returnToMainMenu);
+			returnToMainMenu.addEventListener(Event.TRIGGERED, onReturnToMainMenuClick);
+			
+			resumGameButton = new Button(Assets.getAtlas().getTexture("Buttons/resume_Button"));
+			resumGameButton.x = returnToMainMenu.x;
+			resumGameButton.y = 240;
+			resumGameButton.visible = false;
+			this.addChild(resumGameButton);
+			resumGameButton.addEventListener(Event.TRIGGERED, onResumeGameClick);
+			
+			restartGameButton = new Button(Assets.getAtlas().getTexture("Buttons/restart_button"));
+			restartGameButton.x = returnToMainMenu.x;
+			restartGameButton.y = 300;
+			restartGameButton.visible = false;
+			this.addChild(restartGameButton);
+			restartGameButton.addEventListener(Event.TRIGGERED, onRestartClick);
+		}
+		
+		private function onRestartClick(e:Event):void 
+		{
+			hideMenu();
+			parentGame.restart();
+		}
+		
+		private function onResumeGameClick(e:Event):void 
+		{
+			hideMenu();
+		}
+		
+		private function onReturnToMainMenuClick(e:Event):void 
+		{
+			this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
+			hideMenu();
 		}
 		
 		private function initializeGUI():void 
 		{
-			backgroundImage = new Image(Assets.getAtlas().getTexture("GUI/GUI_background"));
-			this.addChild(backgroundImage);
+			//large panels
+			upper_GUI = new Image(Assets.getAtlas().getTexture("GUI/upper_GUI"));
+			upper_GUI.x = 640 - upper_GUI.width;
+			this.addChild(upper_GUI);
+			
+			lower_GUI = new Image(Assets.getAtlas().getTexture("GUI/lower_GUI"));
+			lower_GUI.x = 640 - lower_GUI.width;
+			lower_GUI.y = 480 - lower_GUI.height;
+			this.addChild(lower_GUI);
+			
+			fuelGauge = new Image(Assets.getAtlas().getTexture("GUI/fuel_panel"));
+			fuelGauge.x = fuelGuageRestX;
+			fuelGauge.y = 96;
+			this.addChild(fuelGauge);
+			
+			fighterPanel = new Image(Assets.getAtlas().getTexture("GUI/fighter_panel"));
+			fighterPanel.x = fuelGuageRestX;
+			fighterPanel.y = 61;
+			this.addChild(fighterPanel);
+			
+			playerLight = new Image(Assets.getAtlas().getTexture("GUI/green_light"));
+			playerLight.x = 364;
+			playerLight.y = 445;
+			playerLight.visible = false;
+			
+			computerLight = new Image(Assets.getAtlas().getTexture("GUI/red_light"));
+			computerLight.x = playerLight.x;
+			computerLight.y = playerLight.y;
+			computerLight.visible = false;
+			
+			neutralLight = new Image(Assets.getAtlas().getTexture("GUI/yellow_light"));
+			neutralLight.x = playerLight.x;
+			neutralLight.y = playerLight.y;
+			
+			this.addChild(computerLight);
+			this.addChild(playerLight);
+			this.addChild(neutralLight);
+			
+			//masks
+			friendlyIconMask = new Image(Assets.getAtlas().getTexture("GUI/blue_screen"));
+			friendlyIconMask.x = 570;
+			friendlyIconMask.y = 350;
+			friendlyIconMask.visible = false;
+			this.addChild(friendlyIconMask);
+			
+			enemyIconMask = new Image(Assets.getAtlas().getTexture("GUI/red_screen"));
+			enemyIconMask.x = 570;
+			enemyIconMask.y = 350;
+			enemyIconMask.visible = false;
+			this.addChild(enemyIconMask);
 			
 			//initialize icons
 			battlshipIcon = new Image(Assets.getAtlas().getTexture("GUI/BB_icon"));
 			battlshipIcon.visible = false;
-			battlshipIcon.x = this.width / 2 - battlshipIcon.width / 2;
-			battlshipIcon.y = 100;
+			battlshipIcon.x = iconX
+			battlshipIcon.y = iconY;
 			this.addChild(battlshipIcon);
 			
 			carrierIcon = new Image(Assets.getAtlas().getTexture("GUI/carrier_icon"));
 			carrierIcon.visible = false;
-			carrierIcon.x = this.width / 2 - carrierIcon.width / 2;
-			carrierIcon.y = 100;
+			carrierIcon.x = iconX;
+			carrierIcon.y = iconY;
 			this.addChild(carrierIcon);
 			
 			fighterIcon = new Image(Assets.getAtlas().getTexture("GUI/fighter_icon"));
 			fighterIcon.visible = false;
-			fighterIcon.x = this.width / 2 - fighterIcon.width / 2;
-			fighterIcon.y = 100;
+			fighterIcon.x = iconX;
+			fighterIcon.y = iconY;
 			this.addChild(fighterIcon);
 			
 			//initialize buttons
 			moveButton = new Button(Assets.getAtlas().getTexture("Buttons/move_button"));
-			moveButton.x = backgroundImage.width * 0.2
+			moveButton.x = lower_GUI.width * 0.2
 			moveButton.y = 240;
 			moveButton.visible = false;
 			this.addChild(moveButton);
 			
 			fireButton = new Button(Assets.getAtlas().getTexture("Buttons/fire_button"));
-			fireButton.x = backgroundImage.width * 0.5
+			fireButton.x = lower_GUI.width * 0.5
 			fireButton.y = moveButton.y;
 			fireButton.visible = false;
 			this.addChild(fireButton);
 			
 			bombardButton = new Button(Assets.getAtlas().getTexture("Buttons/bombard_button"));
-			bombardButton.x = backgroundImage.width * 0.8
+			bombardButton.x = lower_GUI.width * 0.8
 			bombardButton.y = moveButton.y;
 			bombardButton.visible = false;
 			this.addChild(bombardButton);
@@ -147,41 +271,37 @@ package playArea
 			actionButtonMask.visible = false;
 			this.addChild(actionButtonMask);
 			
-			shipCompleteButton = new Button(Assets.getAtlas().getTexture("Buttons/shipComplete_Button"));
-			shipCompleteButton.x = this.width / 2 - shipCompleteButton.width / 2;
-			shipCompleteButton.y = 400;
-			shipCompleteButton.visible = false;
-			this.addChild(shipCompleteButton);
 			
-			mainMenuButton = new Button(Assets.getAtlas().getTexture("Buttons/main_menu_button"));
-			mainMenuButton.x = shipCompleteButton.x;
-			mainMenuButton.y = shipCompleteButton.y + mainMenuButton.height + 5;
-			mainMenuButton.visible = true;
-			this.addChild(mainMenuButton);
 			
-			startGameButton = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
-			startGameButton.x = shipCompleteButton.x;
-			startGameButton.y = shipCompleteButton.y;
-			this.addChild(startGameButton);
+			menuButton = new Button(Assets.getAtlas().getTexture("Buttons/menu_button"));
+			menuButton.x = 560;
+			menuButton.y = 5;
+			this.addChild(menuButton);
+			menuButton.addEventListener(Event.TRIGGERED, onMenuButtonClick);
+			
+			doneButton = new Button(Assets.getAtlas().getTexture("GUI/done_up"), "",Assets.getAtlas().getTexture("GUI/done_down") );
+			doneButton.x = 5;
+			doneButton.y = 480 - doneButton.height;
+			this.addChild(doneButton);
 			
 			
 			
 			//initialize text fields
 			Assets.getFont();
-			shipType = new TextField(this.width, 100, "", "ARMY RUST", 30, 0xffffff);
-			shipType.x = 0;
-			shipType.y = 30;
+			shipType = new TextField(150, 38, "", "ARMY RUST", 30, 0xffffff);
+			shipType.x = 406;
+			shipType.y = 448;
 			this.addChild(shipType);
 			
-			shipHealth = new TextField(this.width, 50, "", "ARMY RUST", 30, 0xffffff);
-			shipHealth.x = 0;
-			shipHealth.y = 200;
+			shipHealth = new TextField(60, 38, "", "ARMY RUST", 30, 0xffffff);
+			shipHealth.x = 570;
+			shipHealth.y = 448;
 			this.addChild(shipHealth);
 		
 			//initialize fuel indicators
 			fuel100 = new Image(Assets.getAtlas().getTexture("GUI/fuel_100"));
-			fuel100.x = 6;
-			fuel100.y = 300;
+			fuel100.x = fuelGuageRestX + 43;
+			fuel100.y = 107;
 			fuel100.visible = false;
 			this.addChild(fuel100);
 			
@@ -241,42 +361,120 @@ package playArea
 			
 			//initialize random stuff
 			storedFighter1 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter1.x = 6;
-			storedFighter1.y = 300;
+			storedFighter1.x = fuelGuageRestX+43;
+			storedFighter1.y = 124;
 			storedFighter1.visible = false;
 			this.addChild(storedFighter1);
 			
 			storedFighter2 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter2.x = 6+storedFighter1.width;
-			storedFighter2.y = 300;
+			storedFighter2.x = storedFighter1.x;
+			storedFighter2.y = 189;
 			storedFighter2.visible = false;
 			this.addChild(storedFighter2);
 			
 			storedFighter3 = new Image(Assets.getAtlas().getTexture("GUI/fighter_stored"));
-			storedFighter3.x = 6+(2*storedFighter1.width);
-			storedFighter3.y = 300;
+			storedFighter3.x = storedFighter1.x;
+			storedFighter3.y = 254;
 			storedFighter3.visible = false;
 			this.addChild(storedFighter3);
 			
 		}
 		
+		private function onMenuButtonClick(e:Event):void 
+		{
+			menu_bg.visible = true;
+			resumGameButton.visible = true;
+			restartGameButton.visible = true;
+			returnToMainMenu.visible = true;
+		}
+		
+		private function hideMenu():void
+		{
+			menu_bg.visible = false;
+			resumGameButton.visible = false;
+			restartGameButton.visible = false;
+			returnToMainMenu.visible = false;
+		}
+		
 		public function switchToPlayPhase():void
 		{
 			
-			startGameButton.visible = false;
-			shipCompleteButton.visible = true;
+			playerLight.visible = true;
 		}
 		
 		public function switchToPregamePhase():void
 		{
-		
-			startGameButton.visible = true;
-			shipCompleteButton.visible = false;
+			playerLight.visible = false;
+			computerLight.visible = false;
+			neutralLight.visible = true;
 		}
 		
+		public function changePlayerIndicatorLight(newPlayer:String):void
+		{
+			playerLight.visible = false;
+			computerLight.visible = false;
+			neutralLight.visible = false;
+			
+			if (newPlayer == CurrentPlayer.COMPUTER)
+			{
+				computerLight.visible = true;
+			}
+			else if (newPlayer==CurrentPlayer.PLAYER)
+			{
+				playerLight.visible = true;
+			}
+			else 
+			{
+				neutralLight.visible = true;
+				
+			}
+		}
+		
+	
+		//TODO show icon...
+		public function displayEnemyStatus(ship:ShipBase):void
+		{
+			
+			shipType.text = ship.shipType;
+			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			enemyIconMask.visible = true;
+			friendlyIconMask.visible = false;
+		}
+			
+		//TODO grab information from around ship to determine button placement, perhaps an array of surrounding ships...
 		public function updateShipStatus(ship:ShipBase, gamePhase:String):void
 		{
 			eraseCurrentStatus();
+			
+			//start with basics
+			shipType.text = ship.shipType;
+			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			if (ship.team == 1)
+			{
+				friendlyIconMask.visible = true;
+				enemyIconMask.visible = false;
+			}
+			else 
+			{
+				enemyIconMask.visible = true;
+				friendlyIconMask.visible=false;	
+			}
+			
+			if (ship.moved)
+			{
+				moveButtonMask.visible = true;
+			}
+			if (ship.fired)
+			{
+				fireButtonMask.visible = true;
+			}
+			if (ship.performedAction)
+			{
+				actionButtonMask.visible = true;
+			}
+			
 			if (ship.shipType == ShipTypes.BATTLESHIP)
 			{
 				battlshipIcon.visible = true;
@@ -291,6 +489,10 @@ package playArea
 				fireButton.visible = true;
 				launchFighterButton.visible = true;
 				showStoredFighters(ship as Carrier);
+				if ((ship as Carrier).fighterSquadrons == 0)
+				{
+					actionButtonMask.visible = true;
+				}
 			}
 			else if (ship.shipType == ShipTypes.SUBMARINE)
 			{
@@ -306,10 +508,11 @@ package playArea
 				AAfireButton.visible = true;
 				
 			}
-			else if (ship.shipType == ShipTypes.TORPEDO_BOAT)
+			else if (ship.shipType == ShipTypes.PATROL_BOAT)
 			{
 				moveButton.visible = true;
 				fireButton.visible = true;
+				actionButtonMask.visible = false;
 			}
 			else if (ship.shipType == ShipTypes.FIGHTER)
 			{
@@ -317,24 +520,13 @@ package playArea
 				moveButton.visible = true;
 				fireButton.visible = true;
 				showFighterFuelStatus(ship as Fighter);
+				actionButtonMask.visible = false;
 			}
 			
 			
-			if (ship.moved)
-			{
-				moveButtonMask.visible = true;
-			}
-			if (ship.fired)
-			{
-				fireButtonMask.visible = true;
-			}
-			if (ship.performedAction)
-			{
-				actionButtonMask.visible = true;
-			}
 			
-			shipType.text = ship.shipType;
-			shipHealth.text = ("HP :" + ship.currentHP);
+			
+			locateShipButtons(ship);
 			
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
 			{
@@ -348,57 +540,120 @@ package playArea
 			
 		}
 		
+		private function locateShipButtons(ship:ShipBase):void 
+		{
+			var centerX:int = ship.x + (ship.width / 2);
+			var centerY:int = ship.y + (ship.height / 2);
+			
+			var buttonOffset:int = moveButton.height / 2;
+			
+			moveButton.x = centerX - buttonOffset;
+			moveButton.y = centerY + verticalOffset - buttonOffset;
+			moveButtonMask.x = moveButton.x;
+			moveButtonMask.y = moveButton.y;
+			
+			fireButton.x = centerX -sideHorizontalOffset - buttonOffset;
+			fireButton.y = centerY + sideVerticalOffset - buttonOffset;
+			fireButtonMask.x = fireButton.x;
+			fireButtonMask.y = fireButton.y;
+			
+			var actionButton:Button;
+			
+			if (ship.shipType == ShipTypes.CARRIER)
+			{
+				actionButton = launchFighterButton;
+			}
+			else if (ship.shipType == ShipTypes.BATTLESHIP)
+			{
+				actionButton = bombardButton;
+			}
+			else if (ship.shipType == ShipTypes.SUBMARINE)
+			{
+				actionButton = submergeButton;
+			}
+			else if (ship.shipType == ShipTypes.DESTROYER||ship.shipType==ShipTypes.PATROL_BOAT||ship.shipType==ShipTypes.FIGHTER)
+			{
+				actionButton = AAfireButton;
+			}
+			
+			actionButton.x = centerX + sideHorizontalOffset - buttonOffset;
+			actionButton.y = centerY + sideVerticalOffset - buttonOffset;
+			actionButtonMask.x = actionButton.x;
+			actionButtonMask.y = actionButton.y;
+		}
+		
 		private function showSubFuel(sub:Submarine):void
 		{
+			
+			//TODO sub fuel update at end of turn, not ship complete
 			if (sub.numberOfDivesRemaining == 8)
 			{
 				fuel100.visible = true;
+				currentFuel = fuel100;
 			}
 			else if (sub.numberOfDivesRemaining == 7)
 			{
 				fuel89.visible = true;
+				currentFuel = fuel89;
 			}
 			
 			else if (sub.numberOfDivesRemaining == 6)
 			{
 				fuel75.visible = true;
+				currentFuel = fuel75;
 			}
 			else if (sub.numberOfDivesRemaining == 5)
 			{
 				fuel63.visible = true;
+				currentFuel = fuel63
 			}
 			else if (sub.numberOfDivesRemaining == 4)
 			{
 				fuel50.visible = true;
+				currentFuel = fuel50;
 			}
 			else if (sub.numberOfDivesRemaining == 3)
 			{
 				fuel38.visible = true;
+				currentFuel = fuel38;
 			}
 			else if (sub.numberOfDivesRemaining == 2)
 			{
 				fuel25.visible = true;
+				currentFuel = fuel25;
 			}
 			else if (sub.numberOfDivesRemaining == 1)
 			{
 				fuel13.visible = true;
+				currentFuel = fuel13;
 			}
+			
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge, currentFuel);
 		}
 		
 		private function showFighterFuelStatus(fighter:Fighter):void 
 		{
+			
+			
 			if (fighter.currentEndurance == 3)
 			{
 				fuel100.visible = true;
+				currentFuel = fuel100;
 			}
 			else if (fighter.currentEndurance == 2)
 			{
 				fuel66.visible = true;
+				currentFuel = fuel66;
 			}
 			else if (fighter.currentEndurance == 1)
 			{
 				fuel33.visible = true;
+				currentFuel = fuel33;
 			}
+			
+			AnimationManager.moveFuelPanel(640 - fuelGauge.width, fuelGauge, currentFuel);
+			
+			
 		}
 		
 		private function showStoredFighters(carrier:Carrier):void 
@@ -415,10 +670,19 @@ package playArea
 			{
 				storedFighter3.visible = true;
 			}
+			
+			AnimationManager.moveFighterPanel(640 - fighterPanel.width, fighterPanel, carrier.fighterSquadrons, storedFighter1, storedFighter2, storedFighter3);
 		}
 		
 		public function eraseCurrentStatus():void 
 		{
+			if (currentFuel != null)
+			{
+				AnimationManager.moveFuelPanel(fuelGuageRestX, fuelGauge, currentFuel);
+			}
+			
+			AnimationManager.moveFighterPanel(fuelGuageRestX, fighterPanel, 3, storedFighter1, storedFighter2, storedFighter3);
+			
 			battlshipIcon.visible = false;
 			carrierIcon.visible = false;
 			fighterIcon.visible = false;
@@ -451,6 +715,7 @@ package playArea
 			fuel33.visible = false;
 			fuel25.visible = false;
 			fuel13.visible = false;
+			currentFuel = null;
 			
 		}
 		

@@ -63,7 +63,7 @@ package ships
 		 * */
 		public function updateStatus():void
 		{
-			if (shipType == ShipTypes.FIGHTER || shipType == ShipTypes.TORPEDO_BOAT)
+			if (shipType == ShipTypes.FIGHTER || shipType == ShipTypes.PATROL_BOAT)
 			{
 				if (moved && fired)
 				{

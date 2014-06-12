@@ -5,7 +5,7 @@ package screens
 	import ships.Carrier;
 	import ships.Destroyer;
 	import ships.Submarine;
-	import ships.TorpedoBoat;
+	import ships.PatrolBoat;
 	import starling.display.Button;
 	import starling.events.Event;
 	/**
@@ -48,7 +48,7 @@ package screens
 			currentX += Xinterval;
 			addComponent(new ShipSelectModule(new Destroyer(1)), currentX, currentY);
 			currentX += Xinterval;
-			addComponent(new ShipSelectModule(new TorpedoBoat(1)), currentX, currentY);
+			addComponent(new ShipSelectModule(new PatrolBoat(1)), currentX, currentY);
 			currentX = initialX;
 			
 			currentY += Yinterval;
@@ -61,7 +61,7 @@ package screens
 			currentX += Xinterval;
 			addComponent(new ShipSelectModule(new Destroyer(2)), currentX, currentY);
 			currentX += Xinterval;
-			addComponent(new ShipSelectModule(new TorpedoBoat(2)), currentX, currentY);
+			addComponent(new ShipSelectModule(new PatrolBoat(2)), currentX, currentY);
 			currentX += Xinterval;
 			
 		}
@@ -69,7 +69,7 @@ package screens
 		private function initialize():void 
 		{
 			this.addEventListener(BBNavigationEvent.UP_BUTTON_REQUEST, checkUpButtonRequest);
-			startGame = new Button(Assets.getAtlas().getTexture("Buttons/turnComplete_Button"));
+			startGame = new Button(Assets.getAtlas().getTexture("Buttons/NewGameButton"));
 			startGame.x = (640 - startGame.width) / 2;
 			startGame.y = 440;
 			startGame.addEventListener(Event.TRIGGERED, onStartGame);

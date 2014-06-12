@@ -22,7 +22,7 @@ package
 
 	
 	
-	private function startWithSitelock()
+	private function startWithSitelock():void
 	{
 		//if (onUrl(["fgl.com", "flashgamelicense.com"], root))
 		if(true)

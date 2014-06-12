@@ -18,7 +18,7 @@ package screens
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import ships.Submarine;
-	import ships.TorpedoBoat;
+	import ships.PatrolBoat;
 	import starling.display.Button;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -36,7 +36,7 @@ package screens
 		
 		// grid information, uses center of grid cell
 		public var grid:Array = [];
-		private var gridWidth:int = 10;
+		private var gridWidth:int = 13;
 		private var gridHeight:int = 10;
 		public var gridOrigin:Point = new Point(40, 40);
 		public var gridSpacing:int = 40;
@@ -76,6 +76,9 @@ package screens
 			//separates clickable area from interface areas
 			backgroundImage.touchable = true;
 			backgroundImage.addEventListener(TouchEvent.TOUCH, clickHandler);
+			
+			GUI.lower_GUI.touchable = true;
+			GUI.lower_GUI.addEventListener(TouchEvent.TOUCH, clickHandler);
 			
 			opponent = new AI(this);
 			
@@ -131,7 +134,7 @@ package screens
 					}
 					else if (index == 4)
 					{
-						shipToAdd = new TorpedoBoat(1);
+						shipToAdd = new PatrolBoat(1);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
@@ -166,7 +169,7 @@ package screens
 					}
 					if (index == 9)
 					{
-						shipToAdd = new TorpedoBoat(2);
+						shipToAdd = new PatrolBoat(2);
 						placeShip(shipToAdd, currentX, currentY);
 						pushShip(shipToAdd);
 					}
@@ -229,10 +232,8 @@ package screens
 			backgroundImage = new GameGrid();
 			this.addChild(backgroundImage);
 			
-			GUI = new ControlBar();
+			GUI = new ControlBar(this);
 			this.addChild(GUI);
-			GUI.x = backgroundImage.width - GUI.width;
-			GUI.y = 0;
 			addGUIEventHandlers();
 		
 		}
@@ -247,20 +248,10 @@ package screens
 			GUI.submergeButton.addEventListener(Event.TRIGGERED, onSubmergeButtonClick);
 			GUI.launchFighterButton.addEventListener(Event.TRIGGERED, onLaunchFighterButtonClick);
 			GUI.AAfireButton.addEventListener(Event.TRIGGERED, onAAfireButtonClick);
-			GUI.shipCompleteButton.addEventListener(Event.TRIGGERED, onShipCompleteButtonClick);
-			GUI.startGameButton.addEventListener(Event.TRIGGERED, onStartGameButtonClick);
-			GUI.mainMenuButton.addEventListener(Event.TRIGGERED, onMainMenuButtonClick);
+			GUI.doneButton.addEventListener(Event.TRIGGERED, onDoneButtonClick);
 		}
 		
-		private function onMainMenuButtonClick(e:Event):void 
-		{
-			var buttonClicked:Button = e.target as Button;
-			
-			if (buttonClicked == GUI.mainMenuButton)
-			{
-				this.dispatchEvent(new BBNavigationEvent(BBNavigationEvent.MAIN_MENU, true));
-			}
-		}
+		
 		
 		private function onAAfireButtonClick(e:Event):void 
 		{
@@ -279,12 +270,28 @@ package screens
 		}
 		
 		//method called if plater decides to skip acting with remaining ships.  In testing used to reset the state of all ships
-		public function onStartGameButtonClick(e:Event):void 
+		public function onDoneButtonClick(e:Event):void 
 		{
-			phase = GamePhase.PLAY_PHASE;
-			GUI.switchToPlayPhase();
-			resetHighlight()
-			turnIsComplete();
+			if (phase == GamePhase.PLACEMENT_PHASE)
+			{
+				phase = GamePhase.PLAY_PHASE;
+				GUI.switchToPlayPhase();
+				resetHighlight()
+				turnIsComplete();
+			}
+			else
+			{
+				if (selectedShip != null && phase==GamePhase.PLAY_PHASE)
+				{
+					selectedShip.fired = true;
+					selectedShip.moved = true;
+					selectedShip.performedAction = true;
+			
+					updateSelection(false);
+					GUI.eraseCurrentStatus();
+					resetHighlight();
+				}
+			}
 		}
 		
 		private function turnIsComplete():void 
@@ -333,21 +340,6 @@ package screens
 			//reset GUI
 			GUI.eraseCurrentStatus();
 			
-		}
-		
-		//method called if player decides to skip some actions available
-		private function onShipCompleteButtonClick(e:Event):void 
-		{
-			if (selectedShip != null && phase==GamePhase.PLAY_PHASE)
-			{
-				selectedShip.fired = true;
-				selectedShip.moved = true;
-				selectedShip.performedAction = true;
-			
-				updateSelection(false);
-				GUI.eraseCurrentStatus();
-				 resetHighlight();
-			}
 		}
 		
 		private function onLaunchFighterButtonClick(e:Event):void 
@@ -855,17 +847,23 @@ package screens
 					}
 					
 					
-					//check if cell has a ship that can be selected
+					//check if cell has a friendly ship that can be selected
 				
 					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team == 1 && !isSelectionLocked)
 					{
-						//select the ship
+						// if on your team select the ship
 						selectedShip = gridCellClicked.occupyingShip;
 						isAShipSelected = true;
 						GUI.updateShipStatus(selectedShip, phase);
-						resetHighlight();
-						
+						resetHighlight();	
 					}
+					//else if occupied by enemy ship
+					else if (gridCellClicked.occupied && gridCellClicked.occupyingShip.team != 1 && !shipActioning && !shipFiring)
+					{
+						GUI.displayEnemyStatus(gridCellClicked.occupyingShip);
+						resetHighlight();
+					}
+					
 					// if cell is not occupied, check if a ship is selected, and figure out what to do with it
 					else if (isAShipSelected && selectedShip!= null)
 					{
@@ -944,7 +942,7 @@ package screens
 			var returnY:int = Math.floor((y - gridOrigin.y) / gridSpacing);
 			
 			//check min and max
-			if (returnX < 10 && returnY < 10 && returnX >= 0 && returnY >= 0)
+			if (returnX < gridWidth && returnY < gridHeight && returnX >= 0 && returnY >= 0)
 			{
 				return grid[returnX][returnY];
 			}
@@ -1169,6 +1167,9 @@ package screens
 			GameTracker.api.alert("next player result", 0, nextPlayer);
 			
 			
+		//change GUI light
+		GUI.changePlayerIndicatorLight(nextPlayer);
+			
 			if (nextPlayer==CurrentPlayer.PLAYER_WIN)
 			{
 				winner.visible = true;
@@ -1318,6 +1319,97 @@ package screens
 		
 		
 		// TODO: Restart function, using the current initial ship set
+		
+		public function restart():void
+		{
+			//store starting ships
+			var shipsToRestartWith:Vector.<ShipBase> = shipsStarting;
+			
+			reset();
+			
+			shipsInPlay = shipsToRestartWith;
+			shipsStarting = shipsToRestartWith;
+			
+			
+			// TODO convert shipsInPlay to an integer array...
+			var shipArrayToStart = convertVectorToInt(shipsStarting);
+			
+			resetFog();
+			resetHighlight();
+			
+			addShips(shipArrayToStart);
+			
+		}
+		
+		
+		//TODO debug... had 5 patrol boats on restart of normal game
+		private function convertVectorToInt(shipVector:Vector.<ShipBase>):Array
+		{
+			var returnArray:Array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			
+			var shipToCheck:ShipBase;
+			for (var i:int = 0; i <= shipVector.length - 1; i++)
+			{
+				shipToCheck = shipVector[i];
+				if (shipToCheck.shipType == ShipTypes.CARRIER)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[0]++;
+					}
+					else
+					{
+						returnArray[5]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.BATTLESHIP)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[1]++;
+					}
+					else
+					{
+						returnArray[6]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.SUBMARINE)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[2]++;
+					}
+					else
+					{
+						returnArray[7]++;
+					}
+				}
+				else if (shipToCheck.shipType == ShipTypes.DESTROYER)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[3]++;
+					}
+					else
+					{
+						returnArray[8]++;
+					}
+				}
+				else (shipToCheck.shipType == ShipTypes.PATROL_BOAT)
+				{
+					if (shipToCheck.team == 1)
+					{
+						returnArray[4]++;
+					}
+					else
+					{
+						returnArray[9]++;
+					}
+				}
+			}
+			
+			return returnArray;
+		}
 	
 	}
 
