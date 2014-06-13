@@ -2,7 +2,9 @@ package ships
 {
 	import flash.geom.Point;
 	import playArea.GridCell;
+	import starling.core.Starling;
 	import starling.display.Image;
+	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	
 	/**
@@ -28,8 +30,7 @@ package ships
 		public var turnCompleted:Boolean;
 		
 		//variables to render ship
-		private var teamImage:Image;
-		private var shipImage:Image;
+		private var shipImage:MovieClip;
 		private var shipMask:Image;
 		
 		//stats of ship
@@ -104,14 +105,13 @@ package ships
 		public function drawShip():void
 		
 		{
-			//first draw team color shape
-			teamImage = new Image(Assets.getAtlas().getTexture(shipType+"_" + team));
-			this.addChild(teamImage);
 			//then add sprite
-			shipImage = new Image(Assets.getAtlas().getTexture(""+shipType));
+			shipImage = new MovieClip(Assets.getAtlas().getTextures("Ships/" + this.shipType+this.team + "/"), 8);
+			Starling.juggler.add(shipImage);
 			this.addChild(shipImage);
 			//then masking, which will be turned off until turn complete
 			shipMask = new Image(Assets.getAtlas().getTexture("" + shipType+"_MASK"));
+			shipMask.alpha = 0.5;
 			this.addChild(shipMask);
 			shipMask.visible = false;
 			
