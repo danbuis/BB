@@ -347,5 +347,52 @@ package starling.display
             else
                 return false;
         }
+		//end normal movie clip class
+		
+		/* reverse code copied from http://forum.starling-framework.org/topic/updated-movieclip-to-add-reversed-animation*/
+		private var mReverse:Boolean;
+ 
+		/** Is the animation play order reversed from the original? **/
+		public function get reverse():Boolean
+		{
+			return mReverse;
+		}
+ 
+		/** Set the animation to play in reverse. **/
+		public function set reverse(reverse:Boolean):void
+		{
+			if (reverse != mReverse)
+			{
+				mReverse = reverse;
+				// we need reverse the sort of the textures, sounds, and durations.
+				if (mTextures && mTextures.length > 1)
+				{
+					// first store off the old textures
+					var oldTextures:Vector.<Texture> = mTextures;
+					var oldSounds:Vector.<Sound> = mSounds;
+					var oldDurations:Vector.<Number> = mDurations;
+ 
+					// reset the inner variables
+					resetClipManagementVariables();
+ 
+					// now add the old ones back in, but backwards
+					for (var i:int = oldTextures.length - 1; i > -1; i--)
+						addFrame(oldTextures[i], oldSounds[i], oldDurations[i]);
+				}
+			}
+		}
+ 
+		private function resetClipManagementVariables():void
+		{
+			
+			
+			//mTotalTime = 0.0;
+			mCurrentTime = 0.0;
+			mCurrentFrame = 0;
+			mTextures = new <Texture>[];
+			mSounds = new <Sound>[];
+			mDurations = new <Number>[];
+			mStartTimes = new <Number>[];
+		}
     }
 }

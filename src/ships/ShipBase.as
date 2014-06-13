@@ -30,8 +30,8 @@ package ships
 		public var turnCompleted:Boolean;
 		
 		//variables to render ship
-		private var shipImage:MovieClip;
-		private var shipMask:Image;
+		public var shipImage:MovieClip;
+		public var shipMask:MovieClip;
 		
 		//stats of ship
 		public var movementRange:int = 2;
@@ -108,9 +108,34 @@ package ships
 			//then add sprite
 			shipImage = new MovieClip(Assets.getAtlas().getTextures("Ships/" + this.shipType+this.team + "/"), 8);
 			Starling.juggler.add(shipImage);
+			
+			shipImage.pause();
+			if (team == 1)
+			{
+				shipImage.currentFrame = 0;
+			}
+			else
+			{
+				shipImage.currentFrame = 8;
+			}
+			
 			this.addChild(shipImage);
 			//then masking, which will be turned off until turn complete
-			shipMask = new Image(Assets.getAtlas().getTexture("" + shipType+"_MASK"));
+			shipMask = new MovieClip(Assets.getAtlas().getTextures("Ships/" + shipType+"_MASK/"), 8);
+			Starling.juggler.add(shipMask);
+			
+			shipMask.pause();
+			if (team == 1)
+			{
+				shipMask.currentFrame = 0;
+			}
+			else
+			{
+				shipMask.currentFrame = 8;
+			}
+			
+			
+			
 			shipMask.alpha = 0.5;
 			this.addChild(shipMask);
 			shipMask.visible = false;
@@ -140,10 +165,6 @@ package ships
 			}
 		}
 		
-		public function checkSunk():Boolean
-		{
-		return sunk;
-		}
 		
 	}
 
