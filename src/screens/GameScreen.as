@@ -522,7 +522,7 @@ package screens
 						//calculates new renderlocation for animation manager
 						var tweenX:int = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
 						var tweenY:int = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
-
+	
 				
 						//tells new cell it is there
 						gridCell.shipEnters(ship);
@@ -610,12 +610,14 @@ package screens
 					//updates the render location  for the animation manager
 					tweenX = gridOrigin.x + ship.location.x * gridSpacing + gridSpacing / 2 - ship.width / 2;
 					tweenY = gridOrigin.y + ship.location.y * gridSpacing + gridSpacing / 2 - ship.height / 2;
+					
 				
 					//tells new cell it is there
 					gridCell.shipEnters(ship);
 					
 					//call to animation manager
 					AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase);
+					
 				}
 				trace("ship moved");
 				

@@ -27,6 +27,14 @@ package managers
 			{
 				moveTime /= 2.0;
 			}
+			else
+			{
+				var targetFrame:int = getRotationFrame(ship, newX, newY);
+			
+			//	trace("incrementing");
+				ship.rotateShip(targetFrame);
+				
+			}
 			TweenLite.to(ship, moveTime, { x:newX, y:newY } );
 		}
 		
@@ -66,6 +74,87 @@ package managers
 				TweenLite.to(storedFighter3, 0.65, { x:newX + verticalAlign } );
 			}
 			
+		}
+		
+		private static function getRotationFrame(ship:ShipBase, newX:int, newY:int):int
+		{
+			var deltaX:int = ship.x - newX;
+			var deltaY:int = ship.y - newY;
+			
+			var headingInRad:Number = Math.atan2(deltaY, deltaX);
+			var headingInDeg:Number = headingInRad * 180 / Math.PI;
+			
+			if (Math.abs(headingInDeg) <= 11.25)
+			{
+				return 13;
+			}
+			else if (Math.abs(headingInDeg) >= 168.75)
+			{
+				return 5;
+			}
+			else if (headingInDeg > 0)
+			{
+				if (headingInDeg <= 33.75)
+				{
+					return 14;
+				}
+				if (headingInDeg <= 56.25)
+				{
+					return 15;
+				}
+				if (headingInDeg <= 78.75)
+				{
+					return 16;
+				}
+				if (headingInDeg <= 101.25)
+				{
+					return 1;
+				}
+				if (headingInDeg <= 123.75)
+				{
+					return 2;
+				}
+				if (headingInDeg <= 146.25)
+				{
+					return 3;
+				}
+				if (headingInDeg <= 168.75)
+				{
+					return 4;
+				}
+			}
+			else if (headingInDeg < 0)
+			{
+				if (headingInDeg >= -33.75)
+				{
+					return 12;
+				}
+				if (headingInDeg >= -56.25)
+				{
+					return 11;
+				}
+				if (headingInDeg >= -78.75)
+				{
+					return 10;
+				}
+				if (headingInDeg >= -101.25)
+				{
+					return 9;
+				}
+				if (headingInDeg >= -123.75)
+				{
+					return 8;
+				}
+				if (headingInDeg >= -146.25)
+				{
+					return 7;
+				}
+				if (headingInDeg >= -168.75)
+				{
+					return 6;
+				}
+			}
+			return 1;
 		}
 		
 		

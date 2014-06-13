@@ -19,8 +19,10 @@ package managers
 				timer.removeEventListener(TimerEvent.TIMER, callFunction);
 				timer = null;
 				functionToCall();               
+				
 			}
-		}	
+		}
+		
 		
 	}
 

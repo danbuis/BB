@@ -1,6 +1,7 @@
 package ships 
 {
 	import flash.geom.Point;
+	import managers.utilities;
 	import playArea.GridCell;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -30,8 +31,9 @@ package ships
 		public var turnCompleted:Boolean;
 		
 		//variables to render ship
-		public var shipImage:MovieClip;
-		public var shipMask:MovieClip;
+		public var shipImage:Image;
+		public var shipMask:Image;
+		public var currentFrame:int;
 		
 		//stats of ship
 		public var movementRange:int = 2;
@@ -54,7 +56,15 @@ package ships
 			moved = false;
 			performedAction = false;
 			turnCompleted = false;
-			_location = new Point(0, 0); 
+			_location = new Point(0, 0);
+			if (team == 1)
+			{
+				currentFrame = 1;
+			}
+			else
+			{
+				currentFrame = 9;
+			}
 			
 			drawShip();
 		}
@@ -106,40 +116,56 @@ package ships
 		
 		{
 			//then add sprite
-			shipImage = new MovieClip(Assets.getAtlas().getTextures("Ships/" + this.shipType+this.team + "/"), 8);
-			Starling.juggler.add(shipImage);
-			
-			shipImage.pause();
-			if (team == 1)
-			{
-				shipImage.currentFrame = 0;
-			}
-			else
-			{
-				shipImage.currentFrame = 8;
-			}
-			
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/"+getFrameString(currentFrame)));
 			this.addChild(shipImage);
+			
 			//then masking, which will be turned off until turn complete
-			shipMask = new MovieClip(Assets.getAtlas().getTextures("Ships/" + shipType+"_MASK/"), 8);
-			Starling.juggler.add(shipMask);
-			
-			shipMask.pause();
-			if (team == 1)
-			{
-				shipMask.currentFrame = 0;
-			}
-			else
-			{
-				shipMask.currentFrame = 8;
-			}
-			
-			
-			
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/"+getFrameString(currentFrame)));
 			shipMask.alpha = 0.5;
 			this.addChild(shipMask);
 			shipMask.visible = false;
 			
+		}
+		
+		public function rotateShip(targetFrame:int):void
+		{
+			trace("rotating");
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(targetFrame)));
+			this.addChild(shipImage);				
+			
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(targetFrame)));
+				//utilities.pause(4, incrementShip);
+				//incrementShip();
+				//currentFrame = (currentFrame % 16) + 1;
+				//trace("increment while loop");
+
+			
+		}
+		/*
+		public function incrementShip():void 
+		{
+			trace("increment ship");
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
+			shipImage.x = this.x;
+			shipImage.y = this.y;
+			this.addChild(shipImage);
+			
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(currentFrame)));
+			
+		}*/
+		
+		private function getFrameString(frameNumber:int):String
+		{
+			var returnString:String = "" + frameNumber.toString();
+			
+			while (returnString.length != 4)
+			{
+				returnString = "0" + returnString;
+			}
+			
+			return returnString;
 		}
 		
 		public function getRangeToSquare(square:GridCell):Number
