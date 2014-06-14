@@ -132,7 +132,7 @@ package ships
 			
 			//then masking, which will be turned off until turn complete
 			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/"+getFrameString(currentFrame)));
-			shipMask.alpha = 0.5;
+			shipMask.alpha = 0.7;
 			this.addChild(shipMask);
 			shipMask.visible = false;
 			
@@ -142,26 +142,61 @@ package ships
 		{
 			trace("moveing and rotating");
 			
-			targetFrame = AnimationManager.getRotationFrame(this, newX, newY);
+			var targetFrame:int = AnimationManager.getRotationFrame(this, newX, newY);
+			trace("current: " + currentFrame+" target: " + targetFrame);
 			//TODO
-			//var distanceToFrame:int = targetFrame-currentFrame;
-			
-			var RotationTimer:Timer = new Timer(250, 6);
-			RotationTimer.addEventListener(TimerEvent.TIMER, incrementShipRotation);
-			RotationTimer.start();
+			var distanceClockwiseToFrame:int = targetFrame-currentFrame;
+			if (distanceClockwiseToFrame < 0)
+			{
+				distanceClockwiseToFrame+= 16;
+			}
+			trace("distance CW: " + distanceClockwiseToFrame);
+			var distanceCounterwiseToFrame:int = currentFrame-targetFrame;
+			if (distanceCounterwiseToFrame < 0)
+			{
+				distanceCounterwiseToFrame+= 16;
+			}
+			trace("distance CCW: " + distanceCounterwiseToFrame);
+			var animInterval:int = 250;
+			if (Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame) != 0)
+			{
+				if(distanceClockwiseToFrame < distanceCounterwiseToFrame)
+				{
+					var CWRotationTimer:Timer = new Timer(animInterval, distanceClockwiseToFrame);
+					CWRotationTimer.addEventListener(TimerEvent.TIMER, incrementShipRotation);
+					CWRotationTimer.start();
+				}
+				else
+				{
+					var CCWRotationTimer:Timer = new Timer(animInterval, distanceCounterwiseToFrame);
+					CCWRotationTimer.addEventListener(TimerEvent.TIMER, decrementShipRotation);
+					CCWRotationTimer.start();
+				}
+			}
 			
 			this.newX = newX;
 			this.newY = newY;
 			this.range = range;
 			
-			var movementTImer:Timer = new Timer(1750,1);
-			movementTImer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);
-			movementTImer.start();
-						
+			var movementTimer:Timer = new Timer(animInterval*(1+Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)),1);
+			movementTimer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);
+			movementTimer.start();
 			
+		}
+		
+		private function decrementShipRotation(e:TimerEvent):void 
+		{
+			currentFrame = ((currentFrame+14) % 16)+1;
+			trace("decrement function");
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
+			this.addChild(shipImage);
+			
+			this.removeChild(shipMask);
 			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(currentFrame)));
-
-			
+			shipMask.alpha = 0.5
+			shipMask.visible=false;
+			this.addChild(shipMask);
 		}
 		
 		private function incrementShipRotation(e:TimerEvent):void 
@@ -171,6 +206,12 @@ package ships
 			this.removeChild(shipImage);
 			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
 			this.addChild(shipImage);
+			
+			this.removeChild(shipMask);
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(currentFrame)));
+			shipMask.alpha = 0.5
+			shipMask.visible=false;
+			this.addChild(shipMask);
 		}
 		
 		private function moveShip(e:TimerEvent):void 
