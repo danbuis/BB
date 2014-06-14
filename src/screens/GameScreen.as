@@ -616,7 +616,7 @@ package screens
 					gridCell.shipEnters(ship);
 					
 					//call to animation manager
-					AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase);
+					ship.moveAndRotateShip(tweenX, tweenY, range);
 					
 				}
 				trace("ship moved");

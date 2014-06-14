@@ -1,8 +1,13 @@
 package ships 
 {
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.setInterval;
+	import flash.utils.Timer;
+	import managers.AnimationManager;
 	import managers.utilities;
 	import playArea.GridCell;
+	import screens.GamePhase;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.MovieClip;
@@ -34,6 +39,7 @@ package ships
 		public var shipImage:Image;
 		public var shipMask:Image;
 		public var currentFrame:int;
+		public var targetFrame:int;
 		
 		//stats of ship
 		public var movementRange:int = 2;
@@ -44,6 +50,11 @@ package ships
 		public var startingHP:int;
 		public var currentHP:int;
 		private var sunk:Boolean = false;
+		
+		//vars for animation
+		private var newX:int;
+		private var newY:int;
+		private var range:Number;
 		
 		public function ShipBase() 
 		{
@@ -127,25 +138,56 @@ package ships
 			
 		}
 		
-		public function rotateShip(targetFrame:int):void
+		public function moveAndRotateShip(newX:int, newY:int, range:Number):void
 		{
-			trace("rotating");
-			this.removeChild(shipImage);
-			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(targetFrame)));
-			this.addChild(shipImage);				
+			trace("moveing and rotating");
 			
-			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(targetFrame)));
-				//utilities.pause(4, incrementShip);
-				//incrementShip();
-				//currentFrame = (currentFrame % 16) + 1;
-				//trace("increment while loop");
+			targetFrame = AnimationManager.getRotationFrame(this, newX, newY);
+			//TODO
+			//var distanceToFrame:int = targetFrame-currentFrame;
+			
+			var RotationTimer:Timer = new Timer(250, 6);
+			RotationTimer.addEventListener(TimerEvent.TIMER, incrementShipRotation);
+			RotationTimer.start();
+			
+			this.newX = newX;
+			this.newY = newY;
+			this.range = range;
+			
+			var movementTImer:Timer = new Timer(1750,1);
+			movementTImer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);
+			movementTImer.start();
+						
+			
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(currentFrame)));
 
 			
 		}
-		/*
-		public function incrementShip():void 
+		
+		private function incrementShipRotation(e:TimerEvent):void 
 		{
-			trace("increment ship");
+			currentFrame = (currentFrame % 16) + 1;
+			trace("increment function");
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
+			this.addChild(shipImage);
+		}
+		
+		private function moveShip(e:TimerEvent):void 
+		{
+			trace("moving");
+			AnimationManager.moveShipAnimation(newX, newY, range, this, GamePhase.PLAY_PHASE);
+		}
+		
+		/*public function incrementShip():void 
+		{
+			currentFrame = (currentFrame % 16) + 1;
+			trace("increment function");
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
+			this.addChild(shipImage);	
+			
+			/*trace("increment ship");
 			this.removeChild(shipImage);
 			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
 			shipImage.x = this.x;

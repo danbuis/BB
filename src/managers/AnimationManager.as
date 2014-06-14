@@ -27,14 +27,7 @@ package managers
 			{
 				moveTime /= 2.0;
 			}
-			else
-			{
-				var targetFrame:int = getRotationFrame(ship, newX, newY);
 			
-			//	trace("incrementing");
-				ship.rotateShip(targetFrame);
-				
-			}
 			TweenLite.to(ship, moveTime, { x:newX, y:newY } );
 		}
 		
@@ -76,7 +69,7 @@ package managers
 			
 		}
 		
-		private static function getRotationFrame(ship:ShipBase, newX:int, newY:int):int
+		public static function getRotationFrame(ship:ShipBase, newX:int, newY:int):int
 		{
 			var deltaX:int = ship.x - newX;
 			var deltaY:int = ship.y - newY;
