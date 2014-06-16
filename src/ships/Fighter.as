@@ -30,6 +30,7 @@ package ships
 			currentEndurance--;
 		}
 		
+		//TODO refine timing, get more accurate estimate of second fighter pivot.  currently it grabs it from the original start state.  check order of display list.  landing fighter should be moved to the top...
 		public function landFighterAnimation( carrier:Carrier):void
 		{
 			//first move fighter and rotate carrier into position

@@ -196,7 +196,7 @@ package ships
 			this.newY = newY;
 			this.range = range;
 			
-			var timeForMove:int = Math.ceil(animInterval * (Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)) + (range * 1000));
+			var timeForMove:int = Math.ceil(animInterval * (1+Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)) + (range * 500));
 			
 			var movementTimer:Timer = new Timer(animInterval*(1+Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)),1);
 			movementTimer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);

@@ -1,5 +1,6 @@
 package ships 
 {
+	import managers.AnimationManager;
 	/**
 	 * ...
 	 * @author dan
@@ -20,12 +21,19 @@ package ships
 			fighterSquadrons = 3;
 		}
 		
-		public function launchFighter():void
+		public function launchFighter(fighter:Fighter):void
 		{
 			if (fighterSquadrons > 0)
 			{
 				fighterSquadrons--;
+				launchFighterAnimation(fighter)
 			}
+		}
+		
+		private function launchFighterAnimation(fighter:Fighter):void 
+		{
+			AnimationManager.launchFighter(fighter, this.x-40);
+			
 		}
 		
 		public function recoverFighter():void

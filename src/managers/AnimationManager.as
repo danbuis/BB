@@ -158,6 +158,11 @@ package managers
 			fighter.dispose();
 		}
 		
+		public static function launchFighter(fighter:Fighter, newX:int):void
+		{
+			TweenLite.to(fighter, 2, { x:newX, alpha:1, scaleX:1, scaleY:1 });
+		}
+		
 		
 	}
 

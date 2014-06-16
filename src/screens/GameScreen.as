@@ -901,14 +901,17 @@ package screens
 		
 		public function launchFighter(launchingCarrier:Carrier, fighter:Fighter, gridCell:GridCell):void 
 		{
-			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
-			pushShip(fighter);
 			
-			resetFog();
+			
+			
 			
 			//update carrier
-			launchingCarrier.launchFighter();
+			launchingCarrier.launchFighter(fighter);
 			launchingCarrier.performedAction = true;
+
+			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
+			pushShip(fighter);
+			resetFog();
 			
 			if (currentPlayer == CurrentPlayer.PLAYER)
 			{
