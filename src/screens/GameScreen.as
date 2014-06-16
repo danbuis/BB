@@ -906,12 +906,10 @@ package screens
 			
 			
 			//update carrier
-			launchingCarrier.launchFighter(fighter);
+			launchingCarrier.launchFighter(fighter, gridCell, this);
 			launchingCarrier.performedAction = true;
 
-			placeShip(fighter, gridCell.coordinates.x, gridCell.coordinates.y);
-			pushShip(fighter);
-			resetFog();
+			
 			
 			if (currentPlayer == CurrentPlayer.PLAYER)
 			{

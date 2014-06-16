@@ -271,6 +271,21 @@ package ships
 			this.addChild(shipMask);
 		}
 		
+		public function updateSprite(frame:int):void
+		{
+			currentFrame = frame;
+			
+			this.removeChild(shipImage);
+			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(frame)));
+			this.addChild(shipImage);
+			
+			this.removeChild(shipMask);
+			shipMask = new Image(Assets.getAtlas().getTexture("Ships/" + shipType+"_MASK/" + getFrameString(frame)));
+			shipMask.alpha = 0.5
+			shipMask.visible=false;
+			this.addChild(shipMask);
+		}
+		
 		private function moveShip(e:TimerEvent):void 
 		{
 			AnimationManager.moveShipAnimation(newX, newY, range, this, GamePhase.PLAY_PHASE);

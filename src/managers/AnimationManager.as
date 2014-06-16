@@ -158,9 +158,10 @@ package managers
 			fighter.dispose();
 		}
 		
-		public static function launchFighter(fighter:Fighter, newX:int):void
+		public static function launchFighter(fighter:Fighter, newX:int, newY:int):void
 		{
-			TweenLite.to(fighter, 2, { x:newX, alpha:1, scaleX:1, scaleY:1 });
+			trace("fighter launch animation");
+			TweenLite.to(fighter, 2, { x:newX, y:newY, alpha:1, scaleX:1, scaleY:1 });
 		}
 		
 		
