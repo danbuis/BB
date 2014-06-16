@@ -557,7 +557,10 @@ package screens
 				if (gridCell.occupied && gridCell.occupyingShip.shipType == ShipTypes.CARRIER)
 				{
 					(gridCell.occupyingShip as Carrier).recoverFighter();
-					backgroundImage.removeChild(ship);
+					
+					//call animation sequence.
+					(ship as Fighter).landFighterAnimation((gridCell.occupyingShip as Carrier));
+					//backgroundImage.removeChild(ship);
 					
 					//remove from ships in play
 					var index:int = shipsInPlay.indexOf(ship);
@@ -571,7 +574,7 @@ package screens
 						var test:int = 0;
 					}
 				
-					trace("attempting fighter recovery for team: " +ship.team);
+					//trace("attempting fighter recovery for team: " +ship.team);
 					GameTracker.api.alert("attempting fighter recovery", ship.team);
 					if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1)
 					{
@@ -586,7 +589,7 @@ package screens
 						isAShipSelected = false;
 						whoGetsNextTurn(true);
 					}
-					trace("fighter recovered");
+					//trace("fighter recovered");
 					GameTracker.api.alert("fighter recovered");
 					resetHighlight();
 					

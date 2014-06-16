@@ -2,6 +2,8 @@ package managers
 {
 	import playArea.GridCell;
 	import screens.GamePhase;
+	import ships.Carrier;
+	import ships.Fighter;
 	import ships.ShipBase;
 	import com.greensock.TweenLite;
 	import starling.display.Image;
@@ -148,6 +150,12 @@ package managers
 				}
 			}
 			return 1;
+		}
+		
+		public static function landFighter(fighter:Fighter, newX:int):void
+		{
+			TweenLite.to(fighter, 3, { x:newX, y:fighter.y+15, alpha:0, scaleX:0.2, scaleY:0.2 } );
+			fighter.dispose();
 		}
 		
 		

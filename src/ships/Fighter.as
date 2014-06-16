@@ -1,5 +1,9 @@
 package ships 
 {
+	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import managers.AnimationManager;
 	/**
 	 * ...
 	 * @author dan
@@ -24,6 +28,43 @@ package ships
 		public function useEndurance():void
 		{
 			currentEndurance--;
+		}
+		
+		public function landFighterAnimation( carrier:Carrier):void
+		{
+			//first move fighter and rotate carrier into position
+			var timeForFghterMove:int = this.moveAndRotateShip(carrier.x - 40, carrier.y, this.getRangeToShip(carrier));
+			trace("time for fighter move:" + timeForFghterMove);
+			var timeForCarrier:int = carrier.pivotShip(13);
+			trace("time for carrier pivot:" + timeForCarrier);
+			
+			//after fighter has moved, rotate it to land
+			var fighterMoveTimer:Timer = new Timer(timeForFghterMove, 1);
+			var timeToRotate:int = this.getRotationDistance(5) * animInterval;
+			trace("time for fighter pivot:" + timeToRotate);
+			fighterMoveTimer.addEventListener(TimerEvent.TIMER_COMPLETE, rotateFighterToLand);
+			fighterMoveTimer.start();
+			
+			
+			//var timeForFighterPivot:int = fighter.pivotShip(5);
+			
+			var delay:int = Math.max((timeForFghterMove+timeToRotate), timeForCarrier);
+			trace("delay:"+delay);
+			var setUpTimer:Timer = new Timer(delay,1);
+			setUpTimer.addEventListener(TimerEvent.TIMER_COMPLETE, landFighter);
+			setUpTimer.start();
+			
+			shipRef = carrier;
+		}
+		
+		private function rotateFighterToLand(e:TimerEvent):void 
+		{
+			this.pivotShip(5);
+		}
+		
+		private function landFighter(e:Event):void 
+		{
+			AnimationManager.landFighter(this, shipRef.x+20);
 		}
 		
 	}

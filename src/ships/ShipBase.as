@@ -55,6 +55,8 @@ package ships
 		private var newX:int;
 		private var newY:int;
 		private var range:Number;
+		public var animInterval:int = 250;
+		public var shipRef:ShipBase;
 		
 		public function ShipBase() 
 		{
@@ -138,26 +140,42 @@ package ships
 			
 		}
 		
-		public function moveAndRotateShip(newX:int, newY:int, range:Number):void
+		public function getRotationDistance(targetFrame:int):int
 		{
-			trace("moveing and rotating");
-			
-			var targetFrame:int = AnimationManager.getRotationFrame(this, newX, newY);
-			trace("current: " + currentFrame+" target: " + targetFrame);
-			//TODO
 			var distanceClockwiseToFrame:int = targetFrame-currentFrame;
 			if (distanceClockwiseToFrame < 0)
 			{
 				distanceClockwiseToFrame+= 16;
 			}
-			trace("distance CW: " + distanceClockwiseToFrame);
+			
 			var distanceCounterwiseToFrame:int = currentFrame-targetFrame;
 			if (distanceCounterwiseToFrame < 0)
 			{
 				distanceCounterwiseToFrame+= 16;
 			}
-			trace("distance CCW: " + distanceCounterwiseToFrame);
-			var animInterval:int = 250;
+			
+			return Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame);
+		}
+		
+		public function moveAndRotateShip(newX:int, newY:int, range:Number):int
+		{
+			trace("moveing and rotating");
+			
+			var targetFrame:int = AnimationManager.getRotationFrame(this, newX, newY);
+			
+			
+			var distanceClockwiseToFrame:int = targetFrame-currentFrame;
+			if (distanceClockwiseToFrame < 0)
+			{
+				distanceClockwiseToFrame+= 16;
+			}
+			
+			var distanceCounterwiseToFrame:int = currentFrame-targetFrame;
+			if (distanceCounterwiseToFrame < 0)
+			{
+				distanceCounterwiseToFrame+= 16;
+			}
+			
 			if (Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame) != 0)
 			{
 				if(distanceClockwiseToFrame < distanceCounterwiseToFrame)
@@ -178,16 +196,55 @@ package ships
 			this.newY = newY;
 			this.range = range;
 			
+			var timeForMove:int = Math.ceil(animInterval * (Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)) + (range * 1000));
+			
 			var movementTimer:Timer = new Timer(animInterval*(1+Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame)),1);
 			movementTimer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);
 			movementTimer.start();
 			
+			return timeForMove;
+			
+		}
+		
+		/** returns time to rotate*/
+		public function pivotShip(targetFrame:int):int
+		{
+			var distanceClockwiseToFrame:int = targetFrame-currentFrame;
+			if (distanceClockwiseToFrame < 0)
+			{
+				distanceClockwiseToFrame+= 16;
+			}
+			
+			var distanceCounterwiseToFrame:int = currentFrame-targetFrame;
+			if (distanceCounterwiseToFrame < 0)
+			{
+				distanceCounterwiseToFrame+= 16;
+			}
+			
+			if (Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame) != 0)
+			{
+				if(distanceClockwiseToFrame < distanceCounterwiseToFrame)
+				{
+					var CWRotationTimer:Timer = new Timer(animInterval, distanceClockwiseToFrame);
+					CWRotationTimer.addEventListener(TimerEvent.TIMER, incrementShipRotation);
+					CWRotationTimer.start();
+				}
+				else
+				{
+					var CCWRotationTimer:Timer = new Timer(animInterval, distanceCounterwiseToFrame);
+					CCWRotationTimer.addEventListener(TimerEvent.TIMER, decrementShipRotation);
+					CCWRotationTimer.start();
+				}
+			}
+			
+			//returns time to rotate
+			return(Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame) * animInterval);
 		}
 		
 		private function decrementShipRotation(e:TimerEvent):void 
 		{
 			currentFrame = ((currentFrame+14) % 16)+1;
-			trace("decrement function");
+			//trace("decrement function");
 			this.removeChild(shipImage);
 			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
 			this.addChild(shipImage);
@@ -202,7 +259,7 @@ package ships
 		private function incrementShipRotation(e:TimerEvent):void 
 		{
 			currentFrame = (currentFrame % 16) + 1;
-			trace("increment function");
+			//trace("increment function");
 			this.removeChild(shipImage);
 			shipImage = new Image(Assets.getAtlas().getTexture("Ships/" + this.shipType+this.team + "/" + getFrameString(currentFrame)));
 			this.addChild(shipImage);
@@ -216,7 +273,6 @@ package ships
 		
 		private function moveShip(e:TimerEvent):void 
 		{
-			trace("moving");
 			AnimationManager.moveShipAnimation(newX, newY, range, this, GamePhase.PLAY_PHASE);
 		}
 		
@@ -256,6 +312,14 @@ package ships
 			var squareCoords:Point = square.coordinates;
 			var deltaX:int = _location.x - squareCoords.x;
 			var deltaY:int = _location.y - squareCoords.y;
+			
+			return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+		}
+		
+		public function getRangeToShip(ship:ShipBase):Number
+		{
+			var deltaX:int = _location.x - ship.location.x;
+			var deltaY:int = _location.y - ship.location.y;
 			
 			return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 		}
