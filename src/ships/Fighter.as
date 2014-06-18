@@ -1,5 +1,6 @@
 package ships 
 {
+	import events.BBAnimationEvents;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -34,7 +35,7 @@ package ships
 		public function landFighterAnimation( carrier:Carrier):void
 		{
 			//first move fighter and rotate carrier into position
-			var timeForFghterMove:int = this.moveAndRotateShip(carrier.x - 40, carrier.y, this.getRangeToShip(carrier));
+			var timeForFghterMove:int = this.moveAndRotateShip(carrier.x - 40, carrier.y, this.getRangeToShip(carrier), true);
 			trace("time for fighter move:" + timeForFghterMove);
 			var timeForCarrier:int = carrier.pivotShip(13);
 			trace("time for carrier pivot:" + timeForCarrier);
@@ -65,7 +66,17 @@ package ships
 		
 		private function landFighter(e:Event):void 
 		{
-			AnimationManager.landFighter(this, shipRef.x+20);
+			AnimationManager.landFighter(this, shipRef.x + 20);
+			
+			var eventDispatchTimer:Timer = new Timer(2000, 1);
+			eventDispatchTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchLandingEvent);
+			eventDispatchTimer.start();
+			
+		}
+		
+		private function dispatchLandingEvent(e:TimerEvent):void 
+		{
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:this, fighterRecover:true } ));
 		}
 		
 	}

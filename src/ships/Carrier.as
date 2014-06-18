@@ -1,5 +1,6 @@
 package ships 
 {
+	import events.BBAnimationEvents;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import managers.AnimationManager;
@@ -76,7 +77,7 @@ package ships
 		{
 			//trace("x:" + shipRef.x);
 			var delay:int = shipRef.moveAndRotateShip((this.gridCell.coordinates.x * 40 + 40), (this.gridCell.coordinates.y * 40 + 40), 
-			2.5);
+			2.5, false);
 			
 			var timeToMoveRotateFighter:Timer = new Timer(delay - 500, 1);
 			timeToMoveRotateFighter.addEventListener(TimerEvent.TIMER_COMPLETE, pushFighter);
@@ -87,6 +88,9 @@ package ships
 		{
 			game.placeShip(shipRef, gridCell.coordinates.x, gridCell.coordinates.y);
 			game.resetFog();
+			
+			trace("dispatching action");
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:this } ));
 		}
 		
 		public function recoverFighter():void

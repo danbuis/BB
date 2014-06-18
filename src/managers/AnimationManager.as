@@ -1,12 +1,19 @@
 package managers 
 {
+	import flash.utils.Timer;
 	import playArea.GridCell;
 	import screens.GamePhase;
+	import screens.GameScreen;
+	import ships.Battleship;
 	import ships.Carrier;
 	import ships.Fighter;
 	import ships.ShipBase;
 	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
+	import ships.Submarine;
+	import starling.core.Starling;
 	import starling.display.Image;
+	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	/**
 	 * ...
@@ -154,7 +161,7 @@ package managers
 		
 		public static function landFighter(fighter:Fighter, newX:int):void
 		{
-			TweenLite.to(fighter, 3, { x:newX, y:fighter.y+15, alpha:0, scaleX:0.2, scaleY:0.2 } );
+			TweenLite.to(fighter, 2, { x:newX, y:fighter.y+15, alpha:0, scaleX:0.2, scaleY:0.2 } );
 			fighter.dispose();
 		}
 		
@@ -164,6 +171,40 @@ package managers
 			TweenLite.to(fighter, 2, { x:newX, y:newY, alpha:1, scaleX:1, scaleY:1 });
 		}
 		
+		public static function submarineVisibility(submarine:Submarine, visible:Boolean):void
+		{
+			if (visible)
+			{
+				TweenLite.to(submarine, 1.3, { alpha:1.0 } );
+			}
+			else if (submarine.team == 1)
+			{
+				TweenLite.to(submarine, 1.3, { alpha:0.3 } );
+			}
+			else
+			{
+				TweenLite.to(submarine, 1.3, { alpha:0.0 } );
+			}
+			
+		}
+		
+		
+		public static function BBbombard(battleship:Battleship, target:GridCell):void
+		{
+			var apexX:int = (((battleship.location.x * 40) + 40) + ((target.coordinates.x * 40) + 40))/2;
+			var apexY:int = (((battleship.location.y * 40) + 40) + ((target.coordinates.y * 40) + 40)) / 2 - 150;
+			
+		}
+		
+		public static function explosionAnimation(x:int, y:int, deathExplosion:MovieClip):void
+		{
+			
+			
+			Starling.juggler.add(deathExplosion);
+			
+			TweenLite.to(deathExplosion, 1, {alpha:0.0, ease:Quad.easeIn});
+			
+		}
 		
 	}
 

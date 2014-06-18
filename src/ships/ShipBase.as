@@ -1,5 +1,6 @@
 package ships 
 {
+	import events.BBAnimationEvents;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.setInterval;
@@ -44,8 +45,6 @@ package ships
 		//stats of ship
 		public var movementRange:int = 2;
 		public var visibilityRange:int = 2;
-		
-		// TODO: use heading, will affect rendering
 		
 		public var startingHP:int;
 		public var currentHP:int;
@@ -157,7 +156,7 @@ package ships
 			return Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame);
 		}
 		
-		public function moveAndRotateShip(newX:int, newY:int, range:Number):int
+		public function moveAndRotateShip(newX:int, newY:int, range:Number, moving:Boolean):int
 		{
 			trace("moveing and rotating");
 			
@@ -202,8 +201,21 @@ package ships
 			movementTimer.addEventListener(TimerEvent.TIMER_COMPLETE, moveShip);
 			movementTimer.start();
 			
+			if (moving)
+			{
+				var eventTimer:Timer = new Timer(timeForMove, 1);
+				eventTimer.addEventListener(TimerEvent.TIMER_COMPLETE, fireMoveEvent);
+				eventTimer.start();
+			}
+			
 			return timeForMove;
 			
+		}
+		
+		private function fireMoveEvent(e:TimerEvent):void 
+		{
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_MOVING, true, { ship:this } ));
+			//trace("dispatching move");
 		}
 		
 		/** returns time to rotate*/

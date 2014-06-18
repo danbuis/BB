@@ -1,6 +1,7 @@
 package
 {
 //TODO go thorugh all code when done and do Math.floor for all divisions of sprite locaitons
+	import events.BBAnimationEvents;
 	import events.BBNavigationEvent;
 	import FGL.GameTracker.GameTracker;
 	import managers.TutorialManager;
@@ -57,6 +58,8 @@ package
 			
 
 		}
+		
+		
 		
 		private function toTutorial(event:Event):void 
 		{

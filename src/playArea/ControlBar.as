@@ -609,7 +609,6 @@ package playArea
 		private function showSubFuel(sub:Submarine):void
 		{
 			
-			//TODO sub fuel update at end of turn, not ship complete
 			if (sub.numberOfDivesRemaining == 8)
 			{
 				fuel100.visible = true;

@@ -1,379 +1,411 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:c5091c631d68047e5cbae69dd9e66939:582713f67e5c791735d3dc3efe0b181b:1f5082dd25efd46d832fd7c3e4d09628$ -->
+<!-- $TexturePacker:SmartUpdate:9dfd622d1bc8c839125b5986a6b39d88:95f7832e306c5042f3f69769cd3cd403:1f5082dd25efd46d832fd7c3e4d09628$ -->
 <TextureAtlas imagePath="spriteSheet.png">
     <SubTexture name="BATTLESHIP" x="127" y="41" width="40" height="38"/>
-    <SubTexture name="BATTLESHIP_1" x="211" y="41" width="40" height="39"/>
-    <SubTexture name="BATTLESHIP_2" x="253" y="41" width="40" height="39"/>
-    <SubTexture name="BATTLESHIP_MASK" x="169" y="41" width="40" height="39"/>
-    <SubTexture name="Buttons/AA_fire_button" x="48" y="4" width="20" height="20"/>
-    <SubTexture name="Buttons/FreePlayGameButton" x="4" y="755" width="153" height="57"/>
-    <SubTexture name="Buttons/NewGameButton" x="489" y="696" width="153" height="57"/>
-    <SubTexture name="Buttons/TutorialButton" x="644" y="696" width="153" height="57"/>
-    <SubTexture name="Buttons/bombard_button" x="4" y="4" width="20" height="20"/>
-    <SubTexture name="Buttons/button_mask" x="114" y="4" width="20" height="20"/>
+    <SubTexture name="BATTLESHIP_1" x="253" y="41" width="40" height="39"/>
+    <SubTexture name="BATTLESHIP_2" x="379" y="41" width="40" height="39"/>
+    <SubTexture name="BATTLESHIP_MASK" x="421" y="41" width="40" height="39"/>
+    <SubTexture name="Buttons/AA_fire_button" x="70" y="4" width="20" height="20"/>
+    <SubTexture name="Buttons/FreePlayGameButton" x="408" y="790" width="153" height="57"/>
+    <SubTexture name="Buttons/NewGameButton" x="563" y="790" width="153" height="57"/>
+    <SubTexture name="Buttons/TutorialButton" x="253" y="790" width="153" height="57"/>
+    <SubTexture name="Buttons/bombard_button" x="48" y="4" width="20" height="20"/>
+    <SubTexture name="Buttons/button_mask" x="4" y="4" width="20" height="20"/>
     <SubTexture name="Buttons/fire_button" x="26" y="4" width="20" height="20"/>
-    <SubTexture name="Buttons/launch_fighter_button" x="640" y="4" width="30" height="30"/>
-    <SubTexture name="Buttons/main_menu_button" x="159" y="755" width="153" height="57"/>
+    <SubTexture name="Buttons/launch_fighter_button" x="724" y="4" width="30" height="30"/>
+    <SubTexture name="Buttons/main_menu_button" x="718" y="790" width="153" height="57"/>
     <SubTexture name="Buttons/menu_button" x="756" y="4" width="30" height="30"/>
-    <SubTexture name="Buttons/move_button" x="70" y="4" width="20" height="20"/>
-    <SubTexture name="Buttons/restart_button" x="799" y="696" width="153" height="57"/>
-    <SubTexture name="Buttons/resume_Button" x="334" y="696" width="153" height="57"/>
+    <SubTexture name="Buttons/move_button" x="114" y="4" width="20" height="20"/>
+    <SubTexture name="Buttons/restart_button" x="721" y="731" width="153" height="57"/>
+    <SubTexture name="Buttons/resume_Button" x="4" y="790" width="153" height="57"/>
     <SubTexture name="Buttons/sound_button" x="608" y="4" width="30" height="30"/>
     <SubTexture name="Buttons/submerge_button" x="92" y="4" width="20" height="20"/>
-    <SubTexture name="CARRIER" x="944" y="4" width="39" height="35"/>
-    <SubTexture name="CARRIER_1" x="45" y="41" width="39" height="35"/>
-    <SubTexture name="CARRIER_2" x="86" y="41" width="39" height="35"/>
-    <SubTexture name="CARRIER_MASK" x="4" y="41" width="39" height="35"/>
-    <SubTexture name="DESTROYER" x="928" y="377" width="40" height="40"/>
-    <SubTexture name="DESTROYER_1" x="970" y="377" width="40" height="40"/>
-    <SubTexture name="DESTROYER_2" x="46" y="419" width="40" height="40"/>
-    <SubTexture name="DESTROYER_MASK" x="88" y="419" width="40" height="40"/>
-    <SubTexture name="FIGHTER" x="172" y="419" width="40" height="40"/>
-    <SubTexture name="FIGHTER_1" x="214" y="419" width="40" height="40"/>
-    <SubTexture name="FIGHTER_2" x="130" y="419" width="40" height="40"/>
-    <SubTexture name="FIGHTER_MASK" x="4" y="419" width="40" height="40"/>
-    <SubTexture name="GUI/BB_icon" x="516" y="755" width="52" height="65"/>
-    <SubTexture name="GUI/Menu_mask" x="618" y="590" width="64" height="48"/>
-    <SubTexture name="GUI/blue_screen" x="393" y="827" width="61" height="83"/>
-    <SubTexture name="GUI/carrier_icon" x="408" y="755" width="52" height="62"/>
-    <SubTexture name="GUI/done_down" x="4" y="696" width="163" height="55"/>
-    <SubTexture name="GUI/done_up" x="169" y="696" width="163" height="55"/>
-    <SubTexture name="GUI/down_arrow" x="714" y="4" width="40" height="30"/>
-    <SubTexture name="GUI/fighter_icon" x="462" y="755" width="52" height="62"/>
-    <SubTexture name="GUI/fighter_panel" x="524" y="1067" width="125" height="263"/>
-    <SubTexture name="GUI/fighter_stored" x="942" y="641" width="58" height="53"/>
-    <SubTexture name="GUI/fuel_100" x="401" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_13" x="364" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_25" x="253" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_33" x="105" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_38" x="142" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_50" x="216" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_63" x="179" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_66" x="68" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_75" x="290" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_88" x="327" y="1067" width="35" height="200"/>
-    <SubTexture name="GUI/fuel_panel" x="438" y="1067" width="84" height="222"/>
+    <SubTexture name="CARRIER" x="4" y="41" width="39" height="35"/>
+    <SubTexture name="CARRIER_1" x="86" y="41" width="39" height="35"/>
+    <SubTexture name="CARRIER_2" x="45" y="41" width="39" height="35"/>
+    <SubTexture name="CARRIER_MASK" x="944" y="4" width="39" height="35"/>
+    <SubTexture name="DESTROYER" x="844" y="419" width="40" height="40"/>
+    <SubTexture name="DESTROYER_1" x="886" y="419" width="40" height="40"/>
+    <SubTexture name="DESTROYER_2" x="970" y="419" width="40" height="40"/>
+    <SubTexture name="DESTROYER_MASK" x="4" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0000" x="88" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0001" x="130" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0002" x="46" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0003" x="928" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0004" x="337" y="41" width="40" height="39"/>
+    <SubTexture name="Explosions/death_0005" x="169" y="41" width="40" height="39"/>
+    <SubTexture name="Explosions/death_0006" x="211" y="41" width="40" height="39"/>
+    <SubTexture name="Explosions/death_0007" x="295" y="41" width="40" height="39"/>
+    <SubTexture name="Explosions/death_0008" x="4" y="629" width="40" height="41"/>
+    <SubTexture name="Explosions/death_0009" x="46" y="629" width="40" height="41"/>
+    <SubTexture name="Explosions/death_0010" x="88" y="629" width="40" height="41"/>
+    <SubTexture name="Explosions/death_0011" x="130" y="629" width="40" height="41"/>
+    <SubTexture name="Explosions/death_0012" x="802" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0013" x="466" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0014" x="508" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/death_0015" x="592" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0000" x="634" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0001" x="718" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0002" x="760" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0003" x="676" y="419" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0004" x="172" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0005" x="298" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0006" x="676" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0007" x="718" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0008" x="634" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0009" x="760" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0010" x="802" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0011" x="886" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0012" x="928" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0013" x="844" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0014" x="592" y="461" width="40" height="40"/>
+    <SubTexture name="Explosions/fire_0015" x="550" y="461" width="40" height="40"/>
+    <SubTexture name="FIGHTER" x="214" y="461" width="40" height="40"/>
+    <SubTexture name="FIGHTER_1" x="256" y="461" width="40" height="40"/>
+    <SubTexture name="FIGHTER_2" x="340" y="461" width="40" height="40"/>
+    <SubTexture name="FIGHTER_MASK" x="382" y="461" width="40" height="40"/>
+    <SubTexture name="GUI/BB_icon" x="4" y="854" width="52" height="65"/>
+    <SubTexture name="GUI/Menu_mask" x="879" y="629" width="64" height="48"/>
+    <SubTexture name="GUI/blue_screen" x="774" y="854" width="61" height="83"/>
+    <SubTexture name="GUI/carrier_icon" x="927" y="790" width="52" height="62"/>
+    <SubTexture name="GUI/done_down" x="391" y="731" width="163" height="55"/>
+    <SubTexture name="GUI/done_up" x="556" y="731" width="163" height="55"/>
+    <SubTexture name="GUI/down_arrow" x="682" y="4" width="40" height="30"/>
+    <SubTexture name="GUI/fighter_icon" x="873" y="790" width="52" height="62"/>
+    <SubTexture name="GUI/fighter_panel" x="820" y="1061" width="125" height="263"/>
+    <SubTexture name="GUI/fighter_stored" x="331" y="731" width="58" height="53"/>
+    <SubTexture name="GUI/fuel_100" x="512" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_13" x="660" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_25" x="623" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_33" x="549" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_38" x="586" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_50" x="697" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_63" x="364" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_66" x="401" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_75" x="438" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_88" x="475" y="1061" width="35" height="200"/>
+    <SubTexture name="GUI/fuel_panel" x="734" y="1061" width="84" height="222"/>
     <SubTexture name="GUI/green_light" x="163" y="4" width="25" height="25"/>
-    <SubTexture name="GUI/lower_GUI" x="697" y="921" width="294" height="144"/>
-    <SubTexture name="GUI/red_light" x="136" y="4" width="25" height="25"/>
-    <SubTexture name="GUI/red_screen" x="330" y="827" width="61" height="83"/>
-    <SubTexture name="GUI/shipSelect_bg" x="635" y="921" width="60" height="120"/>
-    <SubTexture name="GUI/up_arrow" x="672" y="4" width="40" height="30"/>
-    <SubTexture name="GUI/upper_GUI" x="844" y="545" width="91" height="43"/>
-    <SubTexture name="GUI/yellow_light" x="190" y="4" width="25" height="25"/>
-    <SubTexture name="PATROL BOAT" x="886" y="377" width="40" height="40"/>
-    <SubTexture name="PATROL BOAT_1" x="592" y="377" width="40" height="40"/>
-    <SubTexture name="PATROL BOAT_2" x="634" y="377" width="40" height="40"/>
-    <SubTexture name="PATROL BOAT_MASK" x="718" y="377" width="40" height="40"/>
-    <SubTexture name="SUBMARINE" x="788" y="4" width="37" height="33"/>
+    <SubTexture name="GUI/lower_GUI" x="4" y="1061" width="294" height="144"/>
+    <SubTexture name="GUI/red_light" x="190" y="4" width="25" height="25"/>
+    <SubTexture name="GUI/red_screen" x="711" y="854" width="61" height="83"/>
+    <SubTexture name="GUI/shipSelect_bg" x="940" y="939" width="60" height="120"/>
+    <SubTexture name="GUI/up_arrow" x="640" y="4" width="40" height="30"/>
+    <SubTexture name="GUI/upper_GUI" x="172" y="629" width="91" height="43"/>
+    <SubTexture name="GUI/yellow_light" x="136" y="4" width="25" height="25"/>
+    <SubTexture name="PATROL BOAT" x="466" y="461" width="40" height="40"/>
+    <SubTexture name="PATROL BOAT_1" x="508" y="461" width="40" height="40"/>
+    <SubTexture name="PATROL BOAT_2" x="424" y="461" width="40" height="40"/>
+    <SubTexture name="PATROL BOAT_MASK" x="550" y="419" width="40" height="40"/>
+    <SubTexture name="SUBMARINE" x="827" y="4" width="37" height="33"/>
     <SubTexture name="SUBMARINE_1" x="905" y="4" width="37" height="33"/>
-    <SubTexture name="SUBMARINE_2" x="827" y="4" width="37" height="33"/>
+    <SubTexture name="SUBMARINE_2" x="788" y="4" width="37" height="33"/>
     <SubTexture name="SUBMARINE_MASK" x="866" y="4" width="37" height="33"/>
-    <SubTexture name="Ships/BATTLESHIP1/0001" x="844" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0002" x="760" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0003" x="802" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0004" x="256" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0005" x="382" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0006" x="676" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0007" x="718" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0008" x="802" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0009" x="844" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0010" x="928" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0011" x="970" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0012" x="886" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0013" x="760" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0014" x="634" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0015" x="298" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP1/0016" x="340" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0001" x="424" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0002" x="466" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0003" x="550" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0004" x="592" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0005" x="508" y="419" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0006" x="676" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0007" x="550" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0008" x="508" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0009" x="550" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0010" x="634" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0011" x="676" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0012" x="760" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0013" x="802" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0014" x="718" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0015" x="592" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP2/0016" x="466" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0001" x="172" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0002" x="4" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0003" x="298" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0004" x="424" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0005" x="340" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0006" x="382" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0007" x="844" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0008" x="970" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0009" x="214" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0010" x="256" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0011" x="340" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0012" x="382" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0013" x="466" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0014" x="508" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0015" x="424" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/BATTLESHIP_MASK/0016" x="298" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0001" x="172" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0002" x="886" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0003" x="928" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0004" x="4" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0005" x="130" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0006" x="46" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0007" x="88" y="377" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0008" x="256" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0009" x="340" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0010" x="802" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0011" x="844" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0012" x="928" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0013" x="970" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0014" x="46" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0015" x="88" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER1/0016" x="4" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0001" x="886" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0002" x="760" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0003" x="466" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0004" x="508" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0005" x="592" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0006" x="718" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0007" x="634" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0008" x="676" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0009" x="550" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0010" x="466" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0011" x="676" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0012" x="634" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0013" x="718" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0014" x="592" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0015" x="760" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER2/0016" x="508" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0001" x="550" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0002" x="802" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0003" x="256" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0004" x="172" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0005" x="214" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0006" x="298" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0007" x="424" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0008" x="340" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0009" x="382" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0010" x="130" y="545" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0011" x="130" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0012" x="382" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0013" x="424" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0014" x="508" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0015" x="550" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/CARRIER_MASK/0016" x="634" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0001" x="676" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0002" x="592" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0003" x="466" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0004" x="340" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0005" x="46" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0006" x="88" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0007" x="172" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0008" x="298" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0009" x="214" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0010" x="256" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0011" x="718" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0012" x="844" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0013" x="88" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0014" x="130" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0015" x="214" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER1/0016" x="256" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0001" x="424" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0002" x="382" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0003" x="298" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0004" x="172" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0005" x="46" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0006" x="760" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0007" x="802" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0008" x="130" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0009" x="886" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0010" x="4" y="503" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0011" x="928" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0012" x="970" y="461" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0013" x="214" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0014" x="466" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0015" x="508" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER2/0016" x="550" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0001" x="466" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0002" x="592" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0003" x="634" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0004" x="718" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0005" x="760" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0006" x="676" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0007" x="424" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0008" x="382" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0009" x="88" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0010" x="130" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0011" x="46" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0012" x="172" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0013" x="214" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0014" x="298" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0015" x="340" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/DESTROYER_MASK/0016" x="256" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0001" x="802" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0002" x="844" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0003" x="340" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0004" x="382" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0005" x="298" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0006" x="424" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0007" x="508" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0008" x="592" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0009" x="634" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0010" x="550" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0011" x="466" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0012" x="256" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0013" x="214" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0014" x="928" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0015" x="970" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER1/0016" x="886" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0001" x="4" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0002" x="46" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0003" x="130" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0004" x="172" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0005" x="88" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0006" x="4" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0007" x="928" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0008" x="631" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0009" x="673" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0010" x="547" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0011" x="589" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0001" x="424" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0002" x="298" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0003" x="340" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0004" x="424" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0005" x="466" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0006" x="550" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0007" x="592" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0008" x="508" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0009" x="382" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0010" x="256" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0011" x="928" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0012" x="970" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0013" x="970" y="461" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0014" x="88" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0015" x="172" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP1/0016" x="214" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0001" x="130" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0002" x="634" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0003" x="760" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0004" x="130" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0005" x="172" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0006" x="88" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0007" x="214" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0008" x="256" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0009" x="340" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0010" x="382" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0011" x="298" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0012" x="46" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0013" x="4" y="419" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0014" x="676" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0015" x="718" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP2/0016" x="802" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0001" x="844" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0002" x="928" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0003" x="970" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0004" x="886" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0005" x="4" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0006" x="466" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0007" x="298" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0008" x="256" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0009" x="340" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0010" x="214" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0011" x="130" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0012" x="382" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0013" x="508" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0014" x="634" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0015" x="592" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/BATTLESHIP_MASK/0016" x="676" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0001" x="550" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0002" x="466" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0003" x="424" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0004" x="172" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0005" x="88" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0006" x="676" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0007" x="718" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0008" x="718" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0009" x="592" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0010" x="508" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0011" x="760" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0012" x="886" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0013" x="4" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0014" x="970" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0015" x="46" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER1/0016" x="928" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0001" x="844" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0002" x="802" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0003" x="550" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0004" x="928" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0005" x="970" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0006" x="760" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0007" x="802" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0008" x="886" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0009" x="844" y="587" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0010" x="634" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0011" x="88" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0012" x="382" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0013" x="424" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0014" x="508" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0015" x="550" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER2/0016" x="634" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0001" x="676" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0002" x="592" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0003" x="466" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0004" x="340" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0005" x="4" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0006" x="46" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0007" x="130" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0008" x="172" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0009" x="256" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0010" x="298" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0011" x="214" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0012" x="718" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0013" x="844" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0014" x="130" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0015" x="172" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/CARRIER_MASK/0016" x="256" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0001" x="298" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0002" x="382" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0003" x="424" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0004" x="340" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0005" x="214" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0006" x="88" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0007" x="760" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0008" x="886" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0009" x="802" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0010" x="886" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0011" x="928" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0012" x="4" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0013" x="46" y="545" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0014" x="970" y="503" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0015" x="46" y="377" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER1/0016" x="298" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0001" x="760" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0002" x="802" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0003" x="718" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0004" x="634" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0005" x="844" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0006" x="928" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0007" x="4" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0008" x="46" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0009" x="970" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0010" x="886" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0011" x="676" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0012" x="592" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0013" x="256" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0014" x="298" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0015" x="214" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER2/0016" x="130" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0001" x="340" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0002" x="424" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0003" x="508" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0004" x="550" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0005" x="466" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0006" x="382" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0007" x="88" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0008" x="172" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0009" x="760" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0010" x="802" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0011" x="718" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0012" x="634" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0013" x="844" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0014" x="928" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0015" x="46" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/DESTROYER_MASK/0016" x="4" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0001" x="88" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0002" x="970" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0003" x="886" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0004" x="676" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0005" x="88" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0006" x="256" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0007" x="298" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0008" x="214" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0009" x="130" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0010" x="340" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0011" x="424" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0012" x="508" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0013" x="550" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0014" x="466" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0015" x="382" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER1/0016" x="172" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0001" x="970" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0002" x="799" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0003" x="841" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0004" x="757" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0005" x="631" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0006" x="883" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0007" x="967" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0008" x="46" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0009" x="88" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0010" x="4" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0011" x="925" y="41" width="40" height="40"/>
     <SubTexture name="Ships/FIGHTER2/0012" x="715" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0013" x="841" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0014" x="883" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0015" x="799" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER2/0016" x="379" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0001" x="295" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0002" x="337" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0003" x="463" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0004" x="505" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0005" x="421" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0006" x="757" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0007" x="4" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0008" x="592" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0009" x="634" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0010" x="550" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0011" x="466" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0012" x="676" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0013" x="760" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0014" x="886" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0015" x="844" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/FIGHTER_MASK/0016" x="925" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0001" x="802" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0002" x="718" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0003" x="508" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0004" x="424" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0005" x="88" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0006" x="130" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0007" x="46" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0008" x="967" y="41" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0009" x="172" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0010" x="256" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0011" x="340" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0012" x="382" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0013" x="298" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0014" x="214" y="83" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0015" x="970" y="125" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT1/0016" x="718" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0001" x="928" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0002" x="970" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0003" x="886" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0004" x="4" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0005" x="88" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0013" x="463" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0014" x="589" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0015" x="505" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER2/0016" x="547" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0001" x="673" y="41" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0002" x="172" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0003" x="760" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0004" x="802" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0005" x="718" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0006" x="634" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0007" x="844" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0008" x="928" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0009" x="4" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0010" x="46" y="125" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0011" x="130" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0012" x="886" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0013" x="676" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0014" x="592" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0015" x="256" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/FIGHTER_MASK/0016" x="298" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0001" x="214" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0002" x="340" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0003" x="424" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0004" x="508" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0005" x="550" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0006" x="466" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0007" x="382" y="83" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0008" x="592" y="167" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0009" x="172" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0010" x="592" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0011" x="634" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0012" x="550" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0013" x="676" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0014" x="760" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0015" x="844" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT1/0016" x="886" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0001" x="802" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0002" x="718" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0003" x="508" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0004" x="466" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0005" x="130" y="293" width="40" height="40"/>
     <SubTexture name="Ships/PATROL BOAT2/0006" x="172" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0007" x="214" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0008" x="130" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0009" x="46" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0010" x="844" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0011" x="802" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0012" x="508" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0013" x="550" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0014" x="676" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0015" x="592" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT2/0016" x="634" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0001" x="718" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0002" x="760" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0003" x="676" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0004" x="256" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0005" x="298" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0006" x="802" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0007" x="844" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0008" x="760" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0009" x="886" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0010" x="970" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0011" x="46" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0012" x="88" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0013" x="4" y="335" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0014" x="928" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0015" x="718" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/PATROL BOAT_MASK/0016" x="676" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0001" x="382" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0002" x="424" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0003" x="340" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0004" x="466" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0005" x="508" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0006" x="592" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0007" x="634" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0008" x="550" y="293" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0009" x="424" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0010" x="382" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0011" x="214" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0012" x="256" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0013" x="172" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0014" x="298" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0015" x="340" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE1/0016" x="424" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0001" x="466" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0002" x="382" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0003" x="130" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0004" x="88" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0005" x="802" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0006" x="844" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0007" x="760" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0008" x="886" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0009" x="928" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0010" x="4" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0011" x="46" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0012" x="970" y="167" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0013" x="508" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0014" x="550" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0015" x="46" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE2/0016" x="88" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0001" x="4" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0002" x="130" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0003" x="214" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0004" x="298" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0005" x="340" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0006" x="256" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0007" x="172" y="251" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0008" x="970" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0009" x="928" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0010" x="634" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0011" x="676" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0012" x="592" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0013" x="718" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0014" x="760" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0015" x="844" y="209" width="40" height="40"/>
-    <SubTexture name="Ships/SUBMARINE_MASK/0016" x="886" y="209" width="40" height="40"/>
-    <SubTexture name="click_down" x="314" y="755" width="92" height="57"/>
+    <SubTexture name="Ships/PATROL BOAT2/0007" x="88" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0008" x="214" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0009" x="130" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0010" x="382" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0011" x="424" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0012" x="340" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0013" x="256" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0014" x="928" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0015" x="970" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT2/0016" x="550" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0001" x="592" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0002" x="508" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0003" x="424" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0004" x="634" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0005" x="718" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0006" x="802" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0007" x="844" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0008" x="760" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0009" x="676" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0010" x="466" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0011" x="382" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0012" x="46" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0013" x="88" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0014" x="4" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0015" x="130" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/PATROL BOAT_MASK/0016" x="214" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0001" x="298" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0002" x="340" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0003" x="256" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0004" x="172" y="335" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0005" x="46" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0006" x="4" y="293" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0007" x="718" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0008" x="760" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0009" x="676" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0010" x="802" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0011" x="886" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0012" x="970" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0013" x="4" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0014" x="928" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0015" x="844" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE1/0016" x="634" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0001" x="592" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0002" x="256" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0003" x="298" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0004" x="214" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0005" x="340" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0006" x="424" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0007" x="508" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0008" x="550" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0009" x="466" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0010" x="382" y="209" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0011" x="46" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0012" x="88" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0013" x="676" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0014" x="718" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0015" x="634" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE2/0016" x="550" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0001" x="760" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0002" x="844" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0003" x="928" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0004" x="970" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0005" x="886" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0006" x="802" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0007" x="592" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0008" x="508" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0009" x="172" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0010" x="214" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0011" x="130" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0012" x="256" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0013" x="340" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0014" x="424" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0015" x="466" y="251" width="40" height="40"/>
+    <SubTexture name="Ships/SUBMARINE_MASK/0016" x="382" y="251" width="40" height="40"/>
+    <SubTexture name="click_down" x="159" y="790" width="92" height="57"/>
     <SubTexture name="click_left" x="360" y="4" width="122" height="29"/>
     <SubTexture name="click_right" x="484" y="4" width="122" height="29"/>
     <SubTexture name="continue" x="217" y="4" width="141" height="26"/>
-    <SubTexture name="gridcell_fog" x="563" y="641" width="50" height="50"/>
-    <SubTexture name="gridcell_highlight" x="802" y="209" width="40" height="40"/>
-    <SubTexture name="message-1" x="456" y="827" width="303" height="92"/>
-    <SubTexture name="message-10" x="4" y="590" width="285" height="47"/>
-    <SubTexture name="message-11" x="4" y="827" width="324" height="82"/>
-    <SubTexture name="message-2" x="330" y="921" width="303" height="116"/>
-    <SubTexture name="message-3" x="684" y="590" width="303" height="49"/>
-    <SubTexture name="message-4" x="4" y="641" width="327" height="49"/>
-    <SubTexture name="message-5" x="333" y="641" width="228" height="49"/>
-    <SubTexture name="message-6" x="4" y="921" width="324" height="104"/>
-    <SubTexture name="message-7" x="291" y="590" width="325" height="48"/>
-    <SubTexture name="message-8" x="570" y="755" width="325" height="70"/>
-    <SubTexture name="message-9" x="615" y="641" width="325" height="51"/>
-    <SubTexture name="reticule_down" x="4" y="1067" width="62" height="147"/>
+    <SubTexture name="gridcell_fog" x="868" y="679" width="50" height="50"/>
+    <SubTexture name="gridcell_highlight" x="298" y="251" width="40" height="40"/>
+    <SubTexture name="message-1" x="4" y="939" width="303" height="92"/>
+    <SubTexture name="message-10" x="265" y="629" width="285" height="47"/>
+    <SubTexture name="message-11" x="385" y="854" width="324" height="82"/>
+    <SubTexture name="message-2" x="635" y="939" width="303" height="116"/>
+    <SubTexture name="message-3" x="234" y="679" width="303" height="49"/>
+    <SubTexture name="message-4" x="539" y="679" width="327" height="49"/>
+    <SubTexture name="message-5" x="4" y="679" width="228" height="49"/>
+    <SubTexture name="message-6" x="309" y="939" width="324" height="104"/>
+    <SubTexture name="message-7" x="552" y="629" width="325" height="48"/>
+    <SubTexture name="message-8" x="58" y="854" width="325" height="70"/>
+    <SubTexture name="message-9" x="4" y="731" width="325" height="51"/>
+    <SubTexture name="reticule_down" x="300" y="1061" width="62" height="147"/>
 </TextureAtlas>

@@ -1,6 +1,8 @@
 package playArea 
 {
+	import events.BBAnimationEvents;
 	import FGL.GameTracker.GameTracker;
+	import managers.AnimationManager;
 	import managers.utilities;
 	import screens.GameScreen;
 	import screens.highlightTypes;
@@ -10,11 +12,12 @@ package playArea
 	import ships.ShipBase;
 	import ships.ShipTypes;
 	import ships.Submarine;
+	import starling.display.Sprite;
 	/**
 	 * ...
 	 * @author dan
 	 */
-	public class AI 
+	public class AI extends Sprite
 	{
 		private var game:GameScreen;
 		
@@ -31,6 +34,7 @@ package playArea
 			this.game = gs;
 		}
 		
+		
 		public function takeTurn():void
 		{
 			
@@ -44,7 +48,7 @@ package playArea
 				target = selectTarget(shipToUse);
 				GameTracker.api.alert("AI starting using" + shipToUse+"targeting" + target);
 				trace("AI starting using"+shipToUse+"targeting"+target);
-				performActions();
+				startActionEventChain();
 			}
 		}
 		
@@ -159,43 +163,26 @@ package playArea
 
 		}
 		
-		public function performActions():void
+		public function startActionEventChain():void
 		{
+			trace("starting chain");
 			if (target != null)
 			{
+				trace("target not null");
 				moveShip(shipToUse);
-				if (!recoveredFighter)
-				{
-					fireShip(shipToUse);
-					
-				}
 			}
 			else
 			{
+				trace("target null");
 				moveToMaximizeVisibleSpace(shipToUse);
-				selectTarget(shipToUse);
-				if (target != null)
-				{
-					fireShip(shipToUse);
-				}
+				//selectTarget(shipToUse);
 			}
-			
-			actionShip(shipToUse);
-			
-			recoveredFighter = false;
-
-			shipToUse.moved = true;
-			shipToUse.fired = true;
-			shipToUse.performedAction = true;
-
-			//to activate the mask of the ship
-			shipToUse.turnCompleted = true;
-			shipToUse.updateStatus();
 			
 		}
 		
 		private function moveToMaximizeVisibleSpace(shipToUse:ShipBase):void 
 		{
+			trace("move to maximize");
 			//for now just move down
 			var yCoord:int = shipToUse.location.y;
 			
@@ -257,6 +244,57 @@ package playArea
 			{
 				submarineAction(ship);
 			}
+			
+		}
+		
+		
+		public function handleAfterFireEvent(e:BBAnimationEvents):void 
+		{
+			trace("top of link after firing");
+			var shipInEvent:ShipBase = e.data.ship;
+			
+			if (shipInEvent.team == 2)
+			{
+				if (shipInEvent.shipType == ShipTypes.PATROL_BOAT)
+				{
+					this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:shipInEvent } ));
+				}
+				else if (shipInEvent.shipType == ShipTypes.FIGHTER)
+				{
+					this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:shipInEvent } ));
+				}
+				else
+				{
+					actionShip(shipInEvent);
+				}
+			}
+		}
+		
+		public function cleanUpEvent(e:BBAnimationEvents):void 
+		{
+			trace("end of chain, clean up");
+			var shipInEvent:ShipBase = e.data.ship;
+			var recover:Boolean = false;
+			
+			if (e.data.recoverFighter)
+			{
+				recover = true;
+			}
+			if (shipInEvent.team == 2)
+			{
+				trace("inside clean up block");
+				recoveredFighter = false;
+
+				shipInEvent.moved = true;
+				shipInEvent.fired = true;
+				shipInEvent.performedAction = true;
+
+				//to activate the mask of the ship
+				shipInEvent.turnCompleted = true;
+				shipInEvent.updateStatus();
+			}
+			
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_TURN, true, {fighterRecover:recover}));
 		}
 		
 		private function submarineAction(ship:ShipBase):void 
@@ -286,10 +324,13 @@ package playArea
 				if (submarine.numberOfDivesRemaining > 0)
 				{
 					submarine.submerged = true;
-					submarine.alpha = 0.0;
+					AnimationManager.submarineVisibility(submarine, false);
 					submarine.numberOfDivesRemaining--;
 				}
 			}
+			
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:ship } ));
+
 		}
 		
 		private function destroyerAction(ship:ShipBase):void 
@@ -312,6 +353,8 @@ package playArea
 			}
 			
 			game.resetHighlight();
+			
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:ship } ));
 		}
 		
 		private function carrierAction(ship:ShipBase):void 
@@ -395,9 +438,11 @@ package playArea
 			}
 			
 			game.resetHighlight();
+			
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:AIship } ));
 		}
 		
-		private function fireShip(AIship:ShipBase):void 
+		public function fireShip(AIship:ShipBase):void 
 		{
 			GameTracker.api.alert("AI firing");
 			trace("AI firing");
@@ -419,6 +464,44 @@ package playArea
 				game.fireShip(shipToUse, targetCell);
 				
 				//highlights reset in gameScreen
+			}
+			else
+			{
+				this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_FIRING, true, { ship:AIship } ));
+			}
+			
+		}
+		
+		public function handleAfterMoveEvent(e:BBAnimationEvents):void 
+		{
+			trace("top of event handler after move");
+			
+			var shipInEvent:ShipBase = e.data.ship;
+			
+			trace(shipInEvent);
+			trace(shipInEvent.team);
+			trace(recoveredFighter);
+			if (shipInEvent.team ==2 && !recoveredFighter)
+			{
+				if (target != null)
+				{
+					trace("firing ship");
+					fireShip(shipInEvent);
+				}
+				else 
+				{
+					if (shipInEvent.shipType == ShipTypes.CARRIER)
+					{
+						trace("actioning carrier");
+						actionShip(shipInEvent);
+					}
+					else 
+					{
+						trace("dispatching done with turn after just move");
+						//to trigger a clean up...
+						this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, {ship:shipInEvent}));
+					}
+				}
 			}
 		}
 		
@@ -459,6 +542,7 @@ package playArea
 			if (AIship.shipType == ShipTypes.FIGHTER)
 			{
 				var retreat:Boolean = retreatFighter(AIship);
+				trace("retreat:" + retreat);
 				
 				if (retreat)
 				{
@@ -488,6 +572,7 @@ package playArea
 			//will be null if no other cell is closer than current position
 			if (targetCell != null)
 			{	
+				trace("target cell to move to not null");
 				game.moveShip(shipToUse, targetCell);
 				//if a fighter was recovered
 				if (shipToUse.shipType==ShipTypes.FIGHTER && targetCell.occupied && targetCell.occupyingShip.shipType == ShipTypes.CARRIER)
@@ -498,6 +583,9 @@ package playArea
 			else
 			{
 				game.resetHighlight();
+				//if ship doesn't need to move, skip straight to firing, dispatch an event as if it had moved.
+				trace("ship remaining stationary");
+				this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_MOVING, true, { ship:shipToUse } ));
 			}
 		}
 		

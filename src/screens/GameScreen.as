@@ -1,8 +1,11 @@
 package screens
 {
+	import events.BBAnimationEvents;
 	import events.BBNavigationEvent;
 	import FGL.GameTracker.GameTracker;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	import managers.AnimationManager;
 	import managers.GameTurnManager;
 	import managers.utilities;
@@ -20,6 +23,7 @@ package screens
 	import ships.Submarine;
 	import ships.PatrolBoat;
 	import starling.display.Button;
+	import starling.display.MovieClip;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
@@ -63,6 +67,10 @@ package screens
 		
 		public var winner:TextField;
 		
+		private var mcToRemove:Vector.<MovieClip> = new Vector.<MovieClip>();
+		public var firingShip:ShipBase;
+		public var actioningShip:ShipBase;
+		
 		public function GameScreen()
 		{
 			super();
@@ -82,12 +90,59 @@ package screens
 			
 			opponent = new AI(this);
 			
+			this.addChild(opponent);
+			
 			winner = new TextField(300, 100, "", "ARMY RUST", 70, 0xffffff);
 			winner.x = (this.width - winner.width) / 2;
 			winner.y= (this.height - winner.height) / 2;
 			winner.visible = false;
 			
+			this.addEventListener(BBAnimationEvents.DONE_MOVING, doneMovingEvent);
+			this.addEventListener(BBAnimationEvents.DONE_FIRING, doneFiringEvent);
+			this.addEventListener(BBAnimationEvents.DONE_ACTIONING, doneActionEvent);
+			this.addEventListener(BBAnimationEvents.DONE_TURN, doneTurnEvent);
+			
 			trace("gamescreen initialized");
+		}
+		
+		private function doneTurnEvent(e:BBAnimationEvents):void 
+		{
+			trace("done turn event recieved");
+			
+			var fighterRecovered:Boolean = e.data.fighterRecover;
+			
+			whoGetsNextTurn(fighterRecovered);
+		}
+		
+		private function doneActionEvent(e:BBAnimationEvents):void 
+		{
+			trace("done action event recieved");
+			var shipInEvent:ShipBase = e.data.ship;
+			if (shipInEvent.team != 1)
+			{
+				opponent.cleanUpEvent(e);
+			}
+		}
+		
+		private function doneFiringEvent(e:BBAnimationEvents):void 
+		{
+			trace("done fire event recieved");
+			var shipInEvent:ShipBase = e.data.ship;
+			if (shipInEvent.team != 1)
+			{
+				opponent.handleAfterFireEvent(e);
+			}
+		}
+		
+		private function doneMovingEvent(e:BBAnimationEvents):void 
+		{
+			trace("done move event recieved");
+			var shipInEvent:ShipBase = e.data.ship;
+			if (shipInEvent.team != 1)
+			{
+				opponent.handleAfterMoveEvent(e);
+			}
+			
 		}
 		
 		/* used to add ships initially
@@ -322,9 +377,17 @@ package screens
 					
 					var gridOfSub:GridCell = grid[submarine.location.x][submarine.location.y];
 					
-					if (gridOfSub.fog.alpha == 0)
+					if (submarine.submerged == true)
+					if (submarine.numberOfDivesRemaining > 0)
 					{
-						trace("revealed from turn is complete");
+						submarine.numberOfDivesRemaining--;
+						//trace("revealed from turn is complete");
+						//submarine.submerged = false;
+						//submarine.alpha = 1.0;
+						//submarine.visible = true;
+					}
+					else
+					{
 						submarine.submerged = false;
 						submarine.alpha = 1.0;
 						submarine.visible = true;
@@ -369,12 +432,27 @@ package screens
 			if (isAShipSelected && selectedShip.shipType == ShipTypes.SUBMARINE)
 			{
 				var selectedSub:Submarine = selectedShip as Submarine;
-				if (selectedSub.numberOfDivesRemaining > 0)
+				//surface...
+				if (selectedSub.submerged)
+				{
+					AnimationManager.submarineVisibility(selectedSub, true);
+					selectedSub.submerged = false;
+					
+					selectedShip.performedAction = true;
+					GUI.updateShipStatus(selectedShip, phase);
+					
+					isSelectionLocked = true;
+					updateSelection(false);
+				}
+				//dive...
+				else if (selectedSub.numberOfDivesRemaining > 0)
 				{
 					GameTracker.api.alert("player submerged sub");
 					
-					selectedSub.alpha = 0.2;
-					selectedSub.numberOfDivesRemaining--;
+					AnimationManager.submarineVisibility(selectedSub, false);
+					
+					//selectedSub.alpha = 0.2;
+					//selectedSub.numberOfDivesRemaining--;
 					selectedSub.submerged = true;
 					
 					selectedShip.performedAction = true;
@@ -385,6 +463,12 @@ package screens
 					
 				}
 			}
+			
+			actioningShip = selectedSub;
+				
+				var actionEventTimer:Timer = new Timer(1300, 1);
+					actionEventTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchActionEvent);
+					actionEventTimer.start();
 		}
 		
 		private function onBombardButtonClick(e:Event):void
@@ -619,10 +703,10 @@ package screens
 					gridCell.shipEnters(ship);
 					
 					//call to animation manager
-					ship.moveAndRotateShip(tweenX, tweenY, range);
+					ship.moveAndRotateShip(tweenX, tweenY, range, true);
 					
 				}
-				trace("ship moved");
+				//trace("ship moved");
 				
 				
 				//resets moving boolean and highlights
@@ -639,7 +723,7 @@ package screens
 				
 				if (ship.shipType == ShipTypes.SUBMARINE || ship.shipType == ShipTypes.DESTROYER)
 				{
-					trace("called at move");
+					//trace("called at move");
 					checkForRevealedSubs(ship, gridCell);
 				}
 				resetFog();
@@ -649,7 +733,7 @@ package screens
 			}
 			else
 			{
-				trace("ship can't move that far");
+				//trace("ship can't move that far");
 				return false;
 			}
 		}
@@ -657,7 +741,7 @@ package screens
 		//ship is ship to use
 		private function checkForRevealedSubs(ship:ShipBase, gridCell:GridCell):void 
 		{
-			trace("checking for subs with "+ship);
+			//trace("checking for subs with "+ship);
 			//look at each ship
 			var shipToCheck:ShipBase;
 			var revealedSub:Submarine;
@@ -670,13 +754,13 @@ package screens
 					
 					//check if they are close enough
 					var range:Number = shipToCheck.getRangeToSquare(gridCell);
-					trace("Range: " + range);
+					//trace("Range: " + range);
 					if (range <= 1.6)
 					{
-						trace("revealed with " + ship);
+						//trace("revealed with " + ship);
 						revealedSub = shipToCheck as Submarine;
 						revealedSub.submerged = false;
-						revealedSub.alpha = 1.0;
+						AnimationManager.submarineVisibility(revealedSub, true);
 					}
 				}
 			}
@@ -692,6 +776,12 @@ package screens
 				if (gridCell.occupied)
 				{
 					damageShip(gridCell.occupyingShip);
+					
+					firingShip = ship;
+					
+					var fireEventTimer:Timer = new Timer(1100, 1);
+					fireEventTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchFireEvent);
+					fireEventTimer.start();
 				}
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && ship.team == 1 )
@@ -715,8 +805,19 @@ package screens
 				
 				
 			}
-			else
-				trace("no valid target to fire on");
+			
+		}
+		
+		private function dispatchFireEvent(e:TimerEvent):void 
+		{
+			trace("dispatching fire event");
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_FIRING, true, { ship:firingShip } ));
+		}
+		
+		private function dispatchActionEvent(e:TimerEvent):void 
+		{
+			trace("dispatching action event from ship:"+actioningShip);
+			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:actioningShip } ));
 		}
 		
 		
@@ -725,11 +826,15 @@ package screens
 		{
 			if (gridCell.isHighlighted() && gridCell.occupied && gridCell.occupyingShip.team != selectedShip.team)
 			{
-				trace("bombarding");
+				//trace("bombarding");
+				actioningShip = selectedShip;
 				
-				
+				var actionEventTimer:Timer = new Timer(1300, 1);
+					actionEventTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchActionEvent);
+					actionEventTimer.start();
 
 				damageShip(gridCell.occupyingShip);
+				
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
@@ -748,6 +853,8 @@ package screens
 				trace("no valid target to bombard");
 		}
 		
+		
+		
 		public function AAfire(selectedShip:ShipBase, gridCell:GridCell):void 
 		{
 			
@@ -757,6 +864,13 @@ package screens
 				damageShip(gridCell.occupyingShip);
 				selectedShip.performedAction = true;
 				shipActioning = false;
+				
+				actioningShip = selectedShip;
+				
+				var actionEventTimer:Timer = new Timer(1300, 1);
+					actionEventTimer.addEventListener(TimerEvent.TIMER_COMPLETE, dispatchActionEvent);
+					actionEventTimer.start();
+				
 				
 				if (currentPlayer == CurrentPlayer.PLAYER && selectedShip.team == 1)
 				{
@@ -778,11 +892,43 @@ package screens
 			if (ship.currentHP == 0)
 			{
 				killShip(ship);
+				return;
 			}
+			
+			var shootExplosion:MovieClip = new MovieClip(Assets.getAtlas().getTextures("Explosions/fire_"), 12);
+			shootExplosion.x = ship.x;
+			shootExplosion.y = ship.y;
+			shootExplosion.loop = false;
+			
+			this.addChild(shootExplosion);
+			
+			AnimationManager.explosionAnimation(ship.x, ship.y, shootExplosion);
+			
+			mcToRemove.push(shootExplosion);
+			
+			var removeExplosionTimer:Timer = new Timer(1500, 1);
+			removeExplosionTimer.addEventListener(TimerEvent.TIMER_COMPLETE, emptyExplosionMCs);
+			removeExplosionTimer.start();
+			
 		}
 		
 		private function killShip(ship:ShipBase):void
 		{
+			var deathExplosion:MovieClip = new MovieClip(Assets.getAtlas().getTextures("Explosions/death_"), 12);
+			deathExplosion.x = ship.x;
+			deathExplosion.y = ship.y;
+			deathExplosion.loop = false;
+			
+			this.addChild(deathExplosion);
+			
+			AnimationManager.explosionAnimation(ship.x, ship.y, deathExplosion);
+			
+			mcToRemove.push(deathExplosion);
+			
+			var removeExplosionTimer:Timer = new Timer(1500, 1);
+			removeExplosionTimer.addEventListener(TimerEvent.TIMER_COMPLETE, emptyExplosionMCs);
+			removeExplosionTimer.start();
+			
 			//remove ship from background object
 			backgroundImage.removeChild(ship);
 			
@@ -796,6 +942,16 @@ package screens
 			//garbage collection
 			ship.dispose();
 		
+		}
+		
+		private function emptyExplosionMCs(e:TimerEvent):void 
+		{
+			while (mcToRemove.length != 0)
+			{
+				var mc:MovieClip = mcToRemove.pop();
+				this.removeChild(mc);
+				mc.dispose();
+			}
 		}
 		
 		
@@ -1163,7 +1319,6 @@ package screens
 				opponent.takeTurn();
 			}
 			
-			whoGetsNextTurn(false);
 		}
 		
 		
@@ -1210,7 +1365,7 @@ package screens
 				
 				if (shipToCheck.shipType == ShipTypes.DESTROYER || shipToCheck.shipType == ShipTypes.SUBMARINE)
 				{
-					trace("called at next turn");
+					//trace("called at next turn");
 					checkForRevealedSubs(shipToCheck, grid[shipToCheck.location.x][shipToCheck.location.y]);
 				}
 			}
@@ -1325,7 +1480,7 @@ package screens
 		}
 		
 		
-		// TODO: Restart function, using the current initial ship set
+		//Restart function, using the current initial ship set
 		
 		public function restart():void
 		{
@@ -1337,8 +1492,6 @@ package screens
 			shipsInPlay = shipsToRestartWith;
 			shipsStarting = shipsToRestartWith;
 			
-			
-			// TODO convert shipsInPlay to an integer array...
 			var shipArrayToStart:Array = convertVectorToInt(shipsStarting);
 			
 			resetFog();
