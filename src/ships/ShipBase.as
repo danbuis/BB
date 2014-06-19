@@ -56,6 +56,7 @@ package ships
 		private var range:Number;
 		public var animInterval:int = 250;
 		public var shipRef:ShipBase;
+		public var targetCell:GridCell;
 		
 		public function ShipBase() 
 		{
@@ -156,12 +157,12 @@ package ships
 			return Math.min(distanceClockwiseToFrame, distanceCounterwiseToFrame);
 		}
 		
-		public function moveAndRotateShip(newX:int, newY:int, range:Number, moving:Boolean):int
+		public function moveAndRotateShip(newX:int, newY:int, range:Number, moving:Boolean, targetcell:GridCell):int
 		{
 			trace("moveing and rotating");
 			
 			var targetFrame:int = AnimationManager.getRotationFrame(this, newX, newY);
-			
+			this.targetCell = targetcell;
 			
 			var distanceClockwiseToFrame:int = targetFrame-currentFrame;
 			if (distanceClockwiseToFrame < 0)
@@ -300,7 +301,7 @@ package ships
 		
 		private function moveShip(e:TimerEvent):void 
 		{
-			AnimationManager.moveShipAnimation(newX, newY, range, this, GamePhase.PLAY_PHASE);
+			AnimationManager.moveShipAnimation(newX, newY, range, this, GamePhase.PLAY_PHASE, targetCell);
 		}
 		
 		/*public function incrementShip():void 

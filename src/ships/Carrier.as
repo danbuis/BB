@@ -77,7 +77,7 @@ package ships
 		{
 			//trace("x:" + shipRef.x);
 			var delay:int = shipRef.moveAndRotateShip((this.gridCell.coordinates.x * 40 + 40), (this.gridCell.coordinates.y * 40 + 40), 
-			2.5, false);
+			2.5, false, gridCell);
 			
 			var timeToMoveRotateFighter:Timer = new Timer(delay - 500, 1);
 			timeToMoveRotateFighter.addEventListener(TimerEvent.TIMER_COMPLETE, pushFighter);

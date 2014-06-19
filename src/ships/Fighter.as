@@ -5,6 +5,7 @@ package ships
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import managers.AnimationManager;
+	import playArea.GridCell;
 	/**
 	 * ...
 	 * @author dan
@@ -32,10 +33,10 @@ package ships
 		}
 		
 		//TODO refine timing, get more accurate estimate of second fighter pivot.  currently it grabs it from the original start state.  check order of display list.  landing fighter should be moved to the top...
-		public function landFighterAnimation( carrier:Carrier):void
+		public function landFighterAnimation( carrier:Carrier, carrierPosition:GridCell):void
 		{
 			//first move fighter and rotate carrier into position
-			var timeForFghterMove:int = this.moveAndRotateShip(carrier.x - 40, carrier.y, this.getRangeToShip(carrier), true);
+			var timeForFghterMove:int = this.moveAndRotateShip(carrier.x - 40, carrier.y, this.getRangeToShip(carrier), true, carrierPosition);
 			trace("time for fighter move:" + timeForFghterMove);
 			var timeForCarrier:int = carrier.pivotShip(13);
 			trace("time for carrier pivot:" + timeForCarrier);

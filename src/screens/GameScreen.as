@@ -312,7 +312,7 @@ package screens
 		{
 			fighterAwaitingPlacement = false;
 			
-			if (isAShipSelected && selectedShip.shipType == ShipTypes.DESTROYER)
+			if (selectedShip && isAShipSelected && selectedShip.shipType == ShipTypes.DESTROYER)
 			{
 				highlightRange(1, selectedShip, highlightTypes.DESTROYER_AA);
 			
@@ -408,7 +408,7 @@ package screens
 		private function onLaunchFighterButtonClick(e:Event):void 
 		{
 			//double check that carrier selected
-			if (isAShipSelected && selectedShip.shipType == ShipTypes.CARRIER)
+			if (selectedShip && isAShipSelected && selectedShip.shipType == ShipTypes.CARRIER)
 			{
 				//check remaining fighter squadrons
 				var fightersStored:int = (selectedShip as Carrier).fighterSquadrons;
@@ -429,7 +429,7 @@ package screens
 			fighterAwaitingPlacement = false;
 			
 			//double check a ship is selected and that it is a submarine
-			if (isAShipSelected && selectedShip.shipType == ShipTypes.SUBMARINE)
+			if (selectedShip && isAShipSelected && selectedShip.shipType == ShipTypes.SUBMARINE)
 			{
 				var selectedSub:Submarine = selectedShip as Submarine;
 				//surface...
@@ -478,7 +478,7 @@ package screens
 			fighterAwaitingPlacement = false;
 			
 			//double check a ship is selected and is a battleship
-			if (isAShipSelected && selectedShip.shipType == ShipTypes.BATTLESHIP)
+			if (selectedShip && isAShipSelected && selectedShip.shipType == ShipTypes.BATTLESHIP)
 			{
 				//reset highlights
 				resetHighlight();
@@ -499,7 +499,7 @@ package screens
 			fighterAwaitingPlacement = false;
 
 			//double check a ship is selected
-			if (isAShipSelected)
+			if (isAShipSelected && selectedShip)
 			{
 				//reset highlights
 				resetHighlight();
@@ -527,7 +527,7 @@ package screens
 			fighterAwaitingPlacement = false;
 			
 			//double check ship is selected
-			if (isAShipSelected)
+			if (isAShipSelected && selectedShip)
 			{
 				//reset highlights
 				resetHighlight();
@@ -612,7 +612,7 @@ package screens
 						gridCell.shipEnters(ship);
 						
 						//call to animation manager
-						AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase);
+						AnimationManager.moveShipAnimation(tweenX, tweenY, range, ship, phase, gridCell);
 						
 						
 						if (currentPlayer == CurrentPlayer.PLAYER)
@@ -643,7 +643,7 @@ package screens
 					(gridCell.occupyingShip as Carrier).recoverFighter();
 					
 					//call animation sequence.
-					(ship as Fighter).landFighterAnimation((gridCell.occupyingShip as Carrier));
+					(ship as Fighter).landFighterAnimation((gridCell.occupyingShip as Carrier), gridCell);
 					//backgroundImage.removeChild(ship);
 					
 					//remove from ships in play
@@ -703,7 +703,7 @@ package screens
 					gridCell.shipEnters(ship);
 					
 					//call to animation manager
-					ship.moveAndRotateShip(tweenX, tweenY, range, true);
+					ship.moveAndRotateShip(tweenX, tweenY, range, true, gridCell);
 					
 				}
 				//trace("ship moved");

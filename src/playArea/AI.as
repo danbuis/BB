@@ -351,10 +351,13 @@ package playArea
 					}
 				}
 			}
+			else
+			{
+				this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:ship } ));
+			}
 			
 			game.resetHighlight();
 			
-			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:ship } ));
 		}
 		
 		private function carrierAction(ship:ShipBase):void 
@@ -436,10 +439,14 @@ package playArea
 			{
 				game.bombardShip(AIship, targetableCells[index]);
 			}
+			else 
+			{
+				this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:AIship } ));
+			}
 			
 			game.resetHighlight();
 			
-			this.dispatchEvent(new BBAnimationEvents(BBAnimationEvents.DONE_ACTIONING, true, { ship:AIship } ));
+			
 		}
 		
 		public function fireShip(AIship:ShipBase):void 

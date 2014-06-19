@@ -27,9 +27,10 @@ package managers
 			
 		}
 		
-		public static function moveShipAnimation(newX:int, newY:int, time:Number, ship:ShipBase, gamePhase:String):void
+		public static function moveShipAnimation(newX:int, newY:int, time:Number, ship:ShipBase, gamePhase:String, targetCell:GridCell):void
 		{
 			var moveTime:Number = time / 2.0;
+			var targetAlpha:Number = 1 - targetCell.fog.alpha;
 			
 			//move faster during initial.
 			if (gamePhase == GamePhase.PLACEMENT_PHASE)
@@ -37,7 +38,7 @@ package managers
 				moveTime /= 2.0;
 			}
 			
-			TweenLite.to(ship, moveTime, { x:newX, y:newY } );
+			TweenLite.to(ship, moveTime, { x:newX, y:newY, alpha:targetAlpha } );
 		}
 		
 		public static function fogChange(newAlpha:Number, gridCell:GridCell):void
